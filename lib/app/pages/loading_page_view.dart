@@ -13,6 +13,18 @@ class _LoadingPageState extends State<LoadingPage> {
   bool _forward = true;
 
   @override
+  void initState() {
+    super.initState();
+    Future.delayed(const Duration(seconds: 10), () {
+      if (mounted) {
+        setState(() {
+          _isAnimating = false;
+        });
+      }
+    });
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       resizeToAvoidBottomInset: false,
@@ -33,6 +45,8 @@ class _LoadingPageState extends State<LoadingPage> {
               setState(() {
                 _forward = !_forward;
               });
+            } else if (!_isAnimating) {
+              Navigator.of(context).pushReplacementNamed('/first');
             }
           },
         ),
