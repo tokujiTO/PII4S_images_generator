@@ -5,6 +5,7 @@ import 'package:poliedroimagesgenerator/app/pages/chat_page_view.dart';
 import 'package:poliedroimagesgenerator/app/pages/dev_page_view.dart';
 import 'package:poliedroimagesgenerator/app/pages/history_page_view.dart';
 import 'package:poliedroimagesgenerator/app/pages/home_page_view.dart';
+import 'package:poliedroimagesgenerator/app/pages/init_page_view.dart';
 import 'package:poliedroimagesgenerator/app/pages/loading_page_view.dart';
 import 'package:poliedroimagesgenerator/app/pages/settings_page_view.dart';
 
@@ -35,6 +36,7 @@ class MyApp extends StatelessWidget {
         initialRoute: "/",
         routes: {
           '/': (_) => const DevPageView(),
+          '/first': (_) => const FirstPage(),
           '/loading': (_) => const LoadingPage(),
           '/home': (_) => const HomePage(),
           '/chat': (_) => const ChatPage(),

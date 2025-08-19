@@ -7,6 +7,7 @@ class DevPageView extends StatelessWidget {
   Widget build(BuildContext context) {
     final routes = [
       {'name': 'Loading', 'route': '/loading'},
+      {'name': 'Init', 'route': '/first'},
       {'name': 'Home', 'route': '/home'},
       {'name': 'Chat', 'route': '/chat'},
       {'name': 'History', 'route': '/history'},
