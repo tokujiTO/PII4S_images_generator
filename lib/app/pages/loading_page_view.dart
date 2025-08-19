@@ -15,7 +15,7 @@ class _LoadingPageState extends State<LoadingPage> {
   @override
   void initState() {
     super.initState();
-    Future.delayed(const Duration(seconds: 10), () {
+    Future.delayed(const Duration(seconds: 6), () {
       if (mounted) {
         setState(() {
           _isAnimating = false;
