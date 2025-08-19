@@ -10,6 +10,9 @@ class HistoryPage extends StatefulWidget {
 class _HistoryPageState extends State<HistoryPage> {
   @override
   Widget build(BuildContext context) {
-    return const Placeholder();
+    return Scaffold(
+      appBar: AppBar(title: const Text('History Page')),
+      body: const Center(child: Text('Welcome to the History Page!')),
+    );
   }
 }

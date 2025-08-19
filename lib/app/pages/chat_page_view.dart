@@ -10,6 +10,9 @@ class ChatPage extends StatefulWidget {
 class _ChatPageState extends State<ChatPage> {
   @override
   Widget build(BuildContext context) {
-    return const Placeholder();
+    return Scaffold(
+      appBar: AppBar(title: const Text('Chat Page')),
+      body: const Center(child: Text('Welcome to the Chat Page!')),
+    );
   }
 }
