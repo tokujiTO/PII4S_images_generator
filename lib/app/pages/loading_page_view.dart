@@ -15,7 +15,7 @@ class _LoadingPageState extends State<LoadingPage> {
   @override
   void initState() {
     super.initState();
-    Future.delayed(const Duration(seconds: 6), () {
+    Future.delayed(const Duration(seconds: 3), () {
       if (mounted) {
         setState(() {
           _isAnimating = false;
@@ -37,7 +37,13 @@ class _LoadingPageState extends State<LoadingPage> {
           builder: (context, scale, _) {
             return Transform.scale(
               scale: scale,
-              child: Image.asset('lib/app/assets/verticalColored.png'),
+              child: Hero(
+                tag: 'logo',
+                child: Image.asset(
+                  'lib/app/assets/verticalColored.png',
+                  width: MediaQuery.of(context).size.width * 0.8,
+                ),
+              ),
             );
           },
           onEnd: () {

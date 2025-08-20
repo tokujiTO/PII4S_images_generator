@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:poliedroimagesgenerator/app/utils/app_colors.dart';
 
 class FirstPage extends StatelessWidget {
   const FirstPage({super.key});
@@ -6,10 +8,80 @@ class FirstPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text('First Page')),
-      body: const Center(
-        child: Text(
-          'Welcome to the First Page! this will be the login/signup menu',
+      backgroundColor: AppColors.background,
+      body: SafeArea(
+        child: Padding(
+          padding: EdgeInsets.symmetric(
+            vertical: MediaQuery.of(context).size.height * 0.1,
+          ),
+          child: Center(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Hero(
+                  tag: 'logo',
+                  child: Image.asset(
+                    'lib/app/assets/verticalColored.png',
+                    width: MediaQuery.of(context).size.width * 0.6,
+                  ),
+                ),
+                const Expanded(child: SizedBox()),
+                SizedBox(
+                  width: MediaQuery.of(context).size.width * 0.8,
+                  height: MediaQuery.of(context).size.height * 0.062,
+                  child: ElevatedButton(
+                    style: ButtonStyle(
+                      elevation: WidgetStateProperty.all(2),
+                      backgroundColor: WidgetStateProperty.all(AppColors.blue),
+                      shape: WidgetStateProperty.all(
+                        RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(6),
+                        ),
+                      ),
+                    ),
+                    onPressed: () => {
+                      Navigator.pushReplacementNamed(context, "/home"),
+                    },
+                    child: Text(
+                      'Entrar',
+                      style: TextStyle(
+                        fontSize: 24,
+                        color: AppColors.background,
+                      ),
+                    ),
+                  ),
+                ),
+                const SizedBox(height: 20),
+                Text("Ou", style: TextStyle(fontSize: 16)),
+                const SizedBox(height: 20),
+                SizedBox(
+                  width: MediaQuery.of(context).size.width * 0.8,
+                  height: MediaQuery.of(context).size.height * 0.062,
+                  child: ElevatedButton(
+                    style: ButtonStyle(
+                      elevation: WidgetStateProperty.all(2),
+                      backgroundColor: WidgetStateProperty.all(AppColors.red),
+                      shape: WidgetStateProperty.all(
+                        RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(6),
+                        ),
+                      ),
+                    ),
+                    onPressed: () => {
+                      Navigator.pushReplacementNamed(context, "/home"),
+                    },
+                    child: Text(
+                      'Cadastrar-se',
+                      style: TextStyle(
+                        fontSize: 24,
+                        color: AppColors.background,
+                      ),
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ),
         ),
       ),
     );
