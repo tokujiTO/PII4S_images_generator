@@ -26,27 +26,32 @@ class FirstPage extends StatelessWidget {
                   ),
                 ),
                 const Expanded(child: SizedBox()),
-                SizedBox(
-                  width: MediaQuery.of(context).size.width * 0.8,
-                  height: MediaQuery.of(context).size.height * 0.062,
-                  child: ElevatedButton(
-                    style: ButtonStyle(
-                      elevation: WidgetStateProperty.all(2),
-                      backgroundColor: WidgetStateProperty.all(AppColors.blue),
-                      shape: WidgetStateProperty.all(
-                        RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(6),
+                Hero(
+                  tag: 'signinBtn',
+                  child: SizedBox(
+                    width: MediaQuery.of(context).size.width * 0.8,
+                    height: MediaQuery.of(context).size.height * 0.062,
+                    child: ElevatedButton(
+                      style: ButtonStyle(
+                        elevation: WidgetStateProperty.all(2),
+                        backgroundColor: WidgetStateProperty.all(
+                          AppColors.blue,
+                        ),
+                        shape: WidgetStateProperty.all(
+                          RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(6),
+                          ),
                         ),
                       ),
-                    ),
-                    onPressed: () => {
-                      Navigator.pushReplacementNamed(context, "/home"),
-                    },
-                    child: Text(
-                      'Entrar',
-                      style: TextStyle(
-                        fontSize: 24,
-                        color: AppColors.background,
+                      onPressed: () => {
+                        Navigator.pushNamed(context, "/signin"),
+                      },
+                      child: Text(
+                        'Entrar',
+                        style: TextStyle(
+                          fontSize: 24,
+                          color: AppColors.background,
+                        ),
                       ),
                     ),
                   ),
@@ -54,27 +59,30 @@ class FirstPage extends StatelessWidget {
                 const SizedBox(height: 20),
                 Text("Ou", style: TextStyle(fontSize: 16)),
                 const SizedBox(height: 20),
-                SizedBox(
-                  width: MediaQuery.of(context).size.width * 0.8,
-                  height: MediaQuery.of(context).size.height * 0.062,
-                  child: ElevatedButton(
-                    style: ButtonStyle(
-                      elevation: WidgetStateProperty.all(2),
-                      backgroundColor: WidgetStateProperty.all(AppColors.red),
-                      shape: WidgetStateProperty.all(
-                        RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(6),
+                Hero(
+                  tag: 'signupBtn',
+                  child: SizedBox(
+                    width: MediaQuery.of(context).size.width * 0.8,
+                    height: MediaQuery.of(context).size.height * 0.062,
+                    child: ElevatedButton(
+                      style: ButtonStyle(
+                        elevation: WidgetStateProperty.all(2),
+                        backgroundColor: WidgetStateProperty.all(AppColors.red),
+                        shape: WidgetStateProperty.all(
+                          RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(6),
+                          ),
                         ),
                       ),
-                    ),
-                    onPressed: () => {
-                      Navigator.pushReplacementNamed(context, "/home"),
-                    },
-                    child: Text(
-                      'Cadastrar-se',
-                      style: TextStyle(
-                        fontSize: 24,
-                        color: AppColors.background,
+                      onPressed: () => {
+                        Navigator.pushNamed(context, "/signup"),
+                      },
+                      child: Text(
+                        'Cadastrar-se',
+                        style: TextStyle(
+                          fontSize: 24,
+                          color: AppColors.background,
+                        ),
                       ),
                     ),
                   ),

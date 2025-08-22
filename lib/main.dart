@@ -8,6 +8,8 @@ import 'package:poliedroimagesgenerator/app/pages/home_page_view.dart';
 import 'package:poliedroimagesgenerator/app/pages/init_page_view.dart';
 import 'package:poliedroimagesgenerator/app/pages/loading_page_view.dart';
 import 'package:poliedroimagesgenerator/app/pages/settings_page_view.dart';
+import 'package:poliedroimagesgenerator/app/pages/signin_page.dart';
+import 'package:poliedroimagesgenerator/app/pages/signup_page.dart';
 
 void main() {
   runApp(DevicePreview(enabled: false, builder: (context) => const MyApp()));
@@ -37,6 +39,8 @@ class MyApp extends StatelessWidget {
         routes: {
           '/': (_) => const DevPageView(),
           '/first': (_) => const FirstPage(),
+          '/signup': (_) => const SignUpPage(),
+          '/signin': (_) => const SignInPage(),
           '/loading': (_) => const LoadingPage(),
           '/home': (_) => const HomePage(),
           '/chat': (_) => const ChatPage(),
