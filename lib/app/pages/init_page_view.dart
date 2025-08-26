@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:poliedroimagesgenerator/app/utils/app_colors.dart';
 
 class FirstPage extends StatelessWidget {

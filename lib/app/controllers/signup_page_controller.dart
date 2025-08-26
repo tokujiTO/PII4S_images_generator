@@ -7,6 +7,18 @@ class SignupPageController extends ChangeNotifier {
   final TextEditingController confirmPasswordController =
       TextEditingController();
   final TextEditingController codeController = TextEditingController();
+  bool isPasswordVisible = false;
+  bool isConfirmPasswordVisible = false;
+
+  void togglePasswordVisibility() {
+    isPasswordVisible = !isPasswordVisible;
+    notifyListeners();
+  }
+
+  void toggleConfirmPasswordVisibility() {
+    isConfirmPasswordVisible = !isConfirmPasswordVisible;
+    notifyListeners();
+  }
 
   bool isLoading = false;
   String? errorMessage;
