@@ -29,7 +29,7 @@ class _SignUpPageState extends State<SignUpPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: AppColors.background,
-      // appBar: AppBar(backgroundColor: AppColors.background),
+      appBar: AppBar(backgroundColor: AppColors.background),
       body: SafeArea(
         child: SingleChildScrollView(
           padding: const EdgeInsets.symmetric(vertical: 20),
@@ -53,14 +53,14 @@ class _SignUpPageState extends State<SignUpPage> {
                           child: CustomTextField(
                             controller: controller.nameController,
                             labelText: 'Nome',
-                            prefixIcon: Icon(Icons.person),
+                            suffixIcon: Icon(Icons.person),
                           ),
                         ),
                         SizedBox(height: 24),
                         SizedBox(
                           width: MediaQuery.of(context).size.width * 0.8,
                           child: CustomTextField(
-                            prefixIcon: Icon(Icons.mail),
+                            suffixIcon: Icon(Icons.mail),
                             labelText: 'E-mail',
                             keyboardType: TextInputType.emailAddress,
                             controller: controller.emailController,
@@ -72,7 +72,6 @@ class _SignUpPageState extends State<SignUpPage> {
                           child: CustomTextField(
                             controller: controller.passwordController,
                             labelText: 'Senha',
-                            prefixIcon: Icon(Icons.lock),
                             suffixIcon: controller.isPasswordVisible
                                 ? Icon(Icons.visibility)
                                 : Icon(Icons.visibility_off),
@@ -90,7 +89,6 @@ class _SignUpPageState extends State<SignUpPage> {
                           child: CustomTextField(
                             controller: controller.confirmPasswordController,
                             labelText: 'Confirmar Senha',
-                            prefixIcon: Icon(Icons.lock),
                             suffixIcon: controller.isConfirmPasswordVisible
                                 ? Icon(Icons.visibility)
                                 : Icon(Icons.visibility_off),
@@ -135,6 +133,7 @@ class _SignUpPageState extends State<SignUpPage> {
                   child: CustomTextField(
                     controller: controller.codeController,
                     labelText: 'Código',
+                    keyboardType: TextInputType.number,
                     prefixIcon: Icon(Icons.code),
                   ),
                 ),
