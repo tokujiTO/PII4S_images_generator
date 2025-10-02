@@ -38,7 +38,7 @@ class _SignInPageState extends State<SignInPage> {
               Hero(
                 tag: 'logo',
                 child: Image.asset(
-                  'lib/app/assets/verticalColored.png',
+                  'lib/app/assets/horizontalColored.png',
                   width: MediaQuery.of(context).size.width * 0.6,
                 ),
               ),

@@ -79,7 +79,13 @@ class MenuPage extends StatelessWidget {
                   'Sair',
                   style: TextStyle(color: Colors.white, fontSize: 20),
                 ),
-                onTap: () {},
+                onTap: () {
+                  Navigator.pushNamedAndRemoveUntil(
+                    context,
+                    "/first",
+                    (route) => false,
+                  );
+                },
               ),
               Spacer(),
               Hero(
