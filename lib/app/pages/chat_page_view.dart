@@ -39,17 +39,54 @@ class _ChatPageState extends State<ChatPage> {
         title: const Text('Chat Page', style: TextStyle(color: Colors.white)),
         backgroundColor: AppColors.blue,
         leading: IconButton(
-          icon: const Icon(Icons.arrow_back_ios_new_outlined, size: 40, color: Colors.white),
+          icon: const Icon(
+            Icons.arrow_back_ios_new_outlined,
+            size: 40,
+            color: Colors.white,
+          ),
           onPressed: () {
             Navigator.pop(context);
           },
         ),
         actions: [
-          IconButton(
-            icon: const Icon(Icons.more_vert, size: 40, color: Colors.white),
-            onPressed: () {
-              // ação ao clicar
+          PopupMenuButton<String>(
+            onSelected: (value) {
+              // Esta função é chamada quando um item do menu é selecionado
+              if (value == 'export_pdf') {
+                ScaffoldMessenger.of(context).showSnackBar(
+                  const SnackBar(
+                    content: Text(
+                      'Funcionalidade "Exportar para PDF" a ser implementada!',
+                    ),
+                  ),
+                );
+              }
             },
+            color: AppColors.background,
+            itemBuilder: (BuildContext context) => <PopupMenuEntry<String>>[
+              const PopupMenuItem<String>(
+                value: 'export_pdf',
+                child: Row(
+                  children: [
+                    Icon(Icons.picture_as_pdf_outlined, color: Colors.black54),
+                    SizedBox(width: 12),
+                    Text('Exportar para PDF'),
+                  ],
+                ),
+              ),
+              const PopupMenuItem<String>(
+                value: 'settings',
+                child: Row(
+                  children: [
+                    Icon(Icons.delete, color: Colors.black54),
+                    SizedBox(width: 12),
+                    Text('Deletar conversa'),
+                  ],
+                ),
+              ),
+            ],
+            icon: const Icon(Icons.more_vert, color: Colors.white, size: 40),
+            tooltip: 'Mais opções',
           ),
         ],
       ),
