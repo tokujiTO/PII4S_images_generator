@@ -14,6 +14,7 @@ class CustomTextField extends StatelessWidget {
   final Color? fillColor;
   final bool isPassword;
   final void Function()? onSuffixIconTap;
+  final FocusNode? focusNode;
 
   const CustomTextField({
     super.key,
@@ -29,11 +30,13 @@ class CustomTextField extends StatelessWidget {
     this.minLines,
     this.fillColor,
     this.onSuffixIconTap, // Renomeado
+    this.focusNode,
   });
 
   @override
   Widget build(BuildContext context) {
     return TextFormField(
+      focusNode: focusNode,
       controller: controller,
       obscureText: isPassword,
       keyboardType: keyboardType,

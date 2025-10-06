@@ -64,13 +64,20 @@ class HomePage extends StatelessWidget {
             const SizedBox(height: 32),
             SizedBox(
               width: MediaQuery.of(context).size.width * 0.9,
-              child: CustomTextAIField(
-                controller: controller,
-                labelText: "Gerar nova imagem",
-                suffixIcon: const Icon(
-                  Icons.auto_awesome,
-                  size: 34,
-                  color: Colors.white,
+              child: Hero(
+                tag: 'text_field',
+                // Ensure a Material ancestor exists during Hero transition
+                child: Material(
+                  type: MaterialType.transparency,
+                  child: CustomTextAIField(
+                    controller: controller,
+                    labelText: "Gerar nova imagem",
+                    suffixIcon: const Icon(
+                      Icons.auto_awesome,
+                      size: 34,
+                      color: Colors.white,
+                    ),
+                  ),
                 ),
               ),
             ),
@@ -121,7 +128,7 @@ class HomePage extends StatelessWidget {
                       child: Container(
                         height: 100,
                         decoration: BoxDecoration(
-                          color: AppColors.gray.withOpacity(0.2),
+                          color: AppColors.gray.withAlpha((0.2 * 255).toInt()),
                           borderRadius: BorderRadius.circular(12),
                         ),
                         child: Center(

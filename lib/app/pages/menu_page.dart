@@ -39,7 +39,9 @@ class MenuPage extends StatelessWidget {
                   'Gerar nova imagem',
                   style: TextStyle(color: Colors.white, fontSize: 20),
                 ),
-                onTap: () {},
+                onTap: () {
+                  Navigator.popAndPushNamed(context, "/chat");
+                },
               ),
               SizedBox(height: 16),
               ListTile(
