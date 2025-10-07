@@ -1,3 +1,5 @@
+import 'dart:ui';
+
 import 'package:flutter/material.dart';
 import 'package:poliedroimagesgenerator/app/components/filter_button.dart';
 import 'package:poliedroimagesgenerator/app/components/text_field_ai.dart';
@@ -12,6 +14,7 @@ class HomePage extends StatelessWidget {
     final TextEditingController controller = TextEditingController();
     return Scaffold(
       backgroundColor: AppColors.background,
+      // O AppBar principal permanece o mesmo
       appBar: AppBar(
         centerTitle: true,
         backgroundColor: AppColors.blue,
@@ -50,98 +53,173 @@ class HomePage extends StatelessWidget {
           },
         ),
       ),
-      body: Center(
-        child: Column(
-          children: [
-            const SizedBox(height: 64),
-            Hero(
-              tag: 'logo',
-              child: Image.asset(
-                'lib/app/assets/horizontalColored.png',
-                width: MediaQuery.of(context).size.width * 0.9,
-              ),
-            ),
-            const SizedBox(height: 32),
-            SizedBox(
-              width: MediaQuery.of(context).size.width * 0.9,
-              child: CustomTextAIField(
-                controller: controller,
-                labelText: "Gerar nova imagem",
-                suffixIcon: const Icon(
-                  Icons.auto_awesome,
-                  size: 34,
-                  color: Colors.white,
-                ),
-              ),
-            ),
-            const SizedBox(height: 32),
-            Container(
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(12),
-                color: AppColors.red,
-              ),
-              height: 12,
-              width: MediaQuery.of(context).size.width * 0.9,
-            ),
-            const SizedBox(height: 24),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Container(
-                  padding: EdgeInsets.symmetric(vertical: 14, horizontal: 16),
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(40),
-                    color: AppColors.red,
-                  ),
-                  height: 60,
-                  width: MediaQuery.of(context).size.width * 0.6,
-                  child: const Text(
-                    'Últimas Pesquisas',
-                    textAlign: TextAlign.center,
-                    style: TextStyle(color: Colors.white, fontSize: 20),
-                  ),
-                ),
-                const SizedBox(width: 12),
-                FilterButton(
-                  onPressed: () {},
-                  backgroundColor: AppColors.red,
-                  color: Colors.white,
-                  iconSize: 40,
-                ),
-              ],
-            ),
-            const SizedBox(height: 24),
-            Expanded(
-              child: ListView(
-                padding: const EdgeInsets.symmetric(horizontal: 24),
+      // Substituímos o Center/Column por uma CustomScrollView
+      body: CustomScrollView(
+        slivers: [
+          // Sliver 1: A parte que vai encolher (logo e campo de texto)
+          SliverToBoxAdapter(
+            child: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 24.0),
+              child: Column(
                 children: [
-                  for (var i = 0; i < 10; i++)
-                    Padding(
-                      padding: const EdgeInsets.only(bottom: 16.0),
-                      child: Container(
-                        height: 100,
-                        decoration: BoxDecoration(
-                          color: AppColors.gray.withOpacity(0.2),
-                          borderRadius: BorderRadius.circular(12),
-                        ),
-                        child: Center(
-                          child: Text(
-                            'Pesquisa ${i + 1}',
-                            style: const TextStyle(
-                              color: Colors.white,
-                              fontSize: 18,
-                            ),
+                  const SizedBox(
+                    height: 32,
+                  ), // Ajuste o espaçamento conforme necessário
+                  Hero(
+                    tag: 'logo',
+                    child: Image.asset(
+                      'lib/app/assets/horizontalColored.png',
+                      width: MediaQuery.of(context).size.width * 0.9,
+                    ),
+                  ),
+                  const SizedBox(height: 32),
+                  SizedBox(
+                    width: MediaQuery.of(context).size.width * 0.9,
+                    child: Hero(
+                      tag: 'text_field',
+                      child: Material(
+                        type: MaterialType.transparency,
+                        child: CustomTextAIField(
+                          controller: controller,
+                          labelText: "Gerar nova imagem",
+                          suffixIcon: const Icon(
+                            Icons.auto_awesome,
+                            size: 34,
+                            color: Colors.white,
                           ),
                         ),
                       ),
                     ),
+                  ),
+                  const SizedBox(height: 32),
                 ],
               ),
             ),
-          ],
-        ),
+          ),
+
+          // Sliver 2: O cabeçalho da lista que ficará fixo no topo ao rolar
+          SliverPersistentHeader(
+            pinned: true, // Isso faz com que ele "grude" no topo
+            delegate: _SliverHeaderDelegate(
+              child: ClipRect(
+                child: BackdropFilter(
+                  filter: ImageFilter.blur(sigmaX: 10.0, sigmaY: 10.0),
+                  child: Container(
+                    color: Colors.white.withAlpha(
+                      (0.4 * 255).toInt(),
+                    ), // Cor de fundo para não ficar transparente
+                    padding: const EdgeInsets.symmetric(vertical: 16.0),
+                    child: Column(
+                      children: [
+                        Container(
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(12),
+                            color: AppColors.red,
+                          ),
+                          height: 12,
+                          width: MediaQuery.of(context).size.width * 0.9,
+                        ),
+                        const SizedBox(height: 24),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Container(
+                              padding: const EdgeInsets.symmetric(
+                                vertical: 14,
+                                horizontal: 16,
+                              ),
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(40),
+                                color: AppColors.red,
+                              ),
+                              height: 60,
+                              width: MediaQuery.of(context).size.width * 0.6,
+                              child: const Text(
+                                'Últimas Pesquisas',
+                                textAlign: TextAlign.center,
+                                style: TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 20,
+                                ),
+                              ),
+                            ),
+                            const SizedBox(width: 12),
+                            FilterButton(
+                              onPressed: () {},
+                              backgroundColor: AppColors.red,
+                              color: Colors.white,
+                              iconSize: 40,
+                            ),
+                          ],
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+              ),
+              height:
+                  130, // Altura total do conteúdo (barra + row + espaçamentos)
+            ),
+          ),
+
+          // Sliver 3: A lista de histórico rolável
+          SliverList(
+            delegate: SliverChildBuilderDelegate(
+              (context, index) {
+                return Padding(
+                  padding: const EdgeInsets.fromLTRB(24, 0, 24, 16),
+                  child: Container(
+                    height: 100,
+                    decoration: BoxDecoration(
+                      color: AppColors.gray.withAlpha((0.2 * 255).toInt()),
+                      borderRadius: BorderRadius.circular(12),
+                    ),
+                    child: Center(
+                      child: Text(
+                        'Pesquisa ${index + 1}',
+                        style: const TextStyle(
+                          color: Colors.white,
+                          fontSize: 18,
+                        ),
+                      ),
+                    ),
+                  ),
+                );
+              },
+              childCount: 10, // Número de itens na sua lista
+            ),
+          ),
+        ],
       ),
     );
+  }
+}
+
+// Classe auxiliar para o SliverPersistentHeader
+class _SliverHeaderDelegate extends SliverPersistentHeaderDelegate {
+  final Widget child;
+  final double height;
+
+  _SliverHeaderDelegate({required this.child, required this.height});
+
+  @override
+  Widget build(
+    BuildContext context,
+    double shrinkOffset,
+    bool overlapsContent,
+  ) {
+    return child;
+  }
+
+  @override
+  double get maxExtent => height;
+
+  @override
+  double get minExtent => height;
+
+  @override
+  bool shouldRebuild(_SliverHeaderDelegate oldDelegate) {
+    return height != oldDelegate.height || child != oldDelegate.child;
   }
 }
 

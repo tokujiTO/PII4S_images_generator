@@ -13,6 +13,7 @@ class CustomTextAIField extends StatelessWidget {
   final int? minLines;
   final Color? fillColor;
   final bool isPassword;
+  final void Function()? onFocus;
   final void Function()? onSuffixIconTap;
 
   const CustomTextAIField({
@@ -28,6 +29,7 @@ class CustomTextAIField extends StatelessWidget {
     this.maxLines = 1,
     this.minLines,
     this.fillColor,
+    this.onFocus,
     this.onSuffixIconTap,
   });
 
@@ -38,6 +40,9 @@ class CustomTextAIField extends StatelessWidget {
       onChanged: onChanged,
       maxLines: maxLines,
       minLines: minLines,
+      onTap: () {
+        Navigator.pushNamed(context, "/chat");
+      },
       decoration: InputDecoration(
         labelText: labelText,
         labelStyle: TextStyle(
