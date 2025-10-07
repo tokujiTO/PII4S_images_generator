@@ -54,7 +54,9 @@ class MenuPage extends StatelessWidget {
                   'Histórico',
                   style: TextStyle(color: Colors.white, fontSize: 20),
                 ),
-                onTap: () {},
+                onTap: () {
+                  Navigator.popAndPushNamed(context, "/history");
+                },
               ),
               SizedBox(height: 16),
               ListTile(
