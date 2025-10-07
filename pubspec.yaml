@@ -63,6 +63,7 @@ flutter:
     - lib/app/assets/verticalColored.png
     - lib/app/assets/horizontalColored.png
     - lib/app/assets/horizontalWhite.png
+    - lib/app/assets/PolIG.png
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/to/resolution-aware-images
