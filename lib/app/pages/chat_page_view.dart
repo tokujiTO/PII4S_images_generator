@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:poliedroimagesgenerator/app/components/text_field_ai.dart';
 import 'package:poliedroimagesgenerator/app/components/text_field_dynamic.dart';
 import 'package:poliedroimagesgenerator/app/utils/app_colors.dart';
 
