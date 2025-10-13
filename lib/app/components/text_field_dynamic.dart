@@ -47,7 +47,7 @@ class CustomTextField extends StatelessWidget {
       decoration: InputDecoration(
         labelText: labelText,
         labelStyle: TextStyle(
-          color: AppColors.gray,
+          color: AppColors.white,
           fontWeight: FontWeight.w400,
           fontSize: 16,
         ),
@@ -83,17 +83,12 @@ class CustomTextField extends StatelessWidget {
           gapPadding: 0,
         ),
         enabledBorder: OutlineInputBorder(
-          borderSide: BorderSide.none,
+          borderSide: BorderSide(color: AppColors.white, width: 2),
           borderRadius: BorderRadius.circular(12),
           gapPadding: 0,
         ),
         focusedBorder: OutlineInputBorder(
-          borderSide: BorderSide(
-            color: Theme.of(
-              context,
-            ).primaryColor.withAlpha((0.3 * 255).toInt()),
-            width: 2,
-          ),
+          borderSide: BorderSide(color: AppColors.blue, width: 2),
           borderRadius: BorderRadius.circular(12),
           gapPadding: 0,
         ),
@@ -114,7 +109,7 @@ class CustomTextField extends StatelessWidget {
       ),
       cursorColor: Theme.of(context).primaryColor,
       style: TextStyle(
-        color: AppColors.gray,
+        color: AppColors.white,
         fontSize: 16,
         fontWeight: FontWeight.w400,
       ),

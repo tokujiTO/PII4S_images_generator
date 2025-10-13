@@ -46,13 +46,13 @@ class CustomTextAIField extends StatelessWidget {
       decoration: InputDecoration(
         labelText: labelText,
         labelStyle: TextStyle(
-          color: AppColors.gray,
+          color: AppColors.white,
           fontWeight: FontWeight.w400,
           fontSize: 20,
         ),
         hintText: hintText,
         hintStyle: TextStyle(
-          color: AppColors.gray.withAlpha((0.6 * 255).toInt()),
+          color: AppColors.white.withAlpha((0.6 * 255).toInt()),
           fontSize: 18,
         ),
         prefixIcon: prefixIcon != null
@@ -77,22 +77,17 @@ class CustomTextAIField extends StatelessWidget {
         filled: true,
         fillColor: fillColor ?? AppColors.gray.withAlpha((0.08 * 255).toInt()),
         border: OutlineInputBorder(
-          borderSide: BorderSide.none,
+          borderSide: BorderSide(color: AppColors.white, width: 2),
           borderRadius: BorderRadius.circular(12),
           gapPadding: 0,
         ),
         enabledBorder: OutlineInputBorder(
-          borderSide: BorderSide.none,
+          borderSide: BorderSide(color: AppColors.white, width: 2),
           borderRadius: BorderRadius.circular(12),
           gapPadding: 0,
         ),
         focusedBorder: OutlineInputBorder(
-          borderSide: BorderSide(
-            color: Theme.of(
-              context,
-            ).primaryColor.withAlpha((0.3 * 255).toInt()),
-            width: 2,
-          ),
+          borderSide: BorderSide(color: AppColors.white, width: 2),
           borderRadius: BorderRadius.circular(12),
           gapPadding: 0,
         ),

@@ -80,6 +80,7 @@ class HomePage extends StatelessWidget {
                       child: Material(
                         type: MaterialType.transparency,
                         child: CustomTextAIField(
+                          fillColor: Colors.transparent,
                           controller: controller,
                           labelText: "Gerar nova imagem",
                           suffixIcon: const Icon(
@@ -101,61 +102,47 @@ class HomePage extends StatelessWidget {
           SliverPersistentHeader(
             pinned: true, // Isso faz com que ele "grude" no topo
             delegate: _SliverHeaderDelegate(
-              child: ClipRect(
-                child: BackdropFilter(
-                  filter: ImageFilter.blur(sigmaX: 10.0, sigmaY: 10.0),
-                  child: Container(
-                    color: Colors.white.withAlpha(
-                      (0.4 * 255).toInt(),
-                    ), // Cor de fundo para não ficar transparente
-                    padding: const EdgeInsets.symmetric(vertical: 16.0),
-                    child: Column(
-                      children: [
-                        Container(
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(12),
-                            color: AppColors.red,
-                          ),
-                          height: 12,
-                          width: MediaQuery.of(context).size.width * 0.9,
-                        ),
-                        const SizedBox(height: 24),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Container(
-                              padding: const EdgeInsets.symmetric(
-                                vertical: 14,
-                                horizontal: 16,
-                              ),
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(40),
-                                color: AppColors.red,
-                              ),
-                              height: 60,
-                              width: MediaQuery.of(context).size.width * 0.6,
-                              child: const Text(
-                                'Últimas Pesquisas',
-                                textAlign: TextAlign.center,
-                                style: TextStyle(
-                                  color: Colors.white,
-                                  fontSize: 20,
-                                ),
-                              ),
-                            ),
-                            const SizedBox(width: 12),
-                            FilterButton(
-                              onPressed: () {},
-                              backgroundColor: AppColors.red,
-                              color: Colors.white,
-                              iconSize: 40,
-                            ),
-                          ],
-                        ),
-                      ],
+              child: Column(
+                children: [
+                  Container(
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(12),
+                      color: AppColors.blue,
                     ),
+                    height: 12,
+                    width: MediaQuery.of(context).size.width * 0.9,
                   ),
-                ),
+                  const SizedBox(height: 24),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Container(
+                        padding: const EdgeInsets.symmetric(
+                          vertical: 14,
+                          horizontal: 16,
+                        ),
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(40),
+                          color: AppColors.blue,
+                        ),
+                        height: 60,
+                        width: MediaQuery.of(context).size.width * 0.6,
+                        child: const Text(
+                          'Últimas Pesquisas',
+                          textAlign: TextAlign.center,
+                          style: TextStyle(color: Colors.white, fontSize: 20),
+                        ),
+                      ),
+                      const SizedBox(width: 12),
+                      FilterButton(
+                        onPressed: () {},
+                        backgroundColor: AppColors.blue,
+                        color: Colors.white,
+                        iconSize: 40,
+                      ),
+                    ],
+                  ),
+                ],
               ),
               height:
                   130, // Altura total do conteúdo (barra + row + espaçamentos)
@@ -208,7 +195,20 @@ class _SliverHeaderDelegate extends SliverPersistentHeaderDelegate {
     double shrinkOffset,
     bool overlapsContent,
   ) {
-    return child;
+    final backgroundColor = overlapsContent
+        ? AppColors.gray.withAlpha((0.3 * 255).toInt())
+        : Colors.transparent;
+
+    return ClipRect(
+      child: BackdropFilter(
+        filter: ImageFilter.blur(sigmaX: 10.0, sigmaY: 10.0),
+        child: Container(
+          color: backgroundColor,
+          padding: const EdgeInsets.symmetric(vertical: 16.0),
+          child: child,
+        ),
+      ),
+    );
   }
 
   @override

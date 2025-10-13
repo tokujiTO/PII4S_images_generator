@@ -56,6 +56,7 @@ class _ChatPageState extends State<ChatPage> {
                   const SnackBar(
                     content: Text(
                       'Funcionalidade "Exportar para PDF" a ser implementada!',
+                      style: TextStyle(color: Colors.white),
                     ),
                   ),
                 );
@@ -67,9 +68,12 @@ class _ChatPageState extends State<ChatPage> {
                 value: 'export_pdf',
                 child: Row(
                   children: [
-                    Icon(Icons.picture_as_pdf_outlined, color: Colors.black54),
+                    Icon(Icons.picture_as_pdf_outlined, color: AppColors.white),
                     SizedBox(width: 12),
-                    Text('Exportar para PDF'),
+                    Text(
+                      'Exportar para PDF',
+                      style: TextStyle(color: Colors.white),
+                    ),
                   ],
                 ),
               ),
@@ -77,9 +81,12 @@ class _ChatPageState extends State<ChatPage> {
                 value: 'settings',
                 child: Row(
                   children: [
-                    Icon(Icons.delete, color: Colors.black54),
+                    Icon(Icons.delete, color: AppColors.white),
                     SizedBox(width: 12),
-                    Text('Deletar conversa'),
+                    Text(
+                      'Deletar conversa',
+                      style: TextStyle(color: AppColors.white),
+                    ),
                   ],
                 ),
               ),
