@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:poliedroimagesgenerator/app/utils/app_colors.dart';
 
 class CustomTextField extends StatelessWidget {
-  final TextEditingController controller;
+  final TextEditingController? controller;
   final String labelText;
   final Widget? prefixIcon;
   final Widget? suffixIcon;
@@ -18,7 +18,7 @@ class CustomTextField extends StatelessWidget {
 
   const CustomTextField({
     super.key,
-    required this.controller,
+    this.controller,
     required this.labelText,
     this.prefixIcon,
     this.suffixIcon,
