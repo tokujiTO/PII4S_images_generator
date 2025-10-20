@@ -93,7 +93,7 @@ class _ChangeEmailPageState extends State<ChangeEmailPage> {
             },
             child: Text(
               'Redefinir',
-              style: TextStyle(color: AppColors.yellow , fontSize: 20),
+              style: TextStyle(color: color , fontSize: 20),
             ),
           ),
         ),
@@ -108,14 +108,14 @@ class _ChangeEmailPageState extends State<ChangeEmailPage> {
       children: <Widget>[
         const Text(
           'Digite o código que enviamos agora para:',
-          style: TextStyle(color: Colors.white, fontSize: 20),
+          style: TextStyle(color: AppColors.white, fontSize: 20),
           textAlign: TextAlign.center,
         ),
         const SizedBox(height: 10),
         const Text(
           'exemplo@gmail.com',
           style: TextStyle(
-            color: Colors.white,
+            color: AppColors.white,
             fontSize: 18,
             fontWeight: FontWeight.bold,
           ),
@@ -125,7 +125,7 @@ class _ChangeEmailPageState extends State<ChangeEmailPage> {
         const Text(
           '_ _ _ _ _ _',
           style: TextStyle(
-            color: Colors.white,
+            color: AppColors.white,
             fontSize: 30,
             letterSpacing: 10,
           ),
@@ -159,7 +159,7 @@ class _ChangeEmailPageState extends State<ChangeEmailPage> {
         const Text(
           'E-mail redefinido com sucesso!',
           style: TextStyle(
-            color: Colors.white,
+            color: AppColors.white,
             fontSize: 24,
             fontWeight: FontWeight.bold,
           ),

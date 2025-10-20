@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:poliedroimagesgenerator/app/components/text_field_dynamic.dart';
 import 'package:poliedroimagesgenerator/app/utils/app_colors.dart';
 
 class HistoryPage extends StatefulWidget {
@@ -10,361 +9,94 @@ class HistoryPage extends StatefulWidget {
 }
 
 class _HistoryPageState extends State<HistoryPage> {
-  final List<String> _subjects = ['Química', 'Física', 'Matemática'];
-  // modal de filtro
-  String? _selectedSubject = 'Química';
-  String? _selectedType = 'Realismo';
+  // --- Widgets da Página ---
 
-  // Cores
-  static const Color _cardBackgroundColor = Color(0xFFF0A500);
-  static const Color _headerColor = Color(0xFF4DB6AC);
-
-  //widgte card
-  Widget _buildContentCard({
-    required String subject,
-    required String description,
-  }) {
-    return Container(
-      margin: const EdgeInsets.all(4.0),
-      decoration: BoxDecoration(
-        color: _cardBackgroundColor,
-        borderRadius: BorderRadius.circular(15.0),
-        boxShadow: [
-          BoxShadow(
-            color: Colors.black.withOpacity(0.1),
-            spreadRadius: 1,
-            blurRadius: 3,
-            offset: const Offset(0, 2),
-          ),
-        ],
-      ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          // Área da Imagem Branca
-          Expanded(
-            child: Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Container(
-                width: double.infinity,
-                decoration: BoxDecoration(
-                  color: Colors.white, // Fundo branco
-                  borderRadius: BorderRadius.circular(10.0),
-                ),
-                child: Center(
-                  // Placeholder para a imagem/diagrama de vetores
-                  child: Icon(
-                    Icons.speed,
-                    color: Colors.grey[700],
-                    size: 35, // Tamanho menor para caber no grid
-                  ),
-                ),
-              ),
-            ),
-          ),
-
-          // Texto card
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 10.0),
-            child: Text(
-              subject,
-              style: const TextStyle(
-                color: Colors.white,
-                fontSize: 16,
-                fontWeight: FontWeight.bold,
-              ),
-              maxLines: 1,
-              overflow: TextOverflow.ellipsis,
-            ),
-          ),
-          const SizedBox(height: 2),
-
-          Padding(
-            padding: const EdgeInsets.fromLTRB(10.0, 0, 10.0, 8.0),
-            child: Text(
-              description,
-              style: TextStyle(
-                color: Colors.white.withOpacity(0.9),
-                fontSize: 12,
-              ),
-              maxLines: 2,
-              overflow: TextOverflow.ellipsis,
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-
-  // WIDGETS
-  void _showFilterModal(BuildContext context) {
-    showModalBottomSheet(
-      context: context,
-      builder: (BuildContext context) {
-        return StatefulBuilder(
-          builder: (BuildContext context, StateSetter setModalState) {
-            return _buildFilterContent(context, setModalState);
-          },
-        );
-      },
-      isScrollControlled: true,
-      backgroundColor: Colors.transparent,
-    );
-  }
-
-  Widget _buildFilterContent(BuildContext context, StateSetter setModalState) {
-    final List<String> subjects = ['Física', 'Química', 'Matemática'];
-    final List<String> imageTypes = [
-      'Realismo',
-      'Arte de rua',
-      'Psicodélico',
-      'Desenho animado',
-    ];
-
-    return Container(
-      height: MediaQuery.of(context).size.height * 0.7,
-      decoration: const BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.only(
-          topLeft: Radius.circular(25.0),
-          topRight: Radius.circular(25.0),
-        ),
-      ),
-      child: Column(
-        children: [
-          // Cabeçalho
-          Container(
-            padding: const EdgeInsets.only(top: 10, bottom: 10, left: 10),
-            decoration: const BoxDecoration(
-              color: _headerColor,
-              borderRadius: BorderRadius.only(
-                topLeft: Radius.circular(25.0),
-                topRight: Radius.circular(25.0),
-              ),
-            ),
-            child: Row(
-              children: [
-                IconButton(
-                  icon: const Icon(Icons.arrow_back_ios, color: Colors.white),
-                  onPressed: () => Navigator.pop(context),
-                ),
-                const Spacer(),
-              ],
-            ),
-          ),
-          // Conteúdo do Filtro
-          Expanded(
-            child: Padding(
-              padding: const EdgeInsets.all(16.0),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Container(
-                    padding: const EdgeInsets.symmetric(
-                      horizontal: 12,
-                      vertical: 4,
-                    ),
-                    decoration: BoxDecoration(
-                      color: Colors.grey[300],
-                      borderRadius: BorderRadius.circular(10),
-                    ),
-                    child: DropdownButtonHideUnderline(
-                      child: DropdownButton<String>(
-                        isExpanded: true,
-                        value: _selectedSubject,
-                        icon: const Icon(
-                          Icons.arrow_drop_down,
-                          color: Colors.black,
-                        ),
-                        elevation: 16,
-                        style: const TextStyle(
-                          color: Colors.black,
-                          fontSize: 16,
-                        ),
-                        hint: const Text('Selecione a matéria'),
-                        onChanged: (String? newValue) {
-                          setModalState(() {
-                            _selectedSubject = newValue;
-                          });
-                        },
-                        items: subjects.map<DropdownMenuItem<String>>((
-                          String value,
-                        ) {
-                          return DropdownMenuItem<String>(
-                            value: value,
-                            child: Text(value),
-                          );
-                        }).toList(),
-                      ),
-                    ),
-                  ),
-                  if (_selectedSubject != null)
-                    Padding(
-                      padding: const EdgeInsets.only(top: 8.0),
-                      child: Container(
-                        padding: const EdgeInsets.symmetric(
-                          horizontal: 16,
-                          vertical: 10,
-                        ),
-                        decoration: BoxDecoration(
-                          color: Colors.grey[600],
-                          borderRadius: BorderRadius.circular(10),
-                        ),
-                        child: Text(
-                          _selectedSubject!,
-                          style: const TextStyle(
-                            color: Colors.white,
-                            fontSize: 16,
-                          ),
-                        ),
-                      ),
-                    ),
-                  const SizedBox(height: 20),
-                  const Text(
-                    'Tipo de imagem',
-                    style: TextStyle(
-                      fontSize: 18,
-                      fontWeight: FontWeight.bold,
-                      color: Colors.black87,
-                    ),
-                  ),
-                  const SizedBox(height: 10),
-                  ...imageTypes
-                      .map(
-                        (type) => Padding(
-                          padding: const EdgeInsets.only(bottom: 8.0),
-                          child: _buildFilterButton(
-                            text: type,
-                            isSelected: type == _selectedType,
-                            onPressed: () {
-                              setModalState(() {
-                                _selectedType = type;
-                              });
-                            },
-                          ),
-                        ),
-                      )
-                      .toList(),
-                  const Spacer(),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.end,
-                    children: [
-                      _buildActionButton(
-                        text: 'Cancelar',
-                        color: Colors.pink[400]!,
-                        textColor: Colors.white,
-                        onPressed: () => Navigator.pop(context),
-                      ),
-                      const SizedBox(width: 10),
-                      _buildActionButton(
-                        text: 'Aplicar',
-                        color: Colors.grey[300]!,
-                        textColor: Colors.black,
-                        onPressed: () {
-                          Navigator.pop(context);
-                        },
-                      ),
-                    ],
-                  ),
-                ],
-              ),
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-
-  Widget _buildFilterButton({
-    required String text,
-    required bool isSelected,
-    required VoidCallback onPressed,
-  }) {
-    return SizedBox(
-      width: double.infinity,
-      child: TextButton(
-        onPressed: onPressed,
-        style: TextButton.styleFrom(
-          backgroundColor: isSelected ? Colors.grey[600] : Colors.grey[300],
-          padding: const EdgeInsets.symmetric(vertical: 15),
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(10),
-          ),
-        ),
-        child: Text(
-          text,
-          style: TextStyle(
-            color: isSelected ? Colors.white : Colors.black87,
-            fontSize: 16,
-          ),
-        ),
-      ),
-    );
-  }
-
-  Widget _buildActionButton({
-    required String text,
-    required Color color,
-    required Color textColor,
-    required VoidCallback onPressed,
-  }) {
-    return Expanded(
-      child: TextButton(
-        onPressed: onPressed,
-        style: TextButton.styleFrom(
-          backgroundColor: color,
-          padding: const EdgeInsets.symmetric(vertical: 15),
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(10),
-          ),
-        ),
-        child: Text(
-          text,
-          style: TextStyle(
-            color: textColor,
-            fontSize: 16,
-            fontWeight: FontWeight.bold,
-          ),
-        ),
-      ),
-    );
-  }
-
-  // barra de pesquisa
-  Widget _buildSearchBar() {
+  // Constrói o AppBar customizado (Seta + Título)
+  Widget _buildAppBar(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.all(16.0),
+      padding: const EdgeInsets.fromLTRB(8.0, 16.0, 16.0, 8.0),
       child: Row(
         children: [
+          // Botão de voltar
+          IconButton(
+            icon: const Icon(
+              Icons.arrow_back,
+              color: AppColors.blue, // Cor ciano da seta
+              size: 28,
+            ),
+            onPressed: () {
+              if (Navigator.canPop(context)) {
+                Navigator.pop(context);
+              }
+            },
+          ),
+          const SizedBox(width: 10),
+          // Título
+          const Text(
+            'Histórico',
+            style: TextStyle(
+              color: AppColors.white,
+              fontSize: 20,
+              fontWeight: FontWeight.w500,
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  // Constrói a barra de pesquisa e o botão de filtro
+  Widget _buildSearchBar() {
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 12.0),
+      child: Row(
+        children: [
+          // Campo de Pesquisa
           Expanded(
             child: Container(
-              padding: const EdgeInsets.symmetric(horizontal: 10.0),
+              height: 48,
               decoration: BoxDecoration(
-                color: Colors.grey[200],
+                color: AppColors.white, // Fundo branco
                 borderRadius: BorderRadius.circular(10.0),
               ),
-              child: const TextField(
+              child: TextField(
+                style: const TextStyle(color: AppColors.background), // Texto digitado
                 decoration: InputDecoration(
                   hintText: 'Pesquisar',
+                  hintStyle: TextStyle(
+                    color: AppColors.gray, // Cor do "Pesquisar"
+                    fontSize: 16,
+                  ),
                   border: InputBorder.none,
-                  prefixIcon: Icon(Icons.search, color: Colors.grey),
-                  prefixIconConstraints: BoxConstraints(minWidth: 40),
+                  // Ícone de busca à direita, como na imagem
+                  suffixIcon: Icon(
+                    Icons.search,
+                    color: Colors.grey[700], // Ícone cinza
+                  ),
+                  // Ajuste de padding interno
+                  contentPadding: const EdgeInsets.only(
+                    left: 16.0,
+                    top: 14.0,
+                    right: 12.0,
+                  ),
                 ),
               ),
             ),
           ),
           const SizedBox(width: 10),
+          // Botão de Filtro
           Container(
             height: 48,
             width: 48,
             decoration: BoxDecoration(
-              color: Colors.grey[200],
+              color: AppColors.white, // Fundo branco
               borderRadius: BorderRadius.circular(10.0),
             ),
             child: IconButton(
-              icon: const Icon(Icons.filter_list, color: Colors.grey),
+              icon: Icon(Icons.filter_list,
+                  color: AppColors.gray), // Ícone cinza
               onPressed: () {
-                _showFilterModal(context);
+                // Adicione sua lógica de filtro aqui
               },
             ),
           ),
@@ -373,85 +105,126 @@ class _HistoryPageState extends State<HistoryPage> {
     );
   }
 
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: AppColors.background,
-      body: SafeArea(
-        child: Column(
+  // Constrói a lista de cards de histórico
+  Widget _buildHistoryList() {
+    final int itemCount = 5;
+
+    return ListView.builder(
+      padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
+      itemCount: itemCount,
+      itemBuilder: (context, index) {
+        return _buildHistoryCard(
+          title: 'Física',
+          description: 'imagem exemplificando os vetores...',
+        );
+      },
+    );
+  }
+
+  // Constrói um único card de histórico (layout horizontal)
+  Widget _buildHistoryCard({required String title, required String description}) {
+    return Padding(
+      padding: const EdgeInsets.only(bottom: 12.0),
+      child: Container(
+        padding: const EdgeInsets.all(12.0),
+        decoration: BoxDecoration(
+          color: Colors.black,
+          borderRadius: BorderRadius.circular(12.0),
+          border: Border.all(
+            color: AppColors.gray,
+            width: 1,
+          ),
+        ),
+        child: Row(
           children: [
-            // Seta de voltar
-            Padding(
-              padding: EdgeInsets.only(left: 10, right: 10),
-              child: Row(
+            Expanded(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  IconButton(
-                    icon: const Icon(Icons.arrow_back, color: Colors.white),
-                    onPressed: () {
-                      if (Navigator.canPop(context)) {
-                        Navigator.pop(context);
-                      }
-                    },
+                  Text(
+                    title,
+                    style: const TextStyle(
+                      color: AppColors.white,
+                      fontSize: 18,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                  const SizedBox(height: 4),
+                  Text(
+                    description,
+                    style: TextStyle(
+                      color: AppColors.gray,
+                      fontSize: 14,
+                    ),
+                    maxLines: 2,
+                    overflow: TextOverflow.ellipsis,
                   ),
                 ],
               ),
             ),
-
-            // _buildSearchBar(),
-            // const SizedBox(height: 12.0),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 10.0),
-              child: CustomTextField(
-                labelText: 'Pesquisar',
-                prefixIcon: const Icon(Icons.search, color: Colors.white),
+            const SizedBox(width: 12),
+            Container(
+              width: 80,
+              height: 80,
+              decoration: BoxDecoration(
+                color: AppColors.white,
+                borderRadius: BorderRadius.circular(10.0),
               ),
-            ),
-            const SizedBox(height: 12.0),
-
-            //container em colunas
-            Expanded(
-              child: Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 12.0),
-                child: GridView.builder(
-                  padding: const EdgeInsets.only(top: 8.0, bottom: 20.0),
-                  itemCount:
-                      _subjects.length, // Não incluímos o "Mais" no GridView
-                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                    crossAxisCount: 2, // 2 colunas
-                    crossAxisSpacing: 8.0, // Espaçamento horizontal
-                    mainAxisSpacing: 8.0, // Espaçamento vertical
-                    childAspectRatio:
-                        0.75, // Proporção Altura/Largura (ajuste para o visual do seu card)
-                  ),
-                  itemBuilder: (context, index) {
-                    return _buildContentCard(
-                      subject: _subjects[index],
-                      description: 'imagem exemplificando os vetores...',
-                    );
-                  },
-                ),
-              ),
-            ),
-
-            // botão "Mais"
-            Center(
-              child: Padding(
-                padding: const EdgeInsets.only(bottom: 10.0),
-                child: TextButton(
-                  onPressed: () {},
-                  child: const Text(
-                    'Mais',
-                    style: TextStyle(
-                      color: AppColors.blue,
-                      fontSize: 16,
-                      fontWeight: FontWeight.w600,
-                    ),
-                  ),
+              child: Center(
+                child: Icon(
+                  Icons.insights,
+                  color: AppColors.gray,
+                  size: 40,
                 ),
               ),
             ),
           ],
         ),
+      ),
+    );
+  }
+
+  // --- MÉTODO BUILD ATUALIZADO ---
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      backgroundColor: AppColors.background , // Fundo preto
+      body: Stack( // Usar Stack para sobrepor o brilho
+        children: [
+          // 1. Efeito de brilho verde/ciano no topo
+          Positioned(
+            top: 0,
+            left: 0,
+            right: 0,
+            child: Container(
+              height: 240, // Altura da área do brilho
+              decoration: BoxDecoration(
+                gradient: LinearGradient(
+                  begin: Alignment.topCenter,
+                  end: Alignment.bottomCenter,
+                  colors: [
+                    // Cor ciano com opacidade para criar o efeito de "glow"
+                    const Color(0xFF21BFBF).withOpacity(1.0),
+                    Colors.transparent,
+                  ],
+                ),
+              ),
+            ),
+          ),
+
+          // 2. Conteúdo principal da página
+          SafeArea(
+            child: Column(
+              children: [
+                _buildAppBar(context),
+                _buildSearchBar(),
+                Expanded(
+                  child: _buildHistoryList(),
+                ),
+              ],
+            ),
+          ),
+        ],
       ),
     );
   }
