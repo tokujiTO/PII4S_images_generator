@@ -1,10 +1,11 @@
-// settings_page_view.dart
-
 import 'package:flutter/material.dart';
-import 'rename_page.dart'; // Mantido
-import 'reset_passaword_page.dart'; // Mantido
-import 'change_email_page.dart'; // ALTERADO: Importa a nova página de alteração de e-mail
-import 'delete_account_page.dart'; // Mantido
+import 'rename_page.dart'; 
+import 'reset_passaword_page.dart'; 
+import 'change_email_page.dart'; 
+import 'delete_account_page.dart'; 
+
+
+
 
 class SettingsPageView extends StatelessWidget {
   const SettingsPageView({Key? key}) : super(key: key);
