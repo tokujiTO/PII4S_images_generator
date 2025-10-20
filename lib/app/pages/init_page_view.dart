@@ -18,9 +18,9 @@ class FirstPage extends StatelessWidget {
             begin: Alignment.topCenter,
             end: Alignment.bottomCenter,
             stops: [
-              0.0, // Cor 1 (Branco) começa no topo
-              0.1, // Cor 2 (Branco) começa em 30% da altura
-              0.4, // Cor 3 (Background) termina em 100%
+              0.0,
+              0.1, 
+              0.4, 
             ],
         ),
       ),
@@ -33,7 +33,7 @@ class FirstPage extends StatelessWidget {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  const SizedBox(height: 130),
+                  const SizedBox(height: 20),
                   Hero(
                     tag: 'logo',
                     child: Image.asset(
@@ -41,7 +41,7 @@ class FirstPage extends StatelessWidget {
                       width: 350,
                     ),
                   ),
-                  const Expanded(child: SizedBox()),
+                  const SizedBox(height: 100),
                   Hero(
                     tag: 'signinBtn',
                     child: SizedBox(
