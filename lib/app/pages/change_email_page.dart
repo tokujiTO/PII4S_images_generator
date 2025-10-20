@@ -13,39 +13,79 @@ class _ChangeEmailPageState extends State<ChangeEmailPage> {
 
   @override
   Widget build(BuildContext context) {
+    // cor mesma do brilho
     const Color highlightColor = AppColors.yellow;
 
     Widget currentStepWidget;
     switch (_step) {
       case 1:
-        currentStepWidget = _buildStep1(AppColors.yellow);
+        currentStepWidget = _buildStep1(highlightColor);
         break;
       case 2:
-        currentStepWidget = _buildStep2(AppColors.yellow);
+        currentStepWidget = _buildStep2(highlightColor);
         break;
       case 3:
-        currentStepWidget = _buildStep3(AppColors.yellow);
+        currentStepWidget = _buildStep3(highlightColor);
         break;
       default:
         currentStepWidget = Container();
     }
 
     return Scaffold(
-      backgroundColor: Colors.black,
-      appBar: AppBar(
-        backgroundColor: (AppColors.yellow),
-        elevation: 0,
-        leading: IconButton(
-          icon: const Icon(Icons.arrow_back, color: Colors.black),
-          onPressed: () => Navigator.of(context).pop(),
-        ),
-      ),
-      body: Padding(
-        padding: const EdgeInsets.all(30.0),
-        child: AnimatedSwitcher(
-          duration: const Duration(milliseconds: 300),
-          child: currentStepWidget,
-        ),
+      backgroundColor: AppColors.background , 
+      body: Stack( // Usar Stack para sobrepor o brilho
+        children: [
+          // 1. Efeito de brilho verde/ciano no topo
+          Positioned(
+            top: 0,
+            left: 0,
+            right: 0,
+            child: Container(
+              height: 240, // Altura da área do brilho
+              decoration: BoxDecoration(
+                gradient: LinearGradient(
+                  begin: Alignment.topCenter,
+                  end: Alignment.bottomCenter,
+                  colors: [
+                    // Cor ciano com opacidade para criar o efeito de "glow"
+                    AppColors.yellow.withOpacity(1.0),
+                    Colors.transparent,
+                  ],
+                ),
+              ),
+            ),
+          ),
+
+          // 2. Conteúdo da página (AppBar customizado + Steps)
+          SafeArea(
+            child: Column(
+              children: [
+                // 2a. AppBar customizado (apenas o botão de voltar)
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 4.0),
+                  child: Row(
+                    children: [
+                      IconButton(
+                        icon: const Icon(Icons.arrow_back, color: Colors.white),
+                        onPressed: () => Navigator.of(context).pop(),
+                      ),
+                    ],
+                  ),
+                ),
+                // 2b. O conteúdo dos steps
+                Expanded(
+                  child: Padding(
+                    padding: const EdgeInsets.all(30.0),
+                    child: AnimatedSwitcher(
+                      duration: const Duration(milliseconds: 300),
+                      child: currentStepWidget,
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ],
       ),
     );
   }
@@ -57,12 +97,12 @@ class _ChangeEmailPageState extends State<ChangeEmailPage> {
       children: <Widget>[
         const Text(
           'Quer alterar seu e-mail?',
-          style: TextStyle(color: AppColors.white, fontSize: 20),
+          style: TextStyle(color: AppColors.white, fontSize: 25),
         ),
         const SizedBox(height: 15),
         const Text(
           'Digite seu novo e-mail para efetuarmos a redefinição:',
-          style: TextStyle(color: AppColors.white, fontSize: 16),
+          style: TextStyle(color: AppColors.white, fontSize: 20),
         ),
         const SizedBox(height: 20),
         const TextField(
@@ -116,7 +156,7 @@ class _ChangeEmailPageState extends State<ChangeEmailPage> {
           'exemplo@gmail.com',
           style: TextStyle(
             color: AppColors.white,
-            fontSize: 18,
+            fontSize: 20,
             fontWeight: FontWeight.bold,
           ),
           textAlign: TextAlign.center,
@@ -143,7 +183,7 @@ class _ChangeEmailPageState extends State<ChangeEmailPage> {
             onPressed: () {
               setState(() => _step = 3);
             },
-            child: Text('Enviar', style: TextStyle(color: color, fontSize: 18)),
+            child: Text('Enviar', style: TextStyle(color: color, fontSize: 20)),
           ),
         ),
       ],
@@ -160,7 +200,7 @@ class _ChangeEmailPageState extends State<ChangeEmailPage> {
           'E-mail redefinido com sucesso!',
           style: TextStyle(
             color: AppColors.white,
-            fontSize: 24,
+            fontSize: 25,
             fontWeight: FontWeight.bold,
           ),
           textAlign: TextAlign.center,
@@ -177,7 +217,7 @@ class _ChangeEmailPageState extends State<ChangeEmailPage> {
             onPressed: () {
               Navigator.of(context).pop();
             },
-            child: Text('Início', style: TextStyle(color: color, fontSize: 18)),
+            child: Text('Início', style: TextStyle(color: color, fontSize: 20)),
           ),
         ),
       ],

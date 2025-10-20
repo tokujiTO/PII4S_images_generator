@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:poliedroimagesgenerator/app/utils/app_colors.dart'; // Supondo que AppColors.yellow esteja aqui
 
 class ResetPasswordPage extends StatefulWidget {
   const ResetPasswordPage({Key? key}) : super(key: key);
@@ -12,7 +13,8 @@ class _ResetPasswordPageState extends State<ResetPasswordPage> {
 
   @override
   Widget build(BuildContext context) {
-    const Color highlightColor = Color(0xFFFFA500); 
+    // A cor de destaque é a mesma do brilho
+    const Color highlightColor = AppColors.yellow; 
 
     Widget currentStepWidget;
     switch (_step) {
@@ -30,24 +32,64 @@ class _ResetPasswordPageState extends State<ResetPasswordPage> {
     }
 
     return Scaffold(
-      backgroundColor: Colors.black,
-      appBar: AppBar(
-        backgroundColor: highlightColor,
-        elevation: 0,
-        leading: IconButton(
-          icon: const Icon(Icons.arrow_back, color: Colors.black),
-          onPressed: () => Navigator.of(context).pop(),
-        ),
-      ),
-      body: Padding(
-        padding: const EdgeInsets.all(30.0),
-        child: AnimatedSwitcher(
-          duration: const Duration(milliseconds: 300),
-          child: currentStepWidget,
-        ),
+      backgroundColor: AppColors.background , // Fundo preto
+      body: Stack( // Usar Stack para sobrepor o brilho
+        children: [
+          // 1. Efeito de brilho amarelo no topo
+          Positioned(
+            top: 0,
+            left: 0,
+            right: 0,
+            child: Container(
+              height: 240, // Altura da área do brilho
+              decoration: BoxDecoration(
+                gradient: LinearGradient(
+                  begin: Alignment.topCenter,
+                  end: Alignment.bottomCenter,
+                  colors: [
+                    // Cor amarela com opacidade para criar o efeito de "glow"
+                    highlightColor.withOpacity(1.0),
+                    Colors.transparent,
+                  ],
+                ),
+              ),
+            ),
+          ),
+          
+          // 2. Conteúdo da página (AppBar customizado + Steps)
+          SafeArea(
+            child: Column(
+              children: [
+                // 2a. AppBar customizado (apenas o botão de voltar)
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 4.0),
+                  child: Row(
+                    children: [
+                      IconButton(
+                        icon: const Icon(Icons.arrow_back, color: Colors.white),
+                        onPressed: () => Navigator.of(context).pop(),
+                      ),
+                    ],
+                  ),
+                ),
+                // 2b. O conteúdo dos steps
+                Expanded(
+                  child: Padding(
+                    padding: const EdgeInsets.all(30.0),
+                    child: AnimatedSwitcher(
+                      duration: const Duration(milliseconds: 300),
+                      child: currentStepWidget,
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          )
+        ],
       ),
     );
   }
+
 
   Widget _buildStep1(Color color) {
     return Column(
@@ -56,12 +98,12 @@ class _ResetPasswordPageState extends State<ResetPasswordPage> {
       children: <Widget>[
         const Text(
           'Precisa alterar sua senha?',
-          style: TextStyle(color: Colors.white, fontSize: 20),
+          style: TextStyle(color: Colors.white, fontSize: 25),
         ),
         const SizedBox(height: 15),
         const Text(
           'Digite seu novo e-mail para efetuarmos a redefinição:',
-          style: TextStyle(color: Colors.white, fontSize: 16),
+          style: TextStyle(color: Colors.white, fontSize: 20),
         ),
         const SizedBox(height: 20),
         // Campo de texto "E-mail"
@@ -91,7 +133,7 @@ class _ResetPasswordPageState extends State<ResetPasswordPage> {
             },
             child: Text(
               'Redefinir',
-              style: TextStyle(color: color, fontSize: 18),
+              style: TextStyle(color: color, fontSize: 20),
             ),
           ),
         ),
@@ -112,7 +154,7 @@ class _ResetPasswordPageState extends State<ResetPasswordPage> {
         const SizedBox(height: 10),
         const Text(
           'exemplo@gmail.com', 
-          style: TextStyle(color: Colors.white, fontSize: 18, fontWeight: FontWeight.bold),
+          style: TextStyle(color: Colors.white, fontSize: 20, fontWeight: FontWeight.bold),
           textAlign: TextAlign.center,
         ),
         const SizedBox(height: 30),
@@ -137,7 +179,7 @@ class _ResetPasswordPageState extends State<ResetPasswordPage> {
             },
             child: Text(
               'Enviar',
-              style: TextStyle(color: color, fontSize: 18),
+              style: TextStyle(color: color, fontSize: 20),
             ),
           ),
         ),
@@ -170,7 +212,7 @@ class _ResetPasswordPageState extends State<ResetPasswordPage> {
             },
             child: Text(
               'Redefinir',
-              style: TextStyle(color: color, fontSize: 18),
+              style: TextStyle(color: color, fontSize: 20),
             ),
           ),
         ),
