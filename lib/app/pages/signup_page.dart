@@ -28,18 +28,23 @@ class _SignUpPageState extends State<SignUpPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: AppColors.background,
       body: Container(
         decoration: BoxDecoration(
           gradient: LinearGradient(
             colors: [
-              AppColors.yellow.withAlpha((0.4 * 255).toInt()),
-              AppColors.background,
+              AppColors.yellow,    
+              AppColors.yellow,    
+              AppColors.background 
             ],
             begin: Alignment.topCenter,
             end: Alignment.bottomCenter,
-          ),
+            stops: [
+              0.0,
+              0.1, 
+              0.4, 
+            ],
         ),
+      ),
         child: SafeArea(
           child: Padding(
             padding: const EdgeInsets.symmetric(vertical: 20),
