@@ -19,13 +19,13 @@ class _ChangeEmailPageState extends State<ChangeEmailPage> {
     Widget currentStepWidget;
     switch (_step) {
       case 1:
-        currentStepWidget = _buildStep1(AppColors.yellow);
+        currentStepWidget = _buildStep1(highlightColor);
         break;
       case 2:
-        currentStepWidget = _buildStep2(AppColors.yellow);
+        currentStepWidget = _buildStep2(highlightColor);
         break;
       case 3:
-        currentStepWidget = _buildStep3(AppColors.yellow);
+        currentStepWidget = _buildStep3(highlightColor);
         break;
       default:
         currentStepWidget = Container();
