@@ -12,168 +12,211 @@ class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final TextEditingController controller = TextEditingController();
+    
+    // O Scaffold agora não tem AppBar e o fundo é preto
     return Scaffold(
-      backgroundColor: AppColors.background,
-      // O AppBar principal permanece o mesmo
-      appBar: AppBar(
-        centerTitle: true,
-        backgroundColor: AppColors.blue,
-        leading: IconButton(
-          icon: const Icon(Icons.menu, size: 40, color: Colors.white),
-          padding: const EdgeInsets.symmetric(horizontal: 16),
-          onPressed: () {
-            showGeneralDialog(
-              context: context,
-              barrierDismissible: true,
-              barrierLabel: MaterialLocalizations.of(
-                context,
-              ).modalBarrierDismissLabel,
-              barrierColor: Colors.black54,
-              transitionDuration: const Duration(milliseconds: 300),
-              pageBuilder: (context, animation, secondaryAnimation) {
-                return const _SideSheetMenu();
-              },
-              transitionBuilder:
-                  (context, animation, secondaryAnimation, child) {
-                    return SlideTransition(
-                      position:
-                          Tween<Offset>(
-                            begin: const Offset(-1.0, 0.0),
-                            end: Offset.zero,
-                          ).animate(
-                            CurvedAnimation(
-                              parent: animation,
-                              curve: Curves.easeInOut,
-                            ),
-                          ),
-                      child: child,
-                    );
-                  },
-            );
-          },
-        ),
-      ),
-      // Substituímos o Center/Column por uma CustomScrollView
-      body: CustomScrollView(
-        slivers: [
-          // Sliver 1: A parte que vai encolher (logo e campo de texto)
-          SliverToBoxAdapter(
-            child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 24.0),
-              child: Column(
-                children: [
-                  const SizedBox(
-                    height: 32,
-                  ), // Ajuste o espaçamento conforme necessário
-                  Hero(
-                    tag: 'logo',
-                    child: Image.asset(
-                      'lib/app/assets/horizontalColored.png',
-                      width: MediaQuery.of(context).size.width * 0.9,
-                    ),
-                  ),
-                  const SizedBox(height: 32),
-                  SizedBox(
-                    width: MediaQuery.of(context).size.width * 0.9,
-                    child: Hero(
-                      tag: 'text_field',
-                      child: Material(
-                        type: MaterialType.transparency,
-                        child: CustomTextAIField(
-                          fillColor: Colors.transparent,
-                          controller: controller,
-                          labelText: "Gerar nova imagem",
-                          suffixIcon: const Icon(
-                            Icons.auto_awesome,
-                            size: 34,
-                            color: Colors.white,
-                          ),
-                        ),
-                      ),
-                    ),
-                  ),
-                  const SizedBox(height: 32),
-                ],
+      backgroundColor: AppColors.background, // Fundo preto
+      
+      // O body agora é um Stack para sobrepor o brilho
+      body: Stack(
+        children: [
+          // 1. Efeito de brilho verde/ciano no topo
+          Positioned(
+            top: 0,
+            left: 0,
+            right: 0,
+            child: Container(
+              height: 240, // Altura do brilho (ajuste conforme necessário)
+              decoration: BoxDecoration(
+                gradient: LinearGradient(
+                  begin: Alignment.topCenter,
+                  end: Alignment.bottomCenter,
+                  colors: [
+                    // Cor ciano (como na sua imagem)
+                    const Color(0xFF21BFBF).withOpacity(1.0),
+                    Colors.transparent,
+                  ],
+                ),
               ),
             ),
           ),
 
-          // Sliver 2: O cabeçalho da lista que ficará fixo no topo ao rolar
-          SliverPersistentHeader(
-            pinned: true, // Isso faz com que ele "grude" no topo
-            delegate: _SliverHeaderDelegate(
-              child: Column(
-                children: [
-                  Container(
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(12),
-                      color: AppColors.blue,
-                    ),
-                    height: 12,
-                    width: MediaQuery.of(context).size.width * 0.9,
-                  ),
-                  const SizedBox(height: 24),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
+          // 2. Conteúdo da Página (AppBar Customizado + Lista)
+          // SafeArea garante que o conteúdo não fique atrás da notch/status bar
+          SafeArea(
+            child: Column(
+              children: [
+                // 2a. Nosso "AppBar" customizado (o ícone de menu)
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
+                  child: Row(
                     children: [
-                      Container(
-                        padding: const EdgeInsets.symmetric(
-                          vertical: 14,
-                          horizontal: 16,
-                        ),
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(40),
-                          color: AppColors.blue,
-                        ),
-                        height: 60,
-                        width: MediaQuery.of(context).size.width * 0.6,
-                        child: const Text(
-                          'Últimas Pesquisas',
-                          textAlign: TextAlign.center,
-                          style: TextStyle(color: Colors.white, fontSize: 20),
+                      IconButton(
+                        icon: const Icon(Icons.menu, size: 40, color: Colors.white),
+                        onPressed: () {
+                          // Ação do onPressed copiada do AppBar original
+                          showGeneralDialog(
+                            context: context,
+                            barrierDismissible: true,
+                            barrierLabel: MaterialLocalizations.of(
+                              context,
+                            ).modalBarrierDismissLabel,
+                            barrierColor: Colors.black54,
+                            transitionDuration: const Duration(milliseconds: 300),
+                            pageBuilder: (context, animation, secondaryAnimation) {
+                              return const _SideSheetMenu();
+                            },
+                            transitionBuilder:
+                                (context, animation, secondaryAnimation, child) {
+                              return SlideTransition(
+                                position: Tween<Offset>(
+                                  begin: const Offset(-1.0, 0.0),
+                                  end: Offset.zero,
+                                ).animate(
+                                  CurvedAnimation(
+                                    parent: animation,
+                                    curve: Curves.easeInOut,
+                                  ),
+                                ),
+                                child: child,
+                              );
+                            },
+                          );
+                        },
+                      ),
+                      const Spacer(), // Empurra o ícone para a esquerda
+                    ],
+                  ),
+                ),
+                
+                // 2b. O resto do conteúdo (CustomScrollView)
+                // Expanded faz a lista ocupar o resto do espaço
+                Expanded(
+                  child: CustomScrollView(
+                    slivers: [
+                      // Sliver 1: Logo e campo de texto
+                      SliverToBoxAdapter(
+                        child: Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 24.0),
+                          child: Column(
+                            children: [
+                              // O SizedBox aqui pode ser ajustado ou removido
+                              // já que o AppBar customizado já dá um espaçamento
+                              const SizedBox(height: 16), 
+                              Hero(
+                                tag: 'logo',
+                                child: Image.asset(
+                                  'lib/app/assets/horizontalColored.png',
+                                  width: MediaQuery.of(context).size.width * 0.9,
+                                ),
+                              ),
+                              const SizedBox(height: 32),
+                              SizedBox(
+                                width: MediaQuery.of(context).size.width * 0.9,
+                                child: Hero(
+                                  tag: 'text_field',
+                                  child: Material(
+                                    type: MaterialType.transparency,
+                                    child: CustomTextAIField(
+                                      fillColor: Colors.transparent,
+                                      controller: controller,
+                                      labelText: "Gerar nova imagem",
+                                      suffixIcon: const Icon(
+                                        Icons.auto_awesome,
+                                        size: 34,
+                                        color: Colors.white,
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                              ),
+                              const SizedBox(height: 32),
+                            ],
+                          ),
                         ),
                       ),
-                      const SizedBox(width: 12),
-                      FilterButton(
-                        onPressed: () {},
-                        backgroundColor: AppColors.blue,
-                        color: Colors.white,
-                        iconSize: 40,
+
+                      // Sliver 2: Cabeçalho da lista ("Últimas Pesquisas")
+                      SliverPersistentHeader(
+                        pinned: true,
+                        delegate: _SliverHeaderDelegate(
+                          child: Column(
+                            children: [
+                              Container(
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(12),
+                                  color: AppColors.blue,
+                                ),
+                                height: 12,
+                                width: MediaQuery.of(context).size.width * 0.9,
+                              ),
+                              const SizedBox(height: 24),
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Container(
+                                    padding: const EdgeInsets.symmetric(
+                                      vertical: 14,
+                                      horizontal: 16,
+                                    ),
+                                    decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(40),
+                                      color: AppColors.blue,
+                                    ),
+                                    height: 60,
+                                    width: MediaQuery.of(context).size.width * 0.6,
+                                    child: const Text(
+                                      'Últimas Pesquisas',
+                                      textAlign: TextAlign.center,
+                                      style: TextStyle(color: Colors.white, fontSize: 20),
+                                    ),
+                                  ),
+                                  const SizedBox(width: 12),
+                                  FilterButton(
+                                    onPressed: () {},
+                                    backgroundColor: AppColors.blue,
+                                    color: Colors.white,
+                                    iconSize: 40,
+                                  ),
+                                ],
+                              ),
+                            ],
+                          ),
+                          height: 130,
+                        ),
+                      ),
+
+                      // Sliver 3: Lista de histórico
+                      SliverList(
+                        delegate: SliverChildBuilderDelegate(
+                          (context, index) {
+                            return Padding(
+                              padding: const EdgeInsets.fromLTRB(24, 0, 24, 16),
+                              child: Container(
+                                height: 100,
+                                decoration: BoxDecoration(
+                                  color: AppColors.gray.withAlpha((0.2 * 255).toInt()),
+                                  borderRadius: BorderRadius.circular(12),
+                                ),
+                                child: Center(
+                                  child: Text(
+                                    'Pesquisa ${index + 1}',
+                                    style: const TextStyle(
+                                      color: Colors.white,
+                                      fontSize: 18,
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            );
+                          },
+                          childCount: 10,
+                        ),
                       ),
                     ],
                   ),
-                ],
-              ),
-              height:
-                  130, // Altura total do conteúdo (barra + row + espaçamentos)
-            ),
-          ),
-
-          // Sliver 3: A lista de histórico rolável
-          SliverList(
-            delegate: SliverChildBuilderDelegate(
-              (context, index) {
-                return Padding(
-                  padding: const EdgeInsets.fromLTRB(24, 0, 24, 16),
-                  child: Container(
-                    height: 100,
-                    decoration: BoxDecoration(
-                      color: AppColors.gray.withAlpha((0.2 * 255).toInt()),
-                      borderRadius: BorderRadius.circular(12),
-                    ),
-                    child: Center(
-                      child: Text(
-                        'Pesquisa ${index + 1}',
-                        style: const TextStyle(
-                          color: Colors.white,
-                          fontSize: 18,
-                        ),
-                      ),
-                    ),
-                  ),
-                );
-              },
-              childCount: 10, // Número de itens na sua lista
+                ),
+              ],
             ),
           ),
         ],
@@ -182,7 +225,9 @@ class HomePage extends StatelessWidget {
   }
 }
 
-// Classe auxiliar para o SliverPersistentHeader
+// O restante do código (_SliverHeaderDelegate, _SideSheetMenu)
+// permanece exatamente o mesmo.
+
 class _SliverHeaderDelegate extends SliverPersistentHeaderDelegate {
   final Widget child;
   final double height;
