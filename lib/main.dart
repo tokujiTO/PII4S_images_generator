@@ -45,7 +45,7 @@ class MyApp extends StatelessWidget {
           '/home': (_) => const HomePage(),
           '/chat': (_) => const ChatPage(),
           '/history': (_) => const HistoryPage(),
-          '/settings': (_) => const SettingsPage(),
+          '/settings': (_) => const SettingsPageView(),
         },
       ),
     );

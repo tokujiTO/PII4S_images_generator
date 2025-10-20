@@ -65,7 +65,9 @@ class MenuPage extends StatelessWidget {
                   'Configurações',
                   style: TextStyle(color: Colors.white, fontSize: 20),
                 ),
-                onTap: () {},
+                onTap: () {
+                  Navigator.popAndPushNamed(context, "/settings");
+                },
               ),
               SizedBox(height: 16),
               ListTile(
