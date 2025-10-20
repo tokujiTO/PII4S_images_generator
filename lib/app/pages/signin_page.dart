@@ -31,7 +31,7 @@ class _SignInPageState extends State<SignInPage> {
       body: Container(
         decoration: BoxDecoration(
           gradient: LinearGradient(
-            colors: [AppColors.gray, AppColors.background],
+            colors: [AppColors.white, AppColors.background],
             begin: Alignment.topCenter,
             end: Alignment.bottomCenter,
           ),
