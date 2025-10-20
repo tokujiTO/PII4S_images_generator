@@ -168,7 +168,7 @@ class HomePage extends StatelessWidget {
                                     child: const Text(
                                       'Últimas Pesquisas',
                                       textAlign: TextAlign.center,
-                                      style: TextStyle(color: Colors.white, fontSize: 20),
+                                      style: TextStyle(color: Colors.white, fontSize: 23),
                                     ),
                                   ),
                                   const SizedBox(width: 12),
@@ -203,7 +203,7 @@ class HomePage extends StatelessWidget {
                                     'Pesquisa ${index + 1}',
                                     style: const TextStyle(
                                       color: Colors.white,
-                                      fontSize: 18,
+                                      fontSize: 20,
                                     ),
                                   ),
                                 ),

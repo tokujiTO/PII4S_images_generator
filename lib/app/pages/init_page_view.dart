@@ -69,7 +69,7 @@ class FirstPage extends StatelessWidget {
                         child: Text(
                           'Entrar',
                           style: TextStyle(
-                            fontSize: 24,
+                            fontSize: 25,
                             color: AppColors.white,
                           ),
                         ),
@@ -79,7 +79,7 @@ class FirstPage extends StatelessWidget {
                   const SizedBox(height: 30),
                   Text(
                     "Ou",
-                    style: TextStyle(fontSize: 16, color: AppColors.white),
+                    style: TextStyle(fontSize: 18, color: AppColors.white),
                   ),
                   const SizedBox(height: 20),
                   Hero(
@@ -109,7 +109,7 @@ class FirstPage extends StatelessWidget {
                         child: Text(
                           'Cadastrar-se',
                           style: TextStyle(
-                            fontSize: 24,
+                            fontSize: 25,
                             color: AppColors.yellow,
                           ),
                         ),
