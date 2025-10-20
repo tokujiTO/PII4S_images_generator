@@ -97,12 +97,12 @@ class _ChangeEmailPageState extends State<ChangeEmailPage> {
       children: <Widget>[
         const Text(
           'Quer alterar seu e-mail?',
-          style: TextStyle(color: AppColors.white, fontSize: 20),
+          style: TextStyle(color: AppColors.white, fontSize: 25),
         ),
         const SizedBox(height: 15),
         const Text(
           'Digite seu novo e-mail para efetuarmos a redefinição:',
-          style: TextStyle(color: AppColors.white, fontSize: 16),
+          style: TextStyle(color: AppColors.white, fontSize: 20),
         ),
         const SizedBox(height: 20),
         const TextField(
@@ -156,7 +156,7 @@ class _ChangeEmailPageState extends State<ChangeEmailPage> {
           'exemplo@gmail.com',
           style: TextStyle(
             color: AppColors.white,
-            fontSize: 18,
+            fontSize: 20,
             fontWeight: FontWeight.bold,
           ),
           textAlign: TextAlign.center,
@@ -183,7 +183,7 @@ class _ChangeEmailPageState extends State<ChangeEmailPage> {
             onPressed: () {
               setState(() => _step = 3);
             },
-            child: Text('Enviar', style: TextStyle(color: color, fontSize: 18)),
+            child: Text('Enviar', style: TextStyle(color: color, fontSize: 20)),
           ),
         ),
       ],
@@ -200,7 +200,7 @@ class _ChangeEmailPageState extends State<ChangeEmailPage> {
           'E-mail redefinido com sucesso!',
           style: TextStyle(
             color: AppColors.white,
-            fontSize: 24,
+            fontSize: 25,
             fontWeight: FontWeight.bold,
           ),
           textAlign: TextAlign.center,
@@ -217,7 +217,7 @@ class _ChangeEmailPageState extends State<ChangeEmailPage> {
             onPressed: () {
               Navigator.of(context).pop();
             },
-            child: Text('Início', style: TextStyle(color: color, fontSize: 18)),
+            child: Text('Início', style: TextStyle(color: color, fontSize: 20)),
           ),
         ),
       ],
