@@ -31,23 +31,33 @@ class _SignInPageState extends State<SignInPage> {
       body: Container(
         decoration: BoxDecoration(
           gradient: LinearGradient(
-            colors: [AppColors.gray, AppColors.background],
+            colors: [
+              AppColors.white,    
+              AppColors.white,    
+              AppColors.background 
+            ],
             begin: Alignment.topCenter,
             end: Alignment.bottomCenter,
-          ),
+            stops: [
+              0.0, 
+              0.1, 
+              0.4, 
+            ],
         ),
+      ),
         child: SafeArea(
           child: Center(
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Hero(
-                  tag: 'logo',
-                  child: Image.asset(
-                    'lib/app/assets/horizontalColored.png',
-                    width: MediaQuery.of(context).size.width * 0.6,
+                const SizedBox(height: 40),
+                  Hero(
+                    tag: 'logo',
+                    child: Image.asset(
+                      'lib/app/assets/horizontalColored.png',
+                      width: 350,
+                    ),
                   ),
-                ),
                 const SizedBox(height: 20),
                 SizedBox(
                   width: MediaQuery.of(context).size.width * 0.8,

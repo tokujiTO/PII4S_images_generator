@@ -9,7 +9,16 @@ class HistoryPage extends StatefulWidget {
 }
 
 class _HistoryPageState extends State<HistoryPage> {
-  // --- Widgets da Página ---
+  String? _selectedSubject; // Estado para a matéria selecionada no filtro
+  final List<String> _subjects = [
+    'Português',
+    'História',
+    'Física',
+    'Matemática',
+    'Química',
+    'Biologia',
+  ];
+
 
   // Constrói o AppBar customizado (Seta + Título)
   Widget _buildAppBar(BuildContext context) {
@@ -21,7 +30,7 @@ class _HistoryPageState extends State<HistoryPage> {
           IconButton(
             icon: const Icon(
               Icons.arrow_back,
-              color: AppColors.blue, // Cor ciano da seta
+              color: AppColors.white, // Alterado para branco para combinar com o brilho
               size: 28,
             ),
             onPressed: () {
@@ -45,7 +54,47 @@ class _HistoryPageState extends State<HistoryPage> {
     );
   }
 
-  // Constrói a barra de pesquisa e o botão de filtro
+  // Constrói o filtro de matéria (Dropdown)
+  Widget _buildSubjectFilter() {
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
+      child: Container(
+        padding: const EdgeInsets.symmetric(horizontal: 16.0),
+        decoration: BoxDecoration(
+          color: AppColors.white, // Fundo branco
+          borderRadius: BorderRadius.circular(10.0),
+          border: Border.all(color: AppColors.gray, width: 1), // Borda cinza
+        ),
+        child: DropdownButtonHideUnderline(
+          child: DropdownButton<String>(
+            isExpanded: true,
+            value: _selectedSubject,
+            hint: Text(
+              'Selecione a matéria',
+              style: TextStyle(color: AppColors.gray, fontSize: 16),
+            ),
+            icon: const Icon(Icons.arrow_drop_down, color: AppColors.gray), // Ícone de seta
+            style: const TextStyle(color: AppColors.background, fontSize: 16), // Texto selecionado
+            onChanged: (String? newValue) {
+              setState(() {
+                _selectedSubject = newValue;
+                // Adicione sua lógica para filtrar a lista aqui
+                print('Matéria selecionada: $_selectedSubject');
+              });
+            },
+            items: _subjects.map<DropdownMenuItem<String>>((String value) {
+              return DropdownMenuItem<String>(
+                value: value,
+                child: Text(value),
+              );
+            }).toList(),
+          ),
+        ),
+      ),
+    );
+  }
+
+  // Constrói a barra de pesquisa e o botão de filtro (mantido, se for para outro filtro)
   Widget _buildSearchBar() {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 12.0),
@@ -84,7 +133,7 @@ class _HistoryPageState extends State<HistoryPage> {
             ),
           ),
           const SizedBox(width: 10),
-          // Botão de Filtro
+          // Botão de Filtro (para outros filtros, se houver)
           Container(
             height: 48,
             width: 48,
@@ -217,6 +266,7 @@ class _HistoryPageState extends State<HistoryPage> {
             child: Column(
               children: [
                 _buildAppBar(context),
+                _buildSubjectFilter(), // <-- NOVO: O filtro de matéria aqui
                 _buildSearchBar(),
                 Expanded(
                   child: _buildHistoryList(),

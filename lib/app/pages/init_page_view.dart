@@ -7,15 +7,23 @@ class FirstPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      // gradient background applied via a Container decoration
       body: Container(
         decoration: BoxDecoration(
           gradient: LinearGradient(
-            colors: [AppColors.gray, AppColors.background],
+            colors: [
+              AppColors.white,    
+              AppColors.white,    
+              AppColors.background 
+            ],
             begin: Alignment.topCenter,
             end: Alignment.bottomCenter,
-          ),
+            stops: [
+              0.0, // Cor 1 (Branco) começa no topo
+              0.1, // Cor 2 (Branco) começa em 30% da altura
+              0.4, // Cor 3 (Background) termina em 100%
+            ],
         ),
+      ),
         child: SafeArea(
           child: Padding(
             padding: EdgeInsets.symmetric(
@@ -25,11 +33,12 @@ class FirstPage extends StatelessWidget {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
+                  const SizedBox(height: 130),
                   Hero(
                     tag: 'logo',
                     child: Image.asset(
                       'lib/app/assets/horizontalColored.png',
-                      width: MediaQuery.of(context).size.width * 0.6,
+                      width: 350,
                     ),
                   ),
                   const Expanded(child: SizedBox()),
@@ -67,7 +76,7 @@ class FirstPage extends StatelessWidget {
                       ),
                     ),
                   ),
-                  const SizedBox(height: 20),
+                  const SizedBox(height: 30),
                   Text(
                     "Ou",
                     style: TextStyle(fontSize: 16, color: AppColors.white),
