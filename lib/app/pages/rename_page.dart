@@ -1,16 +1,17 @@
 import 'package:flutter/material.dart';
+import 'package:poliedroimagesgenerator/app/utils/app_colors.dart';
 
 class RenamePage extends StatelessWidget {
   const RenamePage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    const Color highlightColor = Color(0xFFFFA500); 
+    const Color highlightColor = AppColors.yellow; 
 
     return Scaffold(
-      backgroundColor: Colors.black,
+      backgroundColor: AppColors.background,
       appBar: AppBar(
-        backgroundColor: highlightColor,
+        backgroundColor: AppColors.yellow,
         elevation: 0,
         leading: IconButton(
           icon: const Icon(Icons.arrow_back, color: Colors.black),
@@ -24,16 +25,16 @@ class RenamePage extends StatelessWidget {
           children: <Widget>[
             const Text(
               'Digite seu novo nome:',
-              style: TextStyle(color: Colors.white, fontSize: 20),
+              style: TextStyle(color: AppColors.white, fontSize: 20),
               textAlign: TextAlign.center,
             ),
             const SizedBox(height: 30),
             TextField(
               decoration: InputDecoration(
                 filled: true,
-                fillColor: Colors.white,
+                fillColor: AppColors.white,
                 hintText: 'Nome',
-                hintStyle: const TextStyle(color: Colors.grey),
+                hintStyle: const TextStyle(color: AppColors.gray, fontSize: 15),
                 contentPadding: const EdgeInsets.symmetric(vertical: 15.0, horizontal: 20.0),
                 border: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(5.0),
@@ -41,17 +42,17 @@ class RenamePage extends StatelessWidget {
                 ),
                 suffixIcon: const Padding(
                   padding: EdgeInsets.only(right: 15.0),
-                  child: Icon(Icons.person, color: Colors.grey),
+                  child: Icon(Icons.person, color: AppColors.gray),
                 ),
               ),
-              style: const TextStyle(color: Colors.black),
+              style: const TextStyle(color: AppColors.background),
             ),
             const SizedBox(height: 40),
             // Botão "Redefinir"
             Container(
               height: 50,
               decoration: BoxDecoration(
-                border: Border.all(color: highlightColor, width: 2),
+                border: Border.all(color: AppColors.yellow, width: 2),
                 borderRadius: BorderRadius.circular(5.0),
               ),
               child: TextButton(
@@ -59,7 +60,7 @@ class RenamePage extends StatelessWidget {
                 },
                 child: const Text(
                   'Redefinir',
-                  style: TextStyle(color: highlightColor, fontSize: 18),
+                  style: TextStyle(color: AppColors.yellow, fontSize: 20),
                 ),
               ),
             ),

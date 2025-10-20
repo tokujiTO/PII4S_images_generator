@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:poliedroimagesgenerator/app/utils/app_colors.dart';
 import 'rename_page.dart'; 
 import 'reset_passaword_page.dart'; 
 import 'change_email_page.dart'; 
@@ -15,9 +16,9 @@ class SettingsPageView extends StatelessWidget {
     const Color highlightColor = Color(0xFF00BCD4); 
 
     return Scaffold(
-      backgroundColor: Colors.black, 
+      backgroundColor: AppColors.background, 
       appBar: AppBar(
-        backgroundColor: highlightColor, 
+        backgroundColor: AppColors.blue, 
         elevation: 0,
         leading: IconButton(
           icon: const Icon(Icons.arrow_back, color: Colors.black),
