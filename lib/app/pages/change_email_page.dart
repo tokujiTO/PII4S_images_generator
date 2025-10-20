@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:poliedroimagesgenerator/app/utils/app_colors.dart';
 
 class ChangeEmailPage extends StatefulWidget {
   const ChangeEmailPage({Key? key}) : super(key: key);
@@ -8,22 +9,22 @@ class ChangeEmailPage extends StatefulWidget {
 }
 
 class _ChangeEmailPageState extends State<ChangeEmailPage> {
-  int _step = 1; 
+  int _step = 1;
 
   @override
   Widget build(BuildContext context) {
-    const Color highlightColor = Color(0xFFFFA500); 
+    const Color highlightColor = AppColors.yellow;
 
     Widget currentStepWidget;
     switch (_step) {
       case 1:
-        currentStepWidget = _buildStep1(highlightColor);
+        currentStepWidget = _buildStep1(AppColors.yellow);
         break;
       case 2:
-        currentStepWidget = _buildStep2(highlightColor);
+        currentStepWidget = _buildStep2(AppColors.yellow);
         break;
       case 3:
-        currentStepWidget = _buildStep3(highlightColor);
+        currentStepWidget = _buildStep3(AppColors.yellow);
         break;
       default:
         currentStepWidget = Container();
@@ -32,7 +33,7 @@ class _ChangeEmailPageState extends State<ChangeEmailPage> {
     return Scaffold(
       backgroundColor: Colors.black,
       appBar: AppBar(
-        backgroundColor: highlightColor,
+        backgroundColor: (AppColors.yellow),
         elevation: 0,
         leading: IconButton(
           icon: const Icon(Icons.arrow_back, color: Colors.black),
@@ -56,23 +57,26 @@ class _ChangeEmailPageState extends State<ChangeEmailPage> {
       children: <Widget>[
         const Text(
           'Quer alterar seu e-mail?',
-          style: TextStyle(color: Colors.white, fontSize: 20),
+          style: TextStyle(color: AppColors.white, fontSize: 20),
         ),
         const SizedBox(height: 15),
         const Text(
           'Digite seu novo e-mail para efetuarmos a redefinição:',
-          style: TextStyle(color: Colors.white, fontSize: 16),
+          style: TextStyle(color: AppColors.white, fontSize: 16),
         ),
         const SizedBox(height: 20),
         const TextField(
           decoration: InputDecoration(
             filled: true,
-            fillColor: Colors.white,
+            fillColor: AppColors.white,
             hintText: 'E-mail',
-            contentPadding: EdgeInsets.symmetric(vertical: 15.0, horizontal: 20.0),
-            border: InputBorder.none, 
+            contentPadding: EdgeInsets.symmetric(
+              vertical: 15.0,
+              horizontal: 20.0,
+            ),
+            border: InputBorder.none,
           ),
-          style: TextStyle(color: Colors.black),
+          style: TextStyle(color: AppColors.background),
           keyboardType: TextInputType.emailAddress,
         ),
         const SizedBox(height: 40),
@@ -89,7 +93,7 @@ class _ChangeEmailPageState extends State<ChangeEmailPage> {
             },
             child: Text(
               'Redefinir',
-              style: TextStyle(color: color, fontSize: 18),
+              style: TextStyle(color: color , fontSize: 20),
             ),
           ),
         ),
@@ -104,25 +108,33 @@ class _ChangeEmailPageState extends State<ChangeEmailPage> {
       children: <Widget>[
         const Text(
           'Digite o código que enviamos agora para:',
-          style: TextStyle(color: Colors.white, fontSize: 20),
+          style: TextStyle(color: AppColors.white, fontSize: 20),
           textAlign: TextAlign.center,
         ),
         const SizedBox(height: 10),
         const Text(
-          'exemplo@gmail.com', 
-          style: TextStyle(color: Colors.white, fontSize: 18, fontWeight: FontWeight.bold),
+          'exemplo@gmail.com',
+          style: TextStyle(
+            color: AppColors.white,
+            fontSize: 18,
+            fontWeight: FontWeight.bold,
+          ),
           textAlign: TextAlign.center,
         ),
         const SizedBox(height: 30),
         const Text(
-          '_ _ _ _ _ _', 
-          style: TextStyle(color: Colors.white, fontSize: 30, letterSpacing: 10),
+          '_ _ _ _ _ _',
+          style: TextStyle(
+            color: AppColors.white,
+            fontSize: 30,
+            letterSpacing: 10,
+          ),
         ),
         const SizedBox(height: 60),
         // Botão "Enviar"
         Container(
           height: 50,
-          width: 200, 
+          width: 200,
           decoration: BoxDecoration(
             border: Border.all(color: color, width: 2),
             borderRadius: BorderRadius.circular(5.0),
@@ -131,10 +143,7 @@ class _ChangeEmailPageState extends State<ChangeEmailPage> {
             onPressed: () {
               setState(() => _step = 3);
             },
-            child: Text(
-              'Enviar',
-              style: TextStyle(color: color, fontSize: 18),
-            ),
+            child: Text('Enviar', style: TextStyle(color: color, fontSize: 18)),
           ),
         ),
       ],
@@ -149,7 +158,11 @@ class _ChangeEmailPageState extends State<ChangeEmailPage> {
       children: <Widget>[
         const Text(
           'E-mail redefinido com sucesso!',
-          style: TextStyle(color: Colors.white, fontSize: 24, fontWeight: FontWeight.bold),
+          style: TextStyle(
+            color: AppColors.white,
+            fontSize: 24,
+            fontWeight: FontWeight.bold,
+          ),
           textAlign: TextAlign.center,
         ),
         const SizedBox(height: 60),
@@ -164,10 +177,7 @@ class _ChangeEmailPageState extends State<ChangeEmailPage> {
             onPressed: () {
               Navigator.of(context).pop();
             },
-            child: Text(
-              'Início',
-              style: TextStyle(color: color, fontSize: 18),
-            ),
+            child: Text('Início', style: TextStyle(color: color, fontSize: 18)),
           ),
         ),
       ],

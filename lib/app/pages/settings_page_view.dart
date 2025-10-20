@@ -5,64 +5,89 @@ import 'reset_passaword_page.dart';
 import 'change_email_page.dart'; 
 import 'delete_account_page.dart'; 
 
-
-
-
 class SettingsPageView extends StatelessWidget {
   const SettingsPageView({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    const Color highlightColor = Color(0xFF00BCD4); 
-
     return Scaffold(
-      backgroundColor: AppColors.background, 
-      appBar: AppBar(
-        backgroundColor: AppColors.blue, 
-        elevation: 0,
-        leading: IconButton(
-          icon: const Icon(Icons.arrow_back, color: Colors.black),
-          onPressed: () => Navigator.of(context).pop(),
-        ),
-      ),
-      body: Column(
-        children: <Widget>[
-          _buildOption(
-            context,
-            'Redefinir nome',
-            () => Navigator.push(
-              context,
-              MaterialPageRoute(builder: (context) => const RenamePage()),
+      backgroundColor: AppColors.background , // Fundo preto
+      body: Stack( // Usar Stack para sobrepor o brilho
+        children: [
+          // 1. Efeito de brilho verde/ciano no topo
+          Positioned(
+            top: 0,
+            left: 0,
+            right: 0,
+            child: Container(
+              height: 240, // Altura da área do brilho
+              decoration: BoxDecoration(
+                gradient: LinearGradient(
+                  begin: Alignment.topCenter,
+                  end: Alignment.bottomCenter,
+                  colors: [
+                    // Cor ciano com opacidade para criar o efeito de "glow"
+                    const Color(0xFF21BFBF).withOpacity(1.0),
+                    Colors.transparent,
+                  ],
+                ),
+              ),
             ),
           ),
-          _buildOption(
-            context,
-            'Redefinir senha',
-            () => Navigator.push(
-              context,
-              MaterialPageRoute(builder: (context) => const ResetPasswordPage()),
-            ),
-          ),
-          _buildOption(
-            context,
-            'Redefinir email',
-            () => Navigator.push(
-              context,
-              MaterialPageRoute(builder: (context) => const ChangeEmailPage()),
-            ),
-          ),
-          _buildOption(
-            context,
-            'Excluir conta',
-            () => Navigator.push(
-              context,
-              MaterialPageRoute(builder: (context) => const DeleteAccountPage()),
-            ),
+
+          // 2. Conteúdo da página (AppBar + Opções)
+          Column(
+            children: <Widget>[
+              // AppBar original, transparente para mostrar o brilho
+              AppBar(
+                backgroundColor: Colors.transparent, // Fundo transparente
+                elevation: 0,
+                leading: IconButton(
+                  // Ícone branco para visibilidade
+                  icon: const Icon(Icons.arrow_back, color: Colors.white), 
+                  onPressed: () => Navigator.of(context).pop(),
+                ),
+              ),
+              // Opções de configuração (do body original)
+              _buildOption(
+                context,
+                'Redefinir nome',
+                () => Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => const RenamePage()),
+                ),
+              ),
+              _buildOption(
+                context,
+                'Redefinir senha',
+                () => Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => const ResetPasswordPage()),
+                ),
+              ),
+              _buildOption(
+                context,
+                'Redefinir email',
+                () => Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => const ChangeEmailPage()),
+                ),
+              ),
+              _buildOption(
+                context,
+                'Excluir conta',
+                () => Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => const DeleteAccountPage()),
+                ),
+              ),
+            ],
           ),
         ],
       ),
     );
   }
+
 
   Widget _buildOption(BuildContext context, String title, VoidCallback onTap, {bool isDelete = false}) {
     return Container(
