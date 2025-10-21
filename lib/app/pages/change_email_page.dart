@@ -191,36 +191,41 @@ class _ChangeEmailPageState extends State<ChangeEmailPage> {
   }
 
   Widget _buildStep3(Color color) {
-    return Column(
-      key: const ValueKey<int>(3),
-      mainAxisAlignment: MainAxisAlignment.center,
-      crossAxisAlignment: CrossAxisAlignment.stretch,
-      children: <Widget>[
-        const Text(
-          'E-mail redefinido com sucesso!',
-          style: TextStyle(
-            color: AppColors.white,
-            fontSize: 25,
-            fontWeight: FontWeight.bold,
-          ),
-          textAlign: TextAlign.center,
+  return Column(
+    key: const ValueKey<int>(3),
+    mainAxisAlignment: MainAxisAlignment.start, 
+    crossAxisAlignment: CrossAxisAlignment.stretch,
+    children: <Widget>[
+      // ADICIONADO: Um espaço para afastar o conteúdo da borda superior
+      const SizedBox(height: 0), 
+      
+      const Text(
+        'E-mail redefinido com sucesso!',
+        style: TextStyle(
+          color: AppColors.white, 
+          fontSize: 25,
+          fontWeight: FontWeight.bold,
         ),
-        const SizedBox(height: 60),
-        // Botão "Início"
-        Container(
-          height: 50,
-          decoration: BoxDecoration(
-            border: Border.all(color: color, width: 2),
-            borderRadius: BorderRadius.circular(5.0),
-          ),
-          child: TextButton(
-            onPressed: () {
-              Navigator.of(context).pop();
-            },
-            child: Text('Início', style: TextStyle(color: color, fontSize: 20)),
-          ),
+        textAlign: TextAlign.center,
+      ),
+      const SizedBox(height: 50),
+      
+      // Botão "Início"
+      Container(
+        height: 50,
+        decoration: BoxDecoration(
+          border: Border.all(color: color, width: 2),
+          borderRadius: BorderRadius.circular(5.0),
         ),
-      ],
-    );
-  }
+        child: TextButton(
+          onPressed: () {
+            // Lógica para voltar, geralmente fechando a tela atual
+            Navigator.of(context).pop(); 
+          },
+          child: Text('Início', style: TextStyle(color: color, fontSize: 20)),
+        ),
+      ),
+    ],
+  );
+}
 }
