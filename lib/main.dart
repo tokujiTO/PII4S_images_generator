@@ -10,6 +10,7 @@ import 'package:poliedroimagesgenerator/app/pages/loading_page_view.dart';
 import 'package:poliedroimagesgenerator/app/pages/settings_page_view.dart';
 import 'package:poliedroimagesgenerator/app/pages/signin_page.dart';
 import 'package:poliedroimagesgenerator/app/pages/signup_page.dart';
+import 'package:poliedroimagesgenerator/app/pages/contact_page_view.dart';
 
 void main() {
   runApp(DevicePreview(enabled: false, builder: (context) => const MyApp()));
@@ -46,8 +47,12 @@ class MyApp extends StatelessWidget {
           '/chat': (_) => const ChatPage(),
           '/history': (_) => const HistoryPage(),
           '/settings': (_) => const SettingsPageView(),
+          '/contact': (_) => const ContactPageView(),
         },
       ),
     );
   }
 }
+
+
+
