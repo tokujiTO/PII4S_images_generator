@@ -31,20 +31,12 @@ class _SignUpPageState extends State<SignUpPage> {
       body: Container(
         decoration: BoxDecoration(
           gradient: LinearGradient(
-            colors: [
-              AppColors.yellow,    
-              AppColors.yellow,    
-              AppColors.background 
-            ],
+            colors: [AppColors.yellow, AppColors.yellow, AppColors.background],
             begin: Alignment.topCenter,
             end: Alignment.bottomCenter,
-            stops: [
-              0.0,
-              0.1, 
-              0.4, 
-            ],
+            stops: [0.0, 0.1, 0.4],
+          ),
         ),
-      ),
         child: SafeArea(
           child: Padding(
             padding: const EdgeInsets.symmetric(vertical: 20),
@@ -68,11 +60,11 @@ class _SignUpPageState extends State<SignUpPage> {
                         children: [
                           // Grupo dos 4 campos de texto
                           SizedBox(
-                            width:
-                                MediaQuery.of(context).size.width * 0.8,
+                            width: MediaQuery.of(context).size.width * 0.8,
                             child: CustomTextField(
                               controller: controller.nameController,
                               labelText: 'Nome',
+                              onChanged: (value) => controller.setName(value),
                               suffixIcon: Icon(
                                 Icons.person,
                                 color: AppColors.white,
@@ -81,25 +73,26 @@ class _SignUpPageState extends State<SignUpPage> {
                           ),
                           SizedBox(height: 16),
                           SizedBox(
-                            width:
-                                MediaQuery.of(context).size.width * 0.8,
+                            width: MediaQuery.of(context).size.width * 0.8,
                             child: CustomTextField(
                               suffixIcon: Icon(
                                 Icons.mail,
                                 color: AppColors.white,
                               ),
                               labelText: 'E-mail',
+                              onChanged: (value) => controller.setEmail(value),
                               keyboardType: TextInputType.emailAddress,
                               controller: controller.emailController,
                             ),
                           ),
                           SizedBox(height: 16),
                           SizedBox(
-                            width:
-                                MediaQuery.of(context).size.width * 0.8,
+                            width: MediaQuery.of(context).size.width * 0.8,
                             child: CustomTextField(
                               controller: controller.passwordController,
                               labelText: 'Senha',
+                              onChanged: (value) =>
+                                  controller.setPassword(value),
                               suffixIcon: controller.isPasswordVisible
                                   ? Icon(
                                       Icons.visibility,
@@ -119,14 +112,11 @@ class _SignUpPageState extends State<SignUpPage> {
                           ),
                           SizedBox(height: 16),
                           SizedBox(
-                            width:
-                                MediaQuery.of(context).size.width * 0.8,
+                            width: MediaQuery.of(context).size.width * 0.8,
                             child: CustomTextField(
-                              controller:
-                                  controller.confirmPasswordController,
+                              controller: controller.confirmPasswordController,
                               labelText: 'Confirmar Senha',
-                              suffixIcon:
-                                  controller.isConfirmPasswordVisible
+                              suffixIcon: controller.isConfirmPasswordVisible
                                   ? Icon(
                                       Icons.visibility,
                                       color: AppColors.white,
@@ -135,19 +125,16 @@ class _SignUpPageState extends State<SignUpPage> {
                                       Icons.visibility_off,
                                       color: AppColors.white,
                                     ),
-                              isPassword:
-                                  !controller.isConfirmPasswordVisible,
+                              isPassword: !controller.isConfirmPasswordVisible,
                               onSuffixIconTap: () {
                                 setState(() {
-                                  controller
-                                      .toggleConfirmPasswordVisibility();
+                                  controller.toggleConfirmPasswordVisibility();
                                 });
                               },
                             ),
                           ),
-                          
+
                           SizedBox(height: 24), // Espaço
-                          
                           // Botão "Enviar código"
                           ElevatedButton(
                             onPressed: () {
@@ -171,10 +158,9 @@ class _SignUpPageState extends State<SignUpPage> {
                               ),
                             ),
                           ),
-                          
+
                           SizedBox(height: 16), // Espaço
-                          
-                          // Campo "Código" 
+                          // Campo "Código"
                           SizedBox(
                             width: MediaQuery.of(context).size.width * 0.8,
                             child: CustomTextField(
@@ -213,11 +199,12 @@ class _SignUpPageState extends State<SignUpPage> {
                               ),
                             ),
                             onPressed: () => {
-                              Navigator.pushNamedAndRemoveUntil(
-                                context,
-                                "/home",
-                                (route) => false,
-                              ),
+                              // Navigator.pushNamedAndRemoveUntil(
+                              //   context,
+                              //   "/home",
+                              //   (route) => false,
+                              // ),
+                              controller.signup(context),
                             },
                             child: Text(
                               'Cadastrar-se',
