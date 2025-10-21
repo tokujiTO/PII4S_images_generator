@@ -31,38 +31,31 @@ class _SignInPageState extends State<SignInPage> {
       body: Container(
         decoration: BoxDecoration(
           gradient: LinearGradient(
-            colors: [
-              AppColors.white,    
-              AppColors.white,    
-              AppColors.background 
-            ],
+            colors: [AppColors.white, AppColors.white, AppColors.background],
             begin: Alignment.topCenter,
             end: Alignment.bottomCenter,
-            stops: [
-              0.0, 
-              0.1, 
-              0.4, 
-            ],
+            stops: [0.0, 0.1, 0.4],
+          ),
         ),
-      ),
         child: SafeArea(
           child: Center(
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 const SizedBox(height: 40),
-                  Hero(
-                    tag: 'logo',
-                    child: Image.asset(
-                      'lib/app/assets/horizontalColored.png',
-                      width: 350,
-                    ),
+                Hero(
+                  tag: 'logo',
+                  child: Image.asset(
+                    'lib/app/assets/horizontalColored.png',
+                    width: 350,
                   ),
+                ),
                 const SizedBox(height: 40),
                 SizedBox(
                   width: MediaQuery.of(context).size.width * 0.8,
                   child: CustomTextField(
                     controller: controller.emailController,
+                    onChanged: (value) => {controller.updateEmail(value)},
                     fillColor: Colors.transparent,
                     labelText: 'E-mail',
                     suffixIcon: Icon(Icons.person, color: AppColors.white),
@@ -74,6 +67,7 @@ class _SignInPageState extends State<SignInPage> {
                   child: CustomTextField(
                     controller: controller.passwordController,
                     fillColor: Colors.transparent,
+                    onChanged: (value) => {controller.updatePassword(value)},
                     labelText: 'Senha',
                     suffixIcon: controller.isPasswordVisible
                         ? Icon(Icons.visibility, color: AppColors.white)
@@ -129,11 +123,11 @@ class _SignInPageState extends State<SignInPage> {
                         ),
                       ),
                       onPressed: () => {
-                        Navigator.pushNamedAndRemoveUntil(
-                          context,
-                          "/home",
-                          (route) => false,
-                        ),
+                        // Navigator.pushNamedAndRemoveUntil(
+                        //   context,
+                        //   "/home",
+                        //   (route) => false,
+                        controller.signIn(context),
                       },
                       child: Text(
                         'Entrar',
