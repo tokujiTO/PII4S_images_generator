@@ -18,15 +18,12 @@ class MenuPage extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Transform.rotate(
-                angle: 4.7124, // 270 degrees in radians
-                child: IconButton(
-                  icon: Icon(Icons.menu, color: Colors.white, size: 40),
-                  iconSize: 40,
-                  onPressed: () => Navigator.of(context).pop(),
-                  padding: EdgeInsets.zero,
-                  splashRadius: 24,
-                ),
+              IconButton(
+                icon: Icon(Icons.arrow_back_ios, color: Colors.white, size: 40),
+                iconSize: 40,
+                onPressed: () => Navigator.of(context).pop(),
+                padding: EdgeInsets.zero,
+                splashRadius: 24,
               ),
               SizedBox(height: 40),
               ListTile(
@@ -76,7 +73,9 @@ class MenuPage extends StatelessWidget {
                   'Entrar em contato',
                   style: TextStyle(color: Colors.white, fontSize: 20),
                 ),
-                onTap: () {},
+                onTap: () {
+                  Navigator.popAndPushNamed(context, "/contact");
+                },
               ),
               SizedBox(height: 16),
               ListTile(
