@@ -12,6 +12,7 @@ class DevPageView extends StatelessWidget {
       {'name': 'Chat', 'route': '/chat'},
       {'name': 'History', 'route': '/history'},
       {'name': 'Settings', 'route': '/settings'},
+      {'name': 'Contact', 'route': '/contact'},
     ];
     return Scaffold(
       appBar: AppBar(title: const Text('Dev Page')),

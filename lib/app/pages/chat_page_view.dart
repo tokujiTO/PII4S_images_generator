@@ -33,111 +33,151 @@ class _ChatPageState extends State<ChatPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: AppColors.background,
-      appBar: AppBar(
-        title: const Text('Chat Page', style: TextStyle(color: Colors.white)),
-        backgroundColor: AppColors.blue,
-        leading: IconButton(
-          icon: const Icon(
-            Icons.arrow_back_ios_new_outlined,
-            size: 40,
-            color: Colors.white,
-          ),
-          onPressed: () {
-            Navigator.pop(context);
-          },
-        ),
-        actions: [
-          PopupMenuButton<String>(
-            onSelected: (value) {
-              // Esta função é chamada quando um item do menu é selecionado
-              if (value == 'export_pdf') {
-                ScaffoldMessenger.of(context).showSnackBar(
-                  const SnackBar(
-                    content: Text(
-                      'Funcionalidade "Exportar para PDF" a ser implementada!',
-                      style: TextStyle(color: Colors.white),
-                    ),
-                  ),
-                );
-              }
-            },
-            color: AppColors.background,
-            itemBuilder: (BuildContext context) => <PopupMenuEntry<String>>[
-              const PopupMenuItem<String>(
-                value: 'export_pdf',
-                child: Row(
-                  children: [
-                    Icon(Icons.picture_as_pdf_outlined, color: AppColors.white),
-                    SizedBox(width: 12),
-                    Text(
-                      'Exportar para PDF',
-                      style: TextStyle(color: Colors.white),
-                    ),
+      backgroundColor: AppColors.background, 
+      body: Stack( 
+        children: [
+          // Efeito de brilho no topo
+          Positioned(
+            top: 0,
+            left: 0,
+            right: 0,
+            child: Container(
+              height: 240, 
+              decoration: BoxDecoration(
+                gradient: LinearGradient(
+                  begin: Alignment.topCenter,
+                  end: Alignment.bottomCenter,
+                  colors: [
+                    const Color(0xFF21BFBF).withOpacity(1.0),
+                    Colors.transparent,
                   ],
                 ),
               ),
-              const PopupMenuItem<String>(
-                value: 'settings',
-                child: Row(
-                  children: [
-                    Icon(Icons.delete, color: AppColors.white),
-                    SizedBox(width: 12),
-                    Text(
-                      'Deletar conversa',
-                      style: TextStyle(color: AppColors.white),
-                    ),
-                  ],
-                ),
-              ),
-            ],
-            icon: const Icon(Icons.more_vert, color: Colors.white, size: 40),
-            tooltip: 'Mais opções',
+            ),
           ),
-        ],
-      ),
-      body: SafeArea(
-        child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 12.0),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.end,
-            children: [
-              Row(
+          
+          // Conteúdo da "AppBar" customizada (seta, título e ações)
+          SafeArea(
+            child: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Expanded(
-                    child: CustomTextField(
-                      controller: subjectController,
-                      labelText: 'Matéria',
+                  // Seta de Voltar
+                  IconButton(
+                    icon: const Icon(
+                      Icons.arrow_back_ios_new_outlined,
+                      size: 24,
+                      color: Colors.white,
                     ),
-                  ),
-                  const SizedBox(width: 12),
-                  FloatingActionButton(
                     onPressed: () {
-                      // exemplo: enviar ou focar
-                      FocusScope.of(context).unfocus();
+                      Navigator.pop(context);
                     },
-                    backgroundColor: AppColors.blue,
-                    elevation: 0,
-                    child: const Icon(Icons.send, color: Colors.white),
+                  ),
+                  
+                  // Título
+                  const Text('Chat Page', style: TextStyle(color: Colors.white, fontSize: 20, fontWeight: FontWeight.bold)),
+                  
+                  // Botão de Mais Opções
+                  PopupMenuButton<String>(
+                    onSelected: (value) {
+                      if (value == 'export_pdf') {
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          const SnackBar(
+                            content: Text(
+                              'Funcionalidade "Exportar para PDF" a ser implementada!',
+                              style: TextStyle(color: Colors.white),
+                            ),
+                          ),
+                        );
+                      }
+                    },
+                    color: AppColors.background,
+                    itemBuilder: (BuildContext context) => <PopupMenuEntry<String>>[
+                      const PopupMenuItem<String>(
+                        value: 'export_pdf',
+                        child: Row(
+                          children: [
+                            Icon(Icons.picture_as_pdf_outlined, color: AppColors.white),
+                            SizedBox(width: 12),
+                            Text(
+                              'Exportar para PDF',
+                              style: TextStyle(color: Colors.white),
+                            ),
+                          ],
+                        ),
+                      ),
+                      const PopupMenuItem<String>(
+                        value: 'settings',
+                        child: Row(
+                          children: [
+                            Icon(Icons.delete, color: AppColors.white),
+                            SizedBox(width: 12),
+                            Text(
+                              'Deletar conversa',
+                              style: TextStyle(color: AppColors.white),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ],
+                    icon: const Icon(Icons.more_vert, color: Colors.white, size: 28),
+                    tooltip: 'Mais opções',
                   ),
                 ],
               ),
-              const SizedBox(height: 12),
-              Hero(
-                tag: 'text_field',
-                child: Material(
-                  type: MaterialType.transparency,
-                  child: CustomTextField(
-                    controller: descriptionController,
-                    labelText: 'Descrição',
-                    minLines: 1,
-                    focusNode: descriptionFocusNode,
-                  ),
-                ),
-              ),
-            ],
+            ),
           ),
-        ),
+          
+          // Conteúdo Principal da Tela (Formulário, etc.)
+          SafeArea(
+            child: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 12.0),
+              child: Column(
+                // O padding no topo precisa ser maior para descer abaixo da AppBar customizada
+                children: [
+                  const SizedBox(height: 60), // Espaçamento para o conteúdo da "AppBar" customizada
+                  // O restante do seu corpo (body) aqui
+                  Expanded(
+                    child: Container(), // Área de conversa (vazia neste snippet)
+                  ),
+                  Row(
+                    children: [
+                      Expanded(
+                        child: CustomTextField(
+                          controller: subjectController,
+                          labelText: 'Matéria',
+                        ),
+                      ),
+                      const SizedBox(width: 12),
+                      FloatingActionButton(
+                        onPressed: () {
+                          FocusScope.of(context).unfocus();
+                        },
+                        backgroundColor: AppColors.blue,
+                        elevation: 0,
+                        child: const Icon(Icons.send, color: Colors.white),
+                      ),
+                    ],
+                  ),
+                  const SizedBox(height: 12),
+                  Hero(
+                    tag: 'text_field',
+                    child: Material(
+                      type: MaterialType.transparency,
+                      child: CustomTextField(
+                        controller: descriptionController,
+                        labelText: 'Descrição',
+                        minLines: 1,
+                        focusNode: descriptionFocusNode,
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ),
+        ],
       ),
     );
   }

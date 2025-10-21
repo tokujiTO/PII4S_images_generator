@@ -99,7 +99,7 @@ class SettingsPageView extends StatelessWidget {
       child: ListTile(
         title: Text(
           title,
-          style: const TextStyle(color: Colors.white, fontSize: 20,), 
+          style: const TextStyle(color: Colors.white, fontSize: 23,), 
         ),
         trailing: const Icon(Icons.arrow_forward_ios, color: Colors.transparent, size: 0), // Ícone invisível (para alinhamento)
         onTap: onTap,

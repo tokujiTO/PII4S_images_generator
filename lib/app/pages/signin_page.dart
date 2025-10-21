@@ -58,7 +58,7 @@ class _SignInPageState extends State<SignInPage> {
                       width: 350,
                     ),
                   ),
-                const SizedBox(height: 20),
+                const SizedBox(height: 40),
                 SizedBox(
                   width: MediaQuery.of(context).size.width * 0.8,
                   child: CustomTextField(
@@ -103,7 +103,7 @@ class _SignInPageState extends State<SignInPage> {
                   child: Text(
                     'Esqueci minha senha',
                     style: TextStyle(
-                      fontSize: 16,
+                      fontSize: 18,
                       color: AppColors.white,
                       decoration: TextDecoration.underline,
                     ),
@@ -137,43 +137,11 @@ class _SignInPageState extends State<SignInPage> {
                       },
                       child: Text(
                         'Entrar',
-                        style: TextStyle(fontSize: 24, color: AppColors.white),
+                        style: TextStyle(fontSize: 25, color: AppColors.white),
                       ),
                     ),
                   ),
                 ),
-                // SOH USAR ISSO SE O APPBAR N EXISTIR
-                // Row(
-                //   mainAxisAlignment: MainAxisAlignment.center,
-                //   children: [
-                //     Text(
-                //       'Não tem uma conta?',
-                //       style: TextStyle(fontSize: 16, color: AppColors.gray),
-                //     ),
-                //     ElevatedButton(
-                //       onPressed: () {
-                //         Navigator.pushNamed(context, '/signup');
-                //       },
-                //       style: ButtonStyle(
-                //         elevation: WidgetStateProperty.all(0),
-                //         backgroundColor: WidgetStateProperty.all(
-                //           AppColors.background,
-                //         ),
-                //         foregroundColor: WidgetStateProperty.all(
-                //           AppColors.background,
-                //         ),
-                //       ),
-                //       child: Text(
-                //         'Criar conta',
-                //         style: TextStyle(
-                //           fontSize: 16,
-                //           color: AppColors.gray,
-                //           decoration: TextDecoration.underline,
-                //         ),
-                //       ),
-                //     ),
-                //   ],
-                // ),
               ],
             ),
           ),
