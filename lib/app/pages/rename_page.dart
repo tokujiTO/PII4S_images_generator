@@ -68,7 +68,10 @@ class RenamePage extends StatelessWidget {
                           textAlign: TextAlign.center,
                         ),
                         const SizedBox(height: 30),
-                        CustomTextField(labelText: 'Nome'),
+                        CustomTextField(
+                          labelText: 'Nome',
+                          focusBorder: AppColors.yellow,
+                        ),
                         // TextField(
                         //   decoration: InputDecoration(
                         //     filled: true,

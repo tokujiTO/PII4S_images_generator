@@ -121,7 +121,7 @@ class _ChangeEmailPageState extends State<ChangeEmailPage> {
         //   style: TextStyle(color: AppColors.background),
         //   keyboardType: TextInputType.emailAddress,
         // ),
-        CustomTextField(labelText: 'E-mail'),
+        CustomTextField(focusBorder: AppColors.yellow, labelText: 'E-mail'),
         const SizedBox(height: 40),
         // Botão "Redefinir"
         Container(

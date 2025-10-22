@@ -53,21 +53,49 @@ class SignupPageController extends ChangeNotifier {
     super.dispose();
   }
 
-  Future<bool> signup(context) async {
+  bool _isValidEmail(String email) {
+    final emailRegex = RegExp(r"^[^@\s]+@[^@\s]+\.[^@\s]+$");
+    return emailRegex.hasMatch(email);
+  }
+
+  bool _isValidPassword(String password) {
+    return password.length >= 6;
+  }
+
+  bool _isValidName(String name) {
+    return name.trim().length >= 2;
+  }
+
+  Future<bool> signup(BuildContext context) async {
     final name = nameController.text.trim();
     final email = emailController.text.trim();
     final password = passwordController.text;
     final confirmPassword = confirmPasswordController.text;
 
-    if (email.isEmpty || password.isEmpty || confirmPassword.isEmpty) {
-      errorMessage = 'Preencha todos os campos.';
-      notifyListeners();
+    if (name.isEmpty || !_isValidName(name)) {
+      ScaffoldMessenger.of(
+        context,
+      ).showSnackBar(const SnackBar(content: Text('Digite um nome válido.')));
       return false;
     }
-
+    if (email.isEmpty || !_isValidEmail(email)) {
+      ScaffoldMessenger.of(
+        context,
+      ).showSnackBar(const SnackBar(content: Text('Digite um e-mail válido.')));
+      return false;
+    }
+    if (password.isEmpty || !_isValidPassword(password)) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: Text('A senha deve ter pelo menos 6 caracteres.'),
+        ),
+      );
+      return false;
+    }
     if (password != confirmPassword) {
-      errorMessage = 'As senhas não coincidem.';
-      notifyListeners();
+      ScaffoldMessenger.of(
+        context,
+      ).showSnackBar(const SnackBar(content: Text('As senhas não coincidem.')));
       return false;
     }
 
@@ -76,36 +104,35 @@ class SignupPageController extends ChangeNotifier {
     notifyListeners();
 
     try {
-      print('Enviando requisição de cadastro para o servidor...');
-      print('Nome: $name');
-      print('Email: $email');
-      print('Password: $password');
-      http
-          .post(
-            Uri.parse('http://127.0.0.1:5000/signup'),
-            headers: {'Content-Type': 'application/json'},
-            body: jsonEncode({'nome': name, 'email': email, 'senha': password}),
-          )
-          .then((response) {
-            if (response.statusCode == 201 || response.statusCode == 200) {
-              print('Cadastro realizado com sucesso.');
-              Navigator.pushNamedAndRemoveUntil(
-                context,
-                "/home",
-                (route) => false,
-              );
-            } else {
-              print('Falha no cadastro: ${response.body}');
-            }
-          });
-      await Future.delayed(const Duration(seconds: 2));
+      final response = await http.post(
+        Uri.parse('http://127.0.0.1:5000/signup'),
+        headers: {'Content-Type': 'application/json'},
+        body: jsonEncode({'nome': name, 'email': email, 'senha': password}),
+      );
       isLoading = false;
       notifyListeners();
-      return true;
+      if (response.statusCode == 201 || response.statusCode == 200) {
+        Navigator.pushNamedAndRemoveUntil(context, "/home", (route) => false);
+        return true;
+      } else {
+        String message = 'Falha no cadastro. Tente novamente.';
+        try {
+          final body = jsonDecode(response.body);
+          if (body is Map && body['error'] != null) {
+            message = body['error'].toString();
+          }
+        } catch (_) {}
+        ScaffoldMessenger.of(
+          context,
+        ).showSnackBar(SnackBar(content: Text(message)));
+        return false;
+      }
     } catch (e) {
-      errorMessage = 'Erro ao cadastrar. Tente novamente.';
       isLoading = false;
       notifyListeners();
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text('Erro ao cadastrar. Tente novamente.')),
+      );
       return false;
     }
   }

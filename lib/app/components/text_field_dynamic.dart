@@ -15,6 +15,7 @@ class CustomTextField extends StatelessWidget {
   final bool isPassword;
   final void Function()? onSuffixIconTap;
   final FocusNode? focusNode;
+  final Color? focusBorder;
 
   const CustomTextField({
     super.key,
@@ -31,6 +32,7 @@ class CustomTextField extends StatelessWidget {
     this.fillColor,
     this.onSuffixIconTap, // Renomeado
     this.focusNode,
+    this.focusBorder,
   });
 
   @override
@@ -88,7 +90,10 @@ class CustomTextField extends StatelessWidget {
           gapPadding: 0,
         ),
         focusedBorder: OutlineInputBorder(
-          borderSide: BorderSide(color: AppColors.blue, width: 2),
+          borderSide: BorderSide(
+            color: focusBorder ?? AppColors.blue,
+            width: 2,
+          ),
           borderRadius: BorderRadius.circular(12),
           gapPadding: 0,
         ),

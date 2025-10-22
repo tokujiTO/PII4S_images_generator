@@ -119,7 +119,7 @@ class _ResetPasswordPageState extends State<ResetPasswordPage> {
         //   style: TextStyle(color: Colors.black),
         //   keyboardType: TextInputType.emailAddress,
         // ),
-        CustomTextField(labelText: 'E-mail'),
+        CustomTextField(focusBorder: AppColors.yellow, labelText: 'E-mail'),
         const SizedBox(height: 40),
         // Botão "Redefinir"
         Container(
@@ -227,6 +227,10 @@ class _ResetPasswordPageState extends State<ResetPasswordPage> {
   }
 
   Widget _buildPasswordField(String hint) {
-    return CustomTextField(labelText: hint, isPassword: true);
+    return CustomTextField(
+      focusBorder: AppColors.yellow,
+      labelText: hint,
+      isPassword: true,
+    );
   }
 }

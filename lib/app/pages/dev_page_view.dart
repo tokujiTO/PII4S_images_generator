@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:poliedroimagesgenerator/app/utils/app_colors.dart';
 
 class DevPageView extends StatelessWidget {
   const DevPageView({super.key});
@@ -9,13 +10,8 @@ class DevPageView extends StatelessWidget {
       {'name': 'Loading', 'route': '/loading'},
       {'name': 'Init', 'route': '/first'},
       {'name': 'Home', 'route': '/home'},
-      {'name': 'Chat', 'route': '/chat'},
-      {'name': 'History', 'route': '/history'},
-      {'name': 'Settings', 'route': '/settings'},
-      {'name': 'Contact', 'route': '/contact'},
     ];
     return Scaffold(
-      appBar: AppBar(title: const Text('Dev Page')),
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,

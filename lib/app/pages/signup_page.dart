@@ -62,6 +62,7 @@ class _SignUpPageState extends State<SignUpPage> {
                           SizedBox(
                             width: MediaQuery.of(context).size.width * 0.8,
                             child: CustomTextField(
+                              focusBorder: AppColors.yellow,
                               controller: controller.nameController,
                               labelText: 'Nome',
                               onChanged: (value) => controller.setName(value),
@@ -75,6 +76,7 @@ class _SignUpPageState extends State<SignUpPage> {
                           SizedBox(
                             width: MediaQuery.of(context).size.width * 0.8,
                             child: CustomTextField(
+                              focusBorder: AppColors.yellow,
                               suffixIcon: Icon(
                                 Icons.mail,
                                 color: AppColors.white,
@@ -89,6 +91,7 @@ class _SignUpPageState extends State<SignUpPage> {
                           SizedBox(
                             width: MediaQuery.of(context).size.width * 0.8,
                             child: CustomTextField(
+                              focusBorder: AppColors.yellow,
                               controller: controller.passwordController,
                               labelText: 'Senha',
                               onChanged: (value) =>
@@ -114,6 +117,7 @@ class _SignUpPageState extends State<SignUpPage> {
                           SizedBox(
                             width: MediaQuery.of(context).size.width * 0.8,
                             child: CustomTextField(
+                              focusBorder: AppColors.yellow,
                               controller: controller.confirmPasswordController,
                               labelText: 'Confirmar Senha',
                               suffixIcon: controller.isConfirmPasswordVisible
@@ -135,44 +139,6 @@ class _SignUpPageState extends State<SignUpPage> {
                           ),
 
                           SizedBox(height: 24), // Espaço
-                          // Botão "Enviar código"
-                          ElevatedButton(
-                            onPressed: () {
-                              // Handle sign up logic
-                            },
-                            style: ButtonStyle(
-                              elevation: WidgetStateProperty.all(0),
-                              backgroundColor: WidgetStateProperty.all(
-                                Colors.transparent,
-                              ),
-                              foregroundColor: WidgetStateProperty.all(
-                                Colors.transparent,
-                              ),
-                            ),
-                            child: Text(
-                              'Enviar código de verificação',
-                              style: TextStyle(
-                                fontSize: 16,
-                                color: AppColors.white,
-                                decoration: TextDecoration.underline,
-                              ),
-                            ),
-                          ),
-
-                          SizedBox(height: 16), // Espaço
-                          // Campo "Código"
-                          SizedBox(
-                            width: MediaQuery.of(context).size.width * 0.8,
-                            child: CustomTextField(
-                              controller: controller.codeController,
-                              labelText: 'Código',
-                              keyboardType: TextInputType.number,
-                              prefixIcon: Icon(
-                                Icons.lock_outline,
-                                color: AppColors.white,
-                              ),
-                            ),
-                          ),
                         ],
                       ),
 
