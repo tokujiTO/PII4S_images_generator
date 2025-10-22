@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:poliedroimagesgenerator/app/components/text_field_dynamic.dart';
 import 'package:poliedroimagesgenerator/app/utils/app_colors.dart';
 
 class HistoryPage extends StatefulWidget {
@@ -10,11 +11,7 @@ class HistoryPage extends StatefulWidget {
 
 class _HistoryPageState extends State<HistoryPage> {
   String? _selectedSubject;
-  final List<String> _subjects = [
-    'Física',
-    'Química',
-  ];
-
+  final List<String> _subjects = ['Física', 'Química'];
 
   Widget _buildAppBar(BuildContext context) {
     return Padding(
@@ -52,63 +49,61 @@ class _HistoryPageState extends State<HistoryPage> {
       padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 12.0),
       child: Row(
         children: [
-          Expanded(
-            child: Container(
-              height: 48,
-              decoration: BoxDecoration(
-                color: AppColors.white,
-                borderRadius: BorderRadius.circular(10.0),
-              ),
-              child: TextField(
-                style: const TextStyle(color: AppColors.background),
-                decoration: InputDecoration(
-                  hintText: 'Pesquisar',
-                  hintStyle: TextStyle(
-                    color: AppColors.gray,
-                    fontSize: 16,
-                  ),
-                  border: InputBorder.none,
-                  suffixIcon: Icon(
-                    Icons.search,
-                    color: Colors.grey[700],
-                  ),
-                  contentPadding: const EdgeInsets.only(
-                    left: 16.0,
-                    top: 14.0,
-                    right: 12.0,
-                  ),
-                ),
-              ),
-            ),
-          ),
+          Expanded(child: CustomTextField(labelText: 'Pesquisar no histórico')),
           const SizedBox(width: 10),
-          
+
           Container(
             height: 48,
             width: 48,
             decoration: BoxDecoration(
-              color: AppColors.white,
+              color: Colors.transparent,
               borderRadius: BorderRadius.circular(10.0),
+              border: Border.all(color: AppColors.blue, width: 2),
             ),
             child: PopupMenuButton<String>(
-              icon: Icon(
-                Icons.filter_list,
-                color: _selectedSubject == null ? AppColors.gray : AppColors.blue,
-              ),
-              onSelected: (String result) {
-                setState(() {
-                  _selectedSubject = result;
-                  print('Matéria selecionada: $_selectedSubject');
-                });
-              },
-              itemBuilder: (BuildContext context) {
-                return _subjects.map((String subject) {
-                  return PopupMenuItem<String>(
-                    value: subject,
-                    child: Text(subject),
+              onSelected: (value) {
+                if (value == 'physics') {
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    const SnackBar(
+                      content: Text(
+                        'Física selecionada',
+                        style: TextStyle(color: Colors.white),
+                      ),
+                    ),
                   );
-                }).toList();
+                }
               },
+              color: AppColors.background,
+              itemBuilder: (BuildContext context) => <PopupMenuEntry<String>>[
+                const PopupMenuItem<String>(
+                  value: 'physics',
+                  child: Row(
+                    children: [
+                      Icon(
+                        Icons.picture_as_pdf_outlined,
+                        color: AppColors.white,
+                      ),
+                      SizedBox(width: 12),
+                      Text('Física', style: TextStyle(color: Colors.white)),
+                    ],
+                  ),
+                ),
+                const PopupMenuItem<String>(
+                  value: 'chemistry',
+                  child: Row(
+                    children: [
+                      Icon(Icons.delete, color: AppColors.white),
+                      SizedBox(width: 12),
+                      Text('Química', style: TextStyle(color: AppColors.white)),
+                    ],
+                  ),
+                ),
+              ],
+              icon: const Icon(Icons.filter_alt, color: Colors.white, size: 28),
+              tooltip: 'Mais opções',
+              style: ButtonStyle(
+                backgroundColor: WidgetStateProperty.all(Colors.transparent),
+              ),
             ),
           ),
         ],
@@ -117,7 +112,7 @@ class _HistoryPageState extends State<HistoryPage> {
   }
 
   Widget _buildHistoryList() {
-    final int itemCount = 5;
+    final int itemCount = 10;
 
     return ListView.builder(
       padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
@@ -131,7 +126,10 @@ class _HistoryPageState extends State<HistoryPage> {
     );
   }
 
-  Widget _buildHistoryCard({required String title, required String description}) {
+  Widget _buildHistoryCard({
+    required String title,
+    required String description,
+  }) {
     return Padding(
       padding: const EdgeInsets.only(bottom: 12.0),
       child: Container(
@@ -139,10 +137,7 @@ class _HistoryPageState extends State<HistoryPage> {
         decoration: BoxDecoration(
           color: Colors.black,
           borderRadius: BorderRadius.circular(12.0),
-          border: Border.all(
-            color: AppColors.gray,
-            width: 1,
-          ),
+          border: Border.all(color: AppColors.gray, width: 1),
         ),
         child: Row(
           children: [
@@ -161,10 +156,7 @@ class _HistoryPageState extends State<HistoryPage> {
                   const SizedBox(height: 4),
                   Text(
                     description,
-                    style: TextStyle(
-                      color: AppColors.gray,
-                      fontSize: 15,
-                    ),
+                    style: TextStyle(color: AppColors.gray, fontSize: 15),
                     maxLines: 2,
                     overflow: TextOverflow.ellipsis,
                   ),
@@ -180,11 +172,7 @@ class _HistoryPageState extends State<HistoryPage> {
                 borderRadius: BorderRadius.circular(10.0),
               ),
               child: Center(
-                child: Icon(
-                  Icons.insights,
-                  color: AppColors.gray,
-                  size: 40,
-                ),
+                child: Icon(Icons.insights, color: AppColors.gray, size: 40),
               ),
             ),
           ],
@@ -196,7 +184,7 @@ class _HistoryPageState extends State<HistoryPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: AppColors.background ,
+      backgroundColor: AppColors.background,
       body: Stack(
         children: [
           Positioned(
@@ -222,9 +210,7 @@ class _HistoryPageState extends State<HistoryPage> {
               children: [
                 _buildAppBar(context),
                 _buildSearchBar(),
-                Expanded(
-                  child: _buildHistoryList(),
-                ),
+                Expanded(child: _buildHistoryList()),
               ],
             ),
           ),

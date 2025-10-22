@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:poliedroimagesgenerator/app/utils/app_colors.dart';
-import 'rename_page.dart'; 
-import 'reset_passaword_page.dart'; 
-import 'change_email_page.dart'; 
-import 'delete_account_page.dart'; 
+import 'rename_page.dart';
+import 'reset_passaword_page.dart';
+import 'change_email_page.dart';
+import 'delete_account_page.dart';
 
 class SettingsPageView extends StatelessWidget {
   const SettingsPageView({Key? key}) : super(key: key);
@@ -11,8 +11,9 @@ class SettingsPageView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: AppColors.background , // Fundo preto
-      body: Stack( // Usar Stack para sobrepor o brilho
+      backgroundColor: AppColors.background, // Fundo preto
+      body: Stack(
+        // Usar Stack para sobrepor o brilho
         children: [
           // 1. Efeito de brilho verde/ciano no topo
           Positioned(
@@ -44,7 +45,7 @@ class SettingsPageView extends StatelessWidget {
                 elevation: 0,
                 leading: IconButton(
                   // Ícone branco para visibilidade
-                  icon: const Icon(Icons.arrow_back, color: Colors.white), 
+                  icon: const Icon(Icons.arrow_back, color: Colors.white),
                   onPressed: () => Navigator.of(context).pop(),
                 ),
               ),
@@ -62,7 +63,9 @@ class SettingsPageView extends StatelessWidget {
                 'Redefinir senha',
                 () => Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context) => const ResetPasswordPage()),
+                  MaterialPageRoute(
+                    builder: (context) => const ResetPasswordPage(),
+                  ),
                 ),
               ),
               _buildOption(
@@ -70,7 +73,9 @@ class SettingsPageView extends StatelessWidget {
                 'Redefinir email',
                 () => Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context) => const ChangeEmailPage()),
+                  MaterialPageRoute(
+                    builder: (context) => const ChangeEmailPage(),
+                  ),
                 ),
               ),
               _buildOption(
@@ -78,7 +83,9 @@ class SettingsPageView extends StatelessWidget {
                 'Excluir conta',
                 () => Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context) => const DeleteAccountPage()),
+                  MaterialPageRoute(
+                    builder: (context) => const DeleteAccountPage(),
+                  ),
                 ),
               ),
             ],
@@ -88,21 +95,27 @@ class SettingsPageView extends StatelessWidget {
     );
   }
 
-
   // ignore: unused_element_parameter
-  Widget _buildOption(BuildContext context, String title, VoidCallback onTap, {bool isDelete = false}) {
+  Widget _buildOption(
+    BuildContext context,
+    String title,
+    VoidCallback onTap, {
+    bool isDelete = false,
+  }) {
     return Container(
       decoration: const BoxDecoration(
-        border: Border(
-          bottom: BorderSide(color: Colors.white, width: 0.5), 
-        ),
+        border: Border(bottom: BorderSide(color: Colors.white, width: 0.5)),
       ),
       child: ListTile(
         title: Text(
           title,
-          style: const TextStyle(color: Colors.white, fontSize: 23,), 
+          style: const TextStyle(color: Colors.white, fontSize: 23),
         ),
-        trailing: const Icon(Icons.arrow_forward_ios, color: Colors.transparent, size: 0), // Ícone invisível (para alinhamento)
+        trailing: const Icon(
+          Icons.arrow_forward_ios,
+          color: Colors.transparent,
+          size: 0,
+        ), // Ícone invisível (para alinhamento)
         onTap: onTap,
         contentPadding: const EdgeInsets.symmetric(horizontal: 20, vertical: 8),
       ),

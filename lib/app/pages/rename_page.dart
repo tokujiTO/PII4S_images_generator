@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:poliedroimagesgenerator/app/components/text_field_dynamic.dart';
 import 'package:poliedroimagesgenerator/app/utils/app_colors.dart';
 
 class RenamePage extends StatelessWidget {
@@ -6,11 +7,12 @@ class RenamePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    const Color highlightColor = AppColors.yellow; 
+    const Color highlightColor = AppColors.yellow;
 
     return Scaffold(
-      backgroundColor: AppColors.background , // Fundo preto
-      body: Stack( // Usar Stack para sobrepor o brilho
+      backgroundColor: AppColors.background, // Fundo preto
+      body: Stack(
+        // Usar Stack para sobrepor o brilho
         children: [
           // 1. Efeito de brilho amarelo no topo
           Positioned(
@@ -49,7 +51,7 @@ class RenamePage extends StatelessWidget {
                     ],
                   ),
                 ),
-                
+
                 // 2b. Conteúdo original da página
                 Expanded(
                   child: Padding(
@@ -59,28 +61,38 @@ class RenamePage extends StatelessWidget {
                       children: <Widget>[
                         const Text(
                           'Digite seu novo nome:',
-                          style: TextStyle(color: AppColors.white, fontSize: 25),
+                          style: TextStyle(
+                            color: AppColors.white,
+                            fontSize: 25,
+                          ),
                           textAlign: TextAlign.center,
                         ),
                         const SizedBox(height: 30),
-                        TextField(
-                          decoration: InputDecoration(
-                            filled: true,
-                            fillColor: AppColors.white,
-                            hintText: 'Nome',
-                            hintStyle: const TextStyle(color: AppColors.gray, fontSize: 15),
-                            contentPadding: const EdgeInsets.symmetric(vertical: 15.0, horizontal: 20.0),
-                            border: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(5.0),
-                              borderSide: BorderSide.none,
-                            ),
-                            suffixIcon: const Padding(
-                              padding: EdgeInsets.only(right: 15.0),
-                              child: Icon(Icons.person, color: AppColors.gray),
-                            ),
-                          ),
-                          style: const TextStyle(color: AppColors.background),
-                        ),
+                        CustomTextField(labelText: 'Nome'),
+                        // TextField(
+                        //   decoration: InputDecoration(
+                        //     filled: true,
+                        //     fillColor: AppColors.white,
+                        //     hintText: 'Nome',
+                        //     hintStyle: const TextStyle(
+                        //       color: AppColors.gray,
+                        //       fontSize: 15,
+                        //     ),
+                        //     contentPadding: const EdgeInsets.symmetric(
+                        //       vertical: 15.0,
+                        //       horizontal: 20.0,
+                        //     ),
+                        //     border: OutlineInputBorder(
+                        //       borderRadius: BorderRadius.circular(5.0),
+                        //       borderSide: BorderSide.none,
+                        //     ),
+                        //     suffixIcon: const Padding(
+                        //       padding: EdgeInsets.only(right: 15.0),
+                        //       child: Icon(Icons.person, color: AppColors.gray),
+                        //     ),
+                        //   ),
+                        //   style: const TextStyle(color: AppColors.background),
+                        // ),
                         const SizedBox(height: 40),
                         // Botão "Redefinir"
                         Container(
@@ -91,11 +103,13 @@ class RenamePage extends StatelessWidget {
                             borderRadius: BorderRadius.circular(5.0),
                           ),
                           child: TextButton(
-                            onPressed: () {
-                            },
+                            onPressed: () {},
                             child: const Text(
                               'Redefinir',
-                              style: TextStyle(color: highlightColor, fontSize: 20),
+                              style: TextStyle(
+                                color: highlightColor,
+                                fontSize: 20,
+                              ),
                             ),
                           ),
                         ),

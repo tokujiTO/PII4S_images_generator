@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:poliedroimagesgenerator/app/components/text_field_dynamic.dart';
 import 'package:poliedroimagesgenerator/app/utils/app_colors.dart';
 
 class ContactPageView extends StatefulWidget {
@@ -11,7 +12,7 @@ class ContactPageView extends StatefulWidget {
 class _ContactPageState extends State<ContactPageView> {
   // Controller para gerenciar o texto digitado no campo de mensagem
   final TextEditingController _messageController = TextEditingController();
-  
+
   // Chave para identificar e validar o formulário
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
@@ -19,7 +20,7 @@ class _ContactPageState extends State<ContactPageView> {
     if (_formKey.currentState?.validate() ?? false) {
       final message = _messageController.text;
       print('Mensagem enviada: $message');
-      
+
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(content: Text('Mensagem enviada com sucesso!')),
       );
@@ -36,15 +37,15 @@ class _ContactPageState extends State<ContactPageView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: AppColors.background, 
-      body: Stack( 
+      backgroundColor: AppColors.background,
+      body: Stack(
         children: [
           Positioned(
             top: 0,
             left: 0,
             right: 0,
             child: Container(
-              height: 240, 
+              height: 240,
               decoration: BoxDecoration(
                 gradient: LinearGradient(
                   begin: Alignment.topCenter,
@@ -68,55 +69,58 @@ class _ContactPageState extends State<ContactPageView> {
                   CustomAppBarContent(
                     title: 'Contato',
                     onBack: () => Navigator.of(context).pop(),
-                    color: AppColors.white, 
+                    color: AppColors.white,
                   ),
 
                   const SizedBox(height: 16),
-                  
+
                   // Instrução de texto
                   const Text(
                     'Envie uma mensagem para a nossa equipe de desenvolvedores:',
                     textAlign: TextAlign.center,
-                    style: TextStyle(
-                      color: AppColors.white,
-                      fontSize: 20,
-                    ),
+                    style: TextStyle(color: AppColors.white, fontSize: 20),
                   ),
                   const SizedBox(height: 30),
-                  
-                  // Campo de Texto 
+
+                  // Campo de Texto
                   Form(
                     key: _formKey,
                     child: Container(
                       decoration: BoxDecoration(
-                        color: AppColors.white, // Fundo branco
+                        color: Colors.transparent, // Fundo transparente
                         borderRadius: BorderRadius.circular(10.0),
-                        border: Border.all(color: AppColors.blue, width: 2), 
+                        // border: Border.all(color: AppColors.blue, width: 2),
                       ),
-                      child: TextFormField(
+                      // child: TextFormField(
+                      //   controller: _messageController,
+                      //   maxLines: 10,
+                      //   minLines: 5,
+                      //   keyboardType: TextInputType.multiline,
+                      //   decoration: const InputDecoration(
+                      //     hintText: 'Mensagem',
+                      //     hintStyle: TextStyle(color: AppColors.gray),
+                      //     border: InputBorder.none,
+                      //     contentPadding: EdgeInsets.all(16.0),
+                      //   ),
+                      //   style: const TextStyle(color: AppColors.background),
+                      //   validator: (value) {
+                      //     if (value == null || value.isEmpty) {
+                      //       return 'Por favor, digite sua mensagem.';
+                      //     }
+                      //     return null;
+                      //   },
+                      // ),
+                      child: CustomTextField(
+                        labelText: 'Mensagem',
                         controller: _messageController,
-                        maxLines: 10, 
+                        maxLines: 10,
                         minLines: 5,
-                        keyboardType: TextInputType.multiline,
-                        decoration: const InputDecoration(
-                          hintText: 'Mensagem',
-                          hintStyle: TextStyle(color: AppColors.gray),
-                          border: InputBorder.none, 
-                          contentPadding: EdgeInsets.all(16.0),
-                        ),
-                        style: const TextStyle(color: AppColors.background),
-                        validator: (value) {
-                          if (value == null || value.isEmpty) {
-                            return 'Por favor, digite sua mensagem.';
-                          }
-                          return null;
-                        },
                       ),
                     ),
                   ),
 
                   const SizedBox(height: 40),
-                  
+
                   // Botão Enviar (OutlinedButton)
                   SizedBox(
                     height: 50,

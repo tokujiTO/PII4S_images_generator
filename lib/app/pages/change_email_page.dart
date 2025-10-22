@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:poliedroimagesgenerator/app/components/text_field_dynamic.dart';
 import 'package:poliedroimagesgenerator/app/utils/app_colors.dart';
 
 class ChangeEmailPage extends StatefulWidget {
@@ -32,8 +33,9 @@ class _ChangeEmailPageState extends State<ChangeEmailPage> {
     }
 
     return Scaffold(
-      backgroundColor: AppColors.background , 
-      body: Stack( // Usar Stack para sobrepor o brilho
+      backgroundColor: AppColors.background,
+      body: Stack(
+        // Usar Stack para sobrepor o brilho
         children: [
           // 1. Efeito de brilho verde/ciano no topo
           Positioned(
@@ -105,20 +107,21 @@ class _ChangeEmailPageState extends State<ChangeEmailPage> {
           style: TextStyle(color: AppColors.white, fontSize: 20),
         ),
         const SizedBox(height: 20),
-        const TextField(
-          decoration: InputDecoration(
-            filled: true,
-            fillColor: AppColors.white,
-            hintText: 'E-mail',
-            contentPadding: EdgeInsets.symmetric(
-              vertical: 15.0,
-              horizontal: 20.0,
-            ),
-            border: InputBorder.none,
-          ),
-          style: TextStyle(color: AppColors.background),
-          keyboardType: TextInputType.emailAddress,
-        ),
+        // const TextField(
+        //   decoration: InputDecoration(
+        //     filled: true,
+        //     fillColor: AppColors.white,
+        //     hintText: 'E-mail',
+        //     contentPadding: EdgeInsets.symmetric(
+        //       vertical: 15.0,
+        //       horizontal: 20.0,
+        //     ),
+        //     border: InputBorder.none,
+        //   ),
+        //   style: TextStyle(color: AppColors.background),
+        //   keyboardType: TextInputType.emailAddress,
+        // ),
+        CustomTextField(labelText: 'E-mail'),
         const SizedBox(height: 40),
         // Botão "Redefinir"
         Container(
@@ -133,7 +136,7 @@ class _ChangeEmailPageState extends State<ChangeEmailPage> {
             },
             child: Text(
               'Redefinir',
-              style: TextStyle(color: color , fontSize: 20),
+              style: TextStyle(color: color, fontSize: 20),
             ),
           ),
         ),
@@ -191,41 +194,41 @@ class _ChangeEmailPageState extends State<ChangeEmailPage> {
   }
 
   Widget _buildStep3(Color color) {
-  return Column(
-    key: const ValueKey<int>(3),
-    mainAxisAlignment: MainAxisAlignment.start, 
-    crossAxisAlignment: CrossAxisAlignment.stretch,
-    children: <Widget>[
-      // ADICIONADO: Um espaço para afastar o conteúdo da borda superior
-      const SizedBox(height: 0), 
-      
-      const Text(
-        'E-mail redefinido com sucesso!',
-        style: TextStyle(
-          color: AppColors.white, 
-          fontSize: 25,
-          fontWeight: FontWeight.bold,
+    return Column(
+      key: const ValueKey<int>(3),
+      mainAxisAlignment: MainAxisAlignment.start,
+      crossAxisAlignment: CrossAxisAlignment.stretch,
+      children: <Widget>[
+        // ADICIONADO: Um espaço para afastar o conteúdo da borda superior
+        const SizedBox(height: 0),
+
+        const Text(
+          'E-mail redefinido com sucesso!',
+          style: TextStyle(
+            color: AppColors.white,
+            fontSize: 25,
+            fontWeight: FontWeight.bold,
+          ),
+          textAlign: TextAlign.center,
         ),
-        textAlign: TextAlign.center,
-      ),
-      const SizedBox(height: 50),
-      
-      // Botão "Início"
-      Container(
-        height: 50,
-        decoration: BoxDecoration(
-          border: Border.all(color: color, width: 2),
-          borderRadius: BorderRadius.circular(5.0),
+        const SizedBox(height: 50),
+
+        // Botão "Início"
+        Container(
+          height: 50,
+          decoration: BoxDecoration(
+            border: Border.all(color: color, width: 2),
+            borderRadius: BorderRadius.circular(5.0),
+          ),
+          child: TextButton(
+            onPressed: () {
+              // Lógica para voltar, geralmente fechando a tela atual
+              Navigator.of(context).pop();
+            },
+            child: Text('Início', style: TextStyle(color: color, fontSize: 20)),
+          ),
         ),
-        child: TextButton(
-          onPressed: () {
-            // Lógica para voltar, geralmente fechando a tela atual
-            Navigator.of(context).pop(); 
-          },
-          child: Text('Início', style: TextStyle(color: color, fontSize: 20)),
-        ),
-      ),
-    ],
-  );
-}
+      ],
+    );
+  }
 }

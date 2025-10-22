@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:poliedroimagesgenerator/app/components/text_field_dynamic.dart';
 import 'package:poliedroimagesgenerator/app/utils/app_colors.dart'; // Supondo que AppColors.yellow esteja aqui
 
 class ResetPasswordPage extends StatefulWidget {
@@ -9,12 +10,12 @@ class ResetPasswordPage extends StatefulWidget {
 }
 
 class _ResetPasswordPageState extends State<ResetPasswordPage> {
-  int _step = 1; 
+  int _step = 1;
 
   @override
   Widget build(BuildContext context) {
     // A cor de destaque é a mesma do brilho
-    const Color highlightColor = AppColors.yellow; 
+    const Color highlightColor = AppColors.yellow;
 
     Widget currentStepWidget;
     switch (_step) {
@@ -32,8 +33,9 @@ class _ResetPasswordPageState extends State<ResetPasswordPage> {
     }
 
     return Scaffold(
-      backgroundColor: AppColors.background , // Fundo preto
-      body: Stack( // Usar Stack para sobrepor o brilho
+      backgroundColor: AppColors.background, // Fundo preto
+      body: Stack(
+        // Usar Stack para sobrepor o brilho
         children: [
           // 1. Efeito de brilho amarelo no topo
           Positioned(
@@ -55,7 +57,7 @@ class _ResetPasswordPageState extends State<ResetPasswordPage> {
               ),
             ),
           ),
-          
+
           // 2. Conteúdo da página (AppBar customizado + Steps)
           SafeArea(
             child: Column(
@@ -84,12 +86,11 @@ class _ResetPasswordPageState extends State<ResetPasswordPage> {
                 ),
               ],
             ),
-          )
+          ),
         ],
       ),
     );
   }
-
 
   Widget _buildStep1(Color color) {
     return Column(
@@ -107,17 +108,18 @@ class _ResetPasswordPageState extends State<ResetPasswordPage> {
         ),
         const SizedBox(height: 20),
         // Campo de texto "E-mail"
-        const TextField(
-          decoration: InputDecoration(
-            filled: true,
-            fillColor: Colors.white,
-            hintText: 'E-mail',
-            contentPadding: EdgeInsets.symmetric(vertical: 15.0, horizontal: 20.0),
-            border: InputBorder.none, 
-          ),
-          style: TextStyle(color: Colors.black),
-          keyboardType: TextInputType.emailAddress,
-        ),
+        // const TextField(
+        //   decoration: InputDecoration(
+        //     filled: true,
+        //     fillColor: Colors.white,
+        //     hintText: 'E-mail',
+        //     contentPadding: EdgeInsets.symmetric(vertical: 15.0, horizontal: 20.0),
+        //     border: InputBorder.none,
+        //   ),
+        //   style: TextStyle(color: Colors.black),
+        //   keyboardType: TextInputType.emailAddress,
+        // ),
+        CustomTextField(labelText: 'E-mail'),
         const SizedBox(height: 40),
         // Botão "Redefinir"
         Container(
@@ -153,21 +155,29 @@ class _ResetPasswordPageState extends State<ResetPasswordPage> {
         ),
         const SizedBox(height: 10),
         const Text(
-          'exemplo@gmail.com', 
-          style: TextStyle(color: Colors.white, fontSize: 20, fontWeight: FontWeight.bold),
+          'exemplo@gmail.com',
+          style: TextStyle(
+            color: Colors.white,
+            fontSize: 20,
+            fontWeight: FontWeight.bold,
+          ),
           textAlign: TextAlign.center,
         ),
         const SizedBox(height: 30),
-        
+
         const Text(
           '_ _ _ _ _ _', // Simulação das linhas
-          style: TextStyle(color: Colors.white, fontSize: 30, letterSpacing: 10),
+          style: TextStyle(
+            color: Colors.white,
+            fontSize: 30,
+            letterSpacing: 10,
+          ),
         ),
         const SizedBox(height: 60),
         // Botão "Enviar"
         Container(
           height: 50,
-          width: 200, 
+          width: 200,
           decoration: BoxDecoration(
             border: Border.all(color: color, width: 2),
             borderRadius: BorderRadius.circular(5.0),
@@ -177,10 +187,7 @@ class _ResetPasswordPageState extends State<ResetPasswordPage> {
               //validação do código e avança
               setState(() => _step = 3);
             },
-            child: Text(
-              'Enviar',
-              style: TextStyle(color: color, fontSize: 20),
-            ),
+            child: Text('Enviar', style: TextStyle(color: color, fontSize: 20)),
           ),
         ),
       ],
@@ -208,8 +215,7 @@ class _ResetPasswordPageState extends State<ResetPasswordPage> {
             borderRadius: BorderRadius.circular(5.0),
           ),
           child: TextButton(
-            onPressed: () {
-            },
+            onPressed: () {},
             child: Text(
               'Redefinir',
               style: TextStyle(color: color, fontSize: 20),
@@ -221,17 +227,6 @@ class _ResetPasswordPageState extends State<ResetPasswordPage> {
   }
 
   Widget _buildPasswordField(String hint) {
-    return TextField(
-      obscureText: true,
-      decoration: InputDecoration(
-        filled: true,
-        fillColor: Colors.white,
-        hintText: hint,
-        contentPadding: const EdgeInsets.symmetric(vertical: 15.0, horizontal: 20.0),
-        border: InputBorder.none,
-        suffixIcon: const Icon(Icons.remove_red_eye_outlined, color: Colors.grey),
-      ),
-      style: const TextStyle(color: Colors.black),
-    );
+    return CustomTextField(labelText: hint, isPassword: true);
   }
 }
