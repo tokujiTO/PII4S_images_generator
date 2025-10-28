@@ -9,14 +9,68 @@ import 'package:poliedroimagesgenerator/app/utils/app_colors.dart';
 class HomePage extends StatelessWidget {
   const HomePage({super.key});
 
+  Widget _buildHistoryCard({
+    required String title,
+    required String description,
+  }) {
+    return Padding(
+      padding: const EdgeInsets.only(bottom: 12.0),
+      child: Container(
+        padding: const EdgeInsets.all(12.0),
+        decoration: BoxDecoration(
+          color: Colors.black,
+          borderRadius: BorderRadius.circular(12.0),
+          border: Border.all(color: AppColors.gray, width: 1),
+        ),
+        child: Row(
+          children: [
+            Expanded(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    title,
+                    style: const TextStyle(
+                      color: AppColors.white,
+                      fontSize: 20,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                  const SizedBox(height: 4),
+                  Text(
+                    description,
+                    style: TextStyle(color: AppColors.gray, fontSize: 15),
+                    maxLines: 2,
+                    overflow: TextOverflow.ellipsis,
+                  ),
+                ],
+              ),
+            ),
+            const SizedBox(width: 12),
+            Container(
+              width: 80,
+              height: 80,
+              decoration: BoxDecoration(
+                color: AppColors.white,
+                borderRadius: BorderRadius.circular(10.0),
+              ),
+              child: Center(
+                child: Icon(Icons.insights, color: AppColors.gray, size: 40),
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     final TextEditingController controller = TextEditingController();
-    
+
     // O Scaffold agora não tem AppBar e o fundo é preto
     return Scaffold(
       backgroundColor: AppColors.background, // Fundo preto
-      
       // O body agora é um Stack para sobrepor o brilho
       body: Stack(
         children: [
@@ -48,11 +102,18 @@ class HomePage extends StatelessWidget {
               children: [
                 // 2a. Nosso "AppBar" customizado (o ícone de menu)
                 Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 16.0,
+                    vertical: 8.0,
+                  ),
                   child: Row(
                     children: [
                       IconButton(
-                        icon: const Icon(Icons.menu, size: 40, color: Colors.white),
+                        icon: const Icon(
+                          Icons.menu,
+                          size: 40,
+                          color: Colors.white,
+                        ),
                         onPressed: () {
                           // Ação do onPressed copiada do AppBar original
                           showGeneralDialog(
@@ -62,25 +123,34 @@ class HomePage extends StatelessWidget {
                               context,
                             ).modalBarrierDismissLabel,
                             barrierColor: Colors.black54,
-                            transitionDuration: const Duration(milliseconds: 300),
-                            pageBuilder: (context, animation, secondaryAnimation) {
-                              return const _SideSheetMenu();
-                            },
+                            transitionDuration: const Duration(
+                              milliseconds: 300,
+                            ),
+                            pageBuilder:
+                                (context, animation, secondaryAnimation) {
+                                  return const _SideSheetMenu();
+                                },
                             transitionBuilder:
-                                (context, animation, secondaryAnimation, child) {
-                              return SlideTransition(
-                                position: Tween<Offset>(
-                                  begin: const Offset(-1.0, 0.0),
-                                  end: Offset.zero,
-                                ).animate(
-                                  CurvedAnimation(
-                                    parent: animation,
-                                    curve: Curves.easeInOut,
-                                  ),
-                                ),
-                                child: child,
-                              );
-                            },
+                                (
+                                  context,
+                                  animation,
+                                  secondaryAnimation,
+                                  child,
+                                ) {
+                                  return SlideTransition(
+                                    position:
+                                        Tween<Offset>(
+                                          begin: const Offset(-1.0, 0.0),
+                                          end: Offset.zero,
+                                        ).animate(
+                                          CurvedAnimation(
+                                            parent: animation,
+                                            curve: Curves.easeInOut,
+                                          ),
+                                        ),
+                                    child: child,
+                                  );
+                                },
                           );
                         },
                       ),
@@ -88,7 +158,7 @@ class HomePage extends StatelessWidget {
                     ],
                   ),
                 ),
-                
+
                 // 2b. O resto do conteúdo (CustomScrollView)
                 // Expanded faz a lista ocupar o resto do espaço
                 Expanded(
@@ -102,12 +172,13 @@ class HomePage extends StatelessWidget {
                             children: [
                               // O SizedBox aqui pode ser ajustado ou removido
                               // já que o AppBar customizado já dá um espaçamento
-                              const SizedBox(height: 16), 
+                              const SizedBox(height: 16),
                               Hero(
                                 tag: 'logo',
                                 child: Image.asset(
                                   'lib/app/assets/horizontalColored.png',
-                                  width: MediaQuery.of(context).size.width * 0.9,
+                                  width:
+                                      MediaQuery.of(context).size.width * 0.9,
                                 ),
                               ),
                               const SizedBox(height: 32),
@@ -164,11 +235,15 @@ class HomePage extends StatelessWidget {
                                       color: AppColors.blue,
                                     ),
                                     height: 60,
-                                    width: MediaQuery.of(context).size.width * 0.6,
+                                    width:
+                                        MediaQuery.of(context).size.width * 0.6,
                                     child: const Text(
                                       'Últimas Pesquisas',
                                       textAlign: TextAlign.center,
-                                      style: TextStyle(color: Colors.white, fontSize: 23),
+                                      style: TextStyle(
+                                        color: Colors.white,
+                                        fontSize: 23,
+                                      ),
                                     ),
                                   ),
                                   const SizedBox(width: 12),
@@ -188,30 +263,15 @@ class HomePage extends StatelessWidget {
 
                       // Sliver 3: Lista de histórico
                       SliverList(
-                        delegate: SliverChildBuilderDelegate(
-                          (context, index) {
-                            return Padding(
-                              padding: const EdgeInsets.fromLTRB(24, 0, 24, 16),
-                              child: Container(
-                                height: 100,
-                                decoration: BoxDecoration(
-                                  color: AppColors.gray.withAlpha((0.2 * 255).toInt()),
-                                  borderRadius: BorderRadius.circular(12),
-                                ),
-                                child: Center(
-                                  child: Text(
-                                    'Pesquisa ${index + 1}',
-                                    style: const TextStyle(
-                                      color: Colors.white,
-                                      fontSize: 20,
-                                    ),
-                                  ),
-                                ),
-                              ),
-                            );
-                          },
-                          childCount: 10,
-                        ),
+                        delegate: SliverChildBuilderDelegate((context, index) {
+                          return Padding(
+                            padding: const EdgeInsets.fromLTRB(24, 0, 24, 16),
+                            child: _buildHistoryCard(
+                              title: 'Pesquisa ${index + 1}',
+                              description: 'Descrição da pesquisa ${index + 1}',
+                            ),
+                          );
+                        }, childCount: 5),
                       ),
                     ],
                   ),

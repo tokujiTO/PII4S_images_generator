@@ -97,7 +97,7 @@ class MenuPage extends StatelessWidget {
                 tag: 'logo',
                 child: Image.asset(
                   'lib/app/assets/horizontalWhite.png',
-                  width: MediaQuery.of(context).size.width * 0.9,
+                  width: MediaQuery.of(context).size.width * 0.6,
                 ),
               ),
             ],
