@@ -96,12 +96,7 @@ class SettingsPageView extends StatelessWidget {
   }
 
   // ignore: unused_element_parameter
-  Widget _buildOption(
-    BuildContext context,
-    String title,
-    VoidCallback onTap, {
-    bool isDelete = false,
-  }) {
+  Widget _buildOption(BuildContext context, String title, VoidCallback onTap) {
     return Container(
       decoration: const BoxDecoration(
         border: Border(bottom: BorderSide(color: Colors.white, width: 0.5)),

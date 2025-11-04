@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'dart:convert';
 import 'package:http/http.dart' as http;
+import 'package:shared_preferences/shared_preferences.dart';
 
 class SignInPageController extends ChangeNotifier {
   final TextEditingController emailController = TextEditingController();
@@ -59,8 +60,19 @@ class SignInPageController extends ChangeNotifier {
           headers: {'Content-Type': 'application/json'},
           body: jsonEncode({'email': _email, 'senha': _password}),
         )
-        .then((response) {
+        .then((response) async {
           if (response.statusCode == 200 || response.statusCode == 201) {
+            // guarda o userID e nome do usuário, se necessário
+            final body = jsonDecode(response.body);
+            if (body is Map) {
+              final userID = body["usuario"]['user_id'];
+              final userName = body["usuario"]['nome'];
+              print('UserID: $userID, Nome: $userName');
+              // Armazena o userID e o nome do usuário no local storage ou estado global, se necessário
+              final prefs = await SharedPreferences.getInstance();
+              await prefs.setString('userId', userID);
+              await prefs.setString('userName', userName);
+            }
             Navigator.pushNamedAndRemoveUntil(
               context,
               "/home",

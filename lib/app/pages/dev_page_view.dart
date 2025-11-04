@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:poliedroimagesgenerator/app/utils/app_colors.dart';
 
 class DevPageView extends StatelessWidget {
   const DevPageView({super.key});

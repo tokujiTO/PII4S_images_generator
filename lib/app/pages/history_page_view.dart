@@ -10,9 +10,6 @@ class HistoryPage extends StatefulWidget {
 }
 
 class _HistoryPageState extends State<HistoryPage> {
-  String? _selectedSubject;
-  final List<String> _subjects = ['Física', 'Química'];
-
   Widget _buildAppBar(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.fromLTRB(8.0, 16.0, 16.0, 8.0),
