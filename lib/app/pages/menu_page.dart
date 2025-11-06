@@ -6,6 +6,139 @@ class MenuPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final screenWidth = MediaQuery.of(context).size.width;
+    final isDesktop = screenWidth > 600;
+    final menuContent = Padding(
+      padding: EdgeInsets.symmetric(
+        horizontal: isDesktop ? 32 : 12,
+        vertical: isDesktop ? 48 : 24,
+      ),
+      child: ConstrainedBox(
+        constraints: BoxConstraints(
+          maxWidth: isDesktop ? 400 : double.infinity,
+        ),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            IconButton(
+              icon: Icon(
+                Icons.arrow_back_ios,
+                color: Colors.white,
+                size: isDesktop ? 48 : 40,
+              ),
+              iconSize: isDesktop ? 48 : 40,
+              onPressed: () => Navigator.of(context).pop(),
+              padding: EdgeInsets.zero,
+              splashRadius: isDesktop ? 32 : 24,
+            ),
+            SizedBox(height: isDesktop ? 60 : 40),
+            ListTile(
+              leading: Icon(
+                Icons.auto_awesome,
+                color: Colors.white,
+                size: isDesktop ? 48 : 40,
+              ),
+              title: Text(
+                'Gerar nova imagem',
+                style: TextStyle(
+                  color: Colors.white,
+                  fontSize: isDesktop ? 24 : 20,
+                ),
+              ),
+              onTap: () {
+                Navigator.popAndPushNamed(context, "/chat");
+              },
+            ),
+            SizedBox(height: isDesktop ? 24 : 16),
+            ListTile(
+              leading: Icon(
+                Icons.article_outlined,
+                color: Colors.white,
+                size: isDesktop ? 48 : 40,
+              ),
+              title: Text(
+                'Histórico',
+                style: TextStyle(
+                  color: Colors.white,
+                  fontSize: isDesktop ? 24 : 20,
+                ),
+              ),
+              onTap: () {
+                Navigator.popAndPushNamed(context, "/history");
+              },
+            ),
+            SizedBox(height: isDesktop ? 24 : 16),
+            ListTile(
+              leading: Icon(
+                Icons.settings,
+                color: Colors.white,
+                size: isDesktop ? 48 : 40,
+              ),
+              title: Text(
+                'Configurações',
+                style: TextStyle(
+                  color: Colors.white,
+                  fontSize: isDesktop ? 24 : 20,
+                ),
+              ),
+              onTap: () {
+                Navigator.popAndPushNamed(context, "/settings");
+              },
+            ),
+            SizedBox(height: isDesktop ? 24 : 16),
+            ListTile(
+              leading: Icon(
+                Icons.headphones,
+                color: Colors.white,
+                size: isDesktop ? 48 : 40,
+              ),
+              title: Text(
+                'Entrar em contato',
+                style: TextStyle(
+                  color: Colors.white,
+                  fontSize: isDesktop ? 24 : 20,
+                ),
+              ),
+              onTap: () {
+                Navigator.popAndPushNamed(context, "/contact");
+              },
+            ),
+            SizedBox(height: isDesktop ? 24 : 16),
+            ListTile(
+              leading: Icon(
+                Icons.exit_to_app,
+                color: Colors.white,
+                size: isDesktop ? 48 : 40,
+              ),
+              title: Text(
+                'Sair',
+                style: TextStyle(
+                  color: Colors.white,
+                  fontSize: isDesktop ? 24 : 20,
+                ),
+              ),
+              onTap: () {
+                Navigator.pushNamedAndRemoveUntil(
+                  context,
+                  "/first",
+                  (route) => false,
+                );
+              },
+            ),
+            Spacer(),
+            Hero(
+              tag: 'logo',
+              child: Image.asset(
+                'lib/app/assets/horizontalWhite.png',
+                width: isDesktop
+                    ? 300
+                    : MediaQuery.of(context).size.width * 0.6,
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
     return Material(
       color: AppColors.blue,
       child: SafeArea(
@@ -13,96 +146,7 @@ class MenuPage extends StatelessWidget {
         right: false,
         left: false,
         bottom: true,
-        child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 24),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              IconButton(
-                icon: Icon(Icons.arrow_back_ios, color: Colors.white, size: 40),
-                iconSize: 40,
-                onPressed: () => Navigator.of(context).pop(),
-                padding: EdgeInsets.zero,
-                splashRadius: 24,
-              ),
-              SizedBox(height: 40),
-              ListTile(
-                leading: Icon(
-                  Icons.auto_awesome,
-                  color: Colors.white,
-                  size: 40,
-                ),
-                title: Text(
-                  'Gerar nova imagem',
-                  style: TextStyle(color: Colors.white, fontSize: 20),
-                ),
-                onTap: () {
-                  Navigator.popAndPushNamed(context, "/chat");
-                },
-              ),
-              SizedBox(height: 16),
-              ListTile(
-                leading: Icon(
-                  Icons.article_outlined,
-                  color: Colors.white,
-                  size: 40,
-                ),
-                title: Text(
-                  'Histórico',
-                  style: TextStyle(color: Colors.white, fontSize: 20),
-                ),
-                onTap: () {
-                  Navigator.popAndPushNamed(context, "/history");
-                },
-              ),
-              SizedBox(height: 16),
-              ListTile(
-                leading: Icon(Icons.settings, color: Colors.white, size: 40),
-                title: Text(
-                  'Configurações',
-                  style: TextStyle(color: Colors.white, fontSize: 20),
-                ),
-                onTap: () {
-                  Navigator.popAndPushNamed(context, "/settings");
-                },
-              ),
-              SizedBox(height: 16),
-              ListTile(
-                leading: Icon(Icons.headphones, color: Colors.white, size: 40),
-                title: Text(
-                  'Entrar em contato',
-                  style: TextStyle(color: Colors.white, fontSize: 20),
-                ),
-                onTap: () {
-                  Navigator.popAndPushNamed(context, "/contact");
-                },
-              ),
-              SizedBox(height: 16),
-              ListTile(
-                leading: Icon(Icons.exit_to_app, color: Colors.white, size: 40),
-                title: Text(
-                  'Sair',
-                  style: TextStyle(color: Colors.white, fontSize: 20),
-                ),
-                onTap: () {
-                  Navigator.pushNamedAndRemoveUntil(
-                    context,
-                    "/first",
-                    (route) => false,
-                  );
-                },
-              ),
-              Spacer(),
-              Hero(
-                tag: 'logo',
-                child: Image.asset(
-                  'lib/app/assets/horizontalWhite.png',
-                  width: MediaQuery.of(context).size.width * 0.6,
-                ),
-              ),
-            ],
-          ),
-        ),
+        child: isDesktop ? Center(child: menuContent) : menuContent,
       ),
     );
   }

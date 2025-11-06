@@ -414,10 +414,12 @@ class _SideSheetMenu extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final width = MediaQuery.of(context).size.width * 0.8;
+    final screenWidth = MediaQuery.of(context).size.width;
+    final isDesktop = screenWidth > 600;
     return Align(
       alignment: Alignment.centerLeft,
       child: Container(
-        width: width,
+        width: isDesktop ? screenWidth / 2 : width,
         height: double.infinity,
         decoration: const BoxDecoration(
           color: AppColors.blue,
