@@ -28,6 +28,7 @@ class HomePageController extends ChangeNotifier {
         headers: {'Content-Type': 'application/json'},
         body: jsonEncode({'user_id': userId}),
       );
+      print(res.body);
       if (res.statusCode == 200) {
         // decoded is _Map<String, dynamic>
         final decoded = jsonDecode(res.body);

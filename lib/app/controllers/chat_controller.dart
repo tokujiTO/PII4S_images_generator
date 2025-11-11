@@ -10,6 +10,7 @@ class ChatController extends ChangeNotifier {
   String? responseMessage;
   Uint8List? responseImage;
   bool isLoading = false;
+  String? chatId;
 
   // Envia requisição POST para /chat
   Future<void> sendChat({
@@ -62,6 +63,21 @@ class ChatController extends ChangeNotifier {
     }
     isLoading = false;
     notifyListeners();
+  }
+
+  Future<void> deleteChat(String? chatId, BuildContext context) async {
+    final uri = Uri.parse('http://127.0.0.1:5000/chat');
+    final res = await http.delete(
+      uri,
+      headers: const {'Content-Type': 'application/json'},
+      body: jsonEncode({'chat_id': chatId}),
+    );
+    if (res.statusCode == 200) {
+      print('Chat deleted successfully');
+      Navigator.pop(context);
+    } else {
+      print('Failed to delete chat: ${res.statusCode}');
+    }
   }
 
   // Converte base64 para imagem PNG (Uint8List)

@@ -1,6 +1,7 @@
 import 'dart:typed_data';
 import 'package:flutter/material.dart';
 import 'package:poliedroimagesgenerator/app/components/text_field_dynamic.dart';
+import 'package:poliedroimagesgenerator/app/pages/chat_page_view.dart';
 import 'package:poliedroimagesgenerator/app/utils/app_colors.dart';
 import 'package:provider/provider.dart';
 import 'package:poliedroimagesgenerator/app/controllers/history_controller.dart';
@@ -151,6 +152,7 @@ class _HistoryPageState extends State<HistoryPage> {
           title: item.subject.isNotEmpty ? item.subject : 'Histórico',
           description: item.prompt,
           imageBytes: item.imageBytes,
+          chatId: item.id,
         );
       },
     );
@@ -160,60 +162,79 @@ class _HistoryPageState extends State<HistoryPage> {
     required String title,
     required String description,
     Uint8List? imageBytes,
+    required String chatId,
   }) {
     return Padding(
       padding: const EdgeInsets.only(bottom: 12.0),
-      child: Container(
-        padding: const EdgeInsets.all(12.0),
-        decoration: BoxDecoration(
-          color: Colors.black,
-          borderRadius: BorderRadius.circular(12.0),
-          border: Border.all(color: AppColors.gray, width: 1),
-        ),
-        child: Row(
-          children: [
-            Expanded(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    title,
-                    style: const TextStyle(
-                      color: AppColors.white,
-                      fontSize: 20,
-                      fontWeight: FontWeight.bold,
+      child: GestureDetector(
+        onTap: () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => ChatPage(
+                description: description,
+                image: imageBytes,
+                subject: title,
+                chatId: chatId,
+              ),
+            ),
+          );
+        },
+        child: Container(
+          padding: const EdgeInsets.all(12.0),
+          decoration: BoxDecoration(
+            color: Colors.black,
+            borderRadius: BorderRadius.circular(12.0),
+            border: Border.all(color: AppColors.gray, width: 1),
+          ),
+          child: Row(
+            children: [
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      title,
+                      style: const TextStyle(
+                        color: AppColors.white,
+                        fontSize: 20,
+                        fontWeight: FontWeight.bold,
+                      ),
                     ),
-                  ),
-                  const SizedBox(height: 4),
-                  Text(
-                    description,
-                    style: TextStyle(color: AppColors.gray, fontSize: 15),
-                    maxLines: 2,
-                    overflow: TextOverflow.ellipsis,
-                  ),
-                ],
+                    const SizedBox(height: 4),
+                    Text(
+                      description,
+                      style: TextStyle(color: AppColors.gray, fontSize: 15),
+                      maxLines: 2,
+                      overflow: TextOverflow.ellipsis,
+                    ),
+                  ],
+                ),
               ),
-            ),
-            const SizedBox(width: 12),
-            Container(
-              width: 80,
-              height: 80,
-              decoration: BoxDecoration(
-                color: AppColors.white,
-                borderRadius: BorderRadius.circular(10.0),
+              const SizedBox(width: 12),
+              Container(
+                width: 80,
+                height: 80,
+                decoration: BoxDecoration(
+                  color: AppColors.white,
+                  borderRadius: BorderRadius.circular(10.0),
+                ),
+                child: Center(
+                  child: imageBytes != null
+                      ? ClipRRect(
+                          borderRadius: BorderRadius.circular(10),
+                          child: Image.memory(
+                            imageBytes,
+                            width: 80,
+                            height: 80,
+                            fit: BoxFit.cover,
+                          ),
+                        )
+                      : Icon(Icons.image, color: AppColors.gray, size: 40),
+                ),
               ),
-              child: Center(
-                child: imageBytes != null
-                    ? Image.memory(
-                        imageBytes,
-                        width: 80,
-                        height: 80,
-                        fit: BoxFit.cover,
-                      )
-                    : Icon(Icons.image, color: AppColors.gray, size: 40),
-              ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );
@@ -252,6 +273,10 @@ class _HistoryPageState extends State<HistoryPage> {
                   ),
                 ),
                 SafeArea(
+                  top: true,
+                  bottom: false,
+                  left: true,
+                  right: true,
                   child: Column(
                     children: [
                       _buildAppBar(context),

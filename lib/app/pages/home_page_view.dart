@@ -4,6 +4,7 @@ import 'dart:typed_data';
 import 'package:flutter/material.dart';
 import 'package:poliedroimagesgenerator/app/components/filter_button.dart';
 import 'package:poliedroimagesgenerator/app/components/text_field_ai.dart';
+import 'package:poliedroimagesgenerator/app/pages/chat_page_view.dart';
 import 'package:poliedroimagesgenerator/app/pages/menu_page.dart';
 import 'package:poliedroimagesgenerator/app/utils/app_colors.dart';
 import 'package:provider/provider.dart';
@@ -23,60 +24,79 @@ class _HomePageState extends State<HomePage> {
     required String title,
     required String description,
     Uint8List? imageBytes,
+    required String chatId,
   }) {
     return Padding(
       padding: const EdgeInsets.only(bottom: 12.0),
-      child: Container(
-        padding: const EdgeInsets.all(12.0),
-        decoration: BoxDecoration(
-          color: Colors.black,
-          borderRadius: BorderRadius.circular(12.0),
-          border: Border.all(color: AppColors.gray, width: 1),
-        ),
-        child: Row(
-          children: [
-            Expanded(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    title,
-                    style: const TextStyle(
-                      color: AppColors.white,
-                      fontSize: 20,
-                      fontWeight: FontWeight.bold,
+      child: GestureDetector(
+        onTap: () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => ChatPage(
+                description: description,
+                image: imageBytes,
+                subject: title,
+                chatId: chatId,
+              ),
+            ),
+          );
+        },
+        child: Container(
+          padding: const EdgeInsets.all(12.0),
+          decoration: BoxDecoration(
+            color: Colors.black,
+            borderRadius: BorderRadius.circular(12.0),
+            border: Border.all(color: AppColors.gray, width: 1),
+          ),
+          child: Row(
+            children: [
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      title,
+                      style: const TextStyle(
+                        color: AppColors.white,
+                        fontSize: 20,
+                        fontWeight: FontWeight.bold,
+                      ),
                     ),
-                  ),
-                  const SizedBox(height: 4),
-                  Text(
-                    description,
-                    style: TextStyle(color: AppColors.gray, fontSize: 15),
-                    maxLines: 2,
-                    overflow: TextOverflow.ellipsis,
-                  ),
-                ],
+                    const SizedBox(height: 4),
+                    Text(
+                      description,
+                      style: TextStyle(color: AppColors.gray, fontSize: 15),
+                      maxLines: 2,
+                      overflow: TextOverflow.ellipsis,
+                    ),
+                  ],
+                ),
               ),
-            ),
-            const SizedBox(width: 12),
-            Container(
-              width: 80,
-              height: 80,
-              decoration: BoxDecoration(
-                color: AppColors.white,
-                borderRadius: BorderRadius.circular(10.0),
+              const SizedBox(width: 12),
+              Container(
+                width: 80,
+                height: 80,
+                decoration: BoxDecoration(
+                  color: AppColors.white,
+                  borderRadius: BorderRadius.circular(10.0),
+                ),
+                child: Center(
+                  child: imageBytes != null
+                      ? ClipRRect(
+                          borderRadius: BorderRadius.circular(10),
+                          child: Image.memory(
+                            imageBytes,
+                            width: 80,
+                            height: 80,
+                            fit: BoxFit.cover,
+                          ),
+                        )
+                      : Icon(Icons.image, color: AppColors.gray, size: 40),
+                ),
               ),
-              child: Center(
-                child: imageBytes != null
-                    ? Image.memory(
-                        imageBytes,
-                        width: 80,
-                        height: 80,
-                        fit: BoxFit.cover,
-                      )
-                    : Icon(Icons.image, color: AppColors.gray, size: 40),
-              ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );
@@ -84,6 +104,8 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
+    final screenWidth = MediaQuery.of(context).size.width;
+    final isDesktop = screenWidth > 600;
     final TextEditingController controller = TextEditingController();
     return ChangeNotifierProvider(
       create: (_) => HomePageController(),
@@ -117,6 +139,7 @@ class _HomePageState extends State<HomePage> {
                   ),
                 ),
                 SafeArea(
+                  bottom: false,
                   child: Column(
                     children: [
                       Padding(
@@ -228,127 +251,146 @@ class _HomePageState extends State<HomePage> {
                                   ),
                                 ),
                               ),
-                              SliverPersistentHeader(
-                                pinned: true,
-                                delegate: _SliverHeaderDelegate(
-                                  child: Column(
-                                    children: [
-                                      Container(
-                                        decoration: BoxDecoration(
-                                          borderRadius: BorderRadius.circular(
-                                            12,
-                                          ),
-                                          color: AppColors.blue,
-                                        ),
-                                        height: 12,
-                                        width:
-                                            MediaQuery.of(context).size.width *
-                                            0.9,
-                                      ),
-                                      const SizedBox(height: 24),
-                                      Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.center,
-                                        children: [
-                                          Container(
-                                            padding: const EdgeInsets.symmetric(
-                                              vertical: 14,
-                                              horizontal: 16,
-                                            ),
-                                            decoration: BoxDecoration(
-                                              borderRadius:
-                                                  BorderRadius.circular(40),
-                                              color: AppColors.blue,
-                                            ),
-                                            height: 60,
-                                            width:
-                                                MediaQuery.of(
-                                                  context,
-                                                ).size.width *
-                                                0.6,
-                                            child: const Text(
-                                              'Últimas Pesquisas',
-                                              textAlign: TextAlign.center,
-                                              style: TextStyle(
-                                                color: Colors.white,
-                                                fontSize: 23,
+                              isDesktop
+                                  ? SizedBox(height: 24)
+                                  : SliverPersistentHeader(
+                                      pinned: true,
+                                      delegate: _SliverHeaderDelegate(
+                                        child: Column(
+                                          children: [
+                                            Container(
+                                              decoration: BoxDecoration(
+                                                borderRadius:
+                                                    BorderRadius.circular(12),
+                                                color: AppColors.blue,
                                               ),
+                                              height: 12,
+                                              width:
+                                                  MediaQuery.of(
+                                                    context,
+                                                  ).size.width *
+                                                  0.9,
                                             ),
-                                          ),
-                                          const SizedBox(width: 12),
-                                          FilterButton(
-                                            onPressed: () {},
-                                            backgroundColor: AppColors.blue,
-                                            color: Colors.white,
-                                            iconSize: 40,
-                                          ),
-                                        ],
+                                            const SizedBox(height: 24),
+                                            Row(
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment.center,
+                                              children: [
+                                                Container(
+                                                  padding:
+                                                      const EdgeInsets.symmetric(
+                                                        vertical: 14,
+                                                        horizontal: 16,
+                                                      ),
+                                                  decoration: BoxDecoration(
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                          40,
+                                                        ),
+                                                    color: AppColors.blue,
+                                                  ),
+                                                  height: 60,
+                                                  width:
+                                                      MediaQuery.of(
+                                                        context,
+                                                      ).size.width *
+                                                      0.6,
+                                                  child: const Text(
+                                                    'Últimas Pesquisas',
+                                                    textAlign: TextAlign.center,
+                                                    style: TextStyle(
+                                                      color: Colors.white,
+                                                      fontSize: 23,
+                                                    ),
+                                                  ),
+                                                ),
+                                                const SizedBox(width: 12),
+                                                FilterButton(
+                                                  onPressed: () {},
+                                                  backgroundColor:
+                                                      AppColors.blue,
+                                                  color: Colors.white,
+                                                  iconSize: 40,
+                                                ),
+                                              ],
+                                            ),
+                                          ],
+                                        ),
+                                        height: 130,
                                       ),
-                                    ],
-                                  ),
-                                  height: 130,
-                                ),
-                              ),
+                                    ),
                               // Lista dinâmica de pesquisas
-                              SliverList(
-                                delegate: SliverChildBuilderDelegate(
-                                  (context, index) {
-                                    if (homeController.isLoading) {
-                                      return const Center(
-                                        child: Padding(
-                                          padding: EdgeInsets.all(32.0),
-                                          child: CircularProgressIndicator(),
-                                        ),
-                                      );
-                                    }
-                                    if (homeController.error != null) {
-                                      return Padding(
-                                        padding: const EdgeInsets.all(32.0),
-                                        child: Text(
-                                          homeController.error!,
-                                          style: const TextStyle(
-                                            color: Colors.red,
-                                          ),
-                                          textAlign: TextAlign.center,
-                                        ),
-                                      );
-                                    }
-                                    if (homeController.researches.isEmpty) {
-                                      return const Padding(
-                                        padding: EdgeInsets.all(32.0),
-                                        child: Text(
-                                          'Nenhuma pesquisa encontrada.',
-                                          style: TextStyle(color: Colors.white),
-                                          textAlign: TextAlign.center,
-                                        ),
-                                      );
-                                    }
-                                    final item =
-                                        homeController.researches[index];
-                                    return Padding(
-                                      padding: const EdgeInsets.fromLTRB(
-                                        24,
-                                        0,
-                                        24,
-                                        16,
+                              isDesktop
+                                  ? SizedBox(height: 24)
+                                  : SliverList(
+                                      delegate: SliverChildBuilderDelegate(
+                                        (context, index) {
+                                          if (homeController.isLoading) {
+                                            return const Center(
+                                              child: Padding(
+                                                padding: EdgeInsets.all(32.0),
+                                                child:
+                                                    CircularProgressIndicator(),
+                                              ),
+                                            );
+                                          }
+                                          if (homeController.error != null) {
+                                            return Padding(
+                                              padding: const EdgeInsets.all(
+                                                32.0,
+                                              ),
+                                              child: Text(
+                                                homeController.error!,
+                                                style: const TextStyle(
+                                                  color: Colors.red,
+                                                ),
+                                                textAlign: TextAlign.center,
+                                              ),
+                                            );
+                                          }
+                                          if (homeController
+                                              .researches
+                                              .isEmpty) {
+                                            return const Padding(
+                                              padding: EdgeInsets.all(32.0),
+                                              child: Text(
+                                                'Nenhuma pesquisa encontrada.',
+                                                style: TextStyle(
+                                                  color: Colors.white,
+                                                ),
+                                                textAlign: TextAlign.center,
+                                              ),
+                                            );
+                                          }
+                                          final item =
+                                              homeController.researches[index];
+                                          return Padding(
+                                            padding: const EdgeInsets.fromLTRB(
+                                              24,
+                                              0,
+                                              24,
+                                              16,
+                                            ),
+                                            child: _buildHistoryCard(
+                                              title: item.subject.isNotEmpty
+                                                  ? item.subject
+                                                  : 'Pesquisa',
+                                              description: item.prompt,
+                                              imageBytes: item.imageBytes,
+                                              chatId: item.id,
+                                            ),
+                                          );
+                                        },
+                                        childCount:
+                                            homeController.isLoading ||
+                                                homeController.error != null ||
+                                                homeController
+                                                    .researches
+                                                    .isEmpty
+                                            ? 1
+                                            : homeController.researches.length,
                                       ),
-                                      child: _buildHistoryCard(
-                                        title: item.subject.isNotEmpty
-                                            ? item.subject
-                                            : 'Pesquisa',
-                                        description: item.prompt,
-                                        imageBytes: item.imageBytes,
-                                      ),
-                                    );
-                                  },
-                                  childCount:
-                                      homeController.isLoading ||
-                                          homeController.error != null ||
-                                          homeController.researches.isEmpty
-                                      ? 1
-                                      : homeController.researches.length,
-                                ),
-                              ),
+                                    ),
                             ],
                           ),
                         ),

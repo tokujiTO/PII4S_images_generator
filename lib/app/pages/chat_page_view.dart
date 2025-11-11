@@ -1,3 +1,5 @@
+import 'dart:typed_data';
+
 import 'package:flutter/material.dart';
 import 'package:poliedroimagesgenerator/app/components/text_field_dynamic.dart';
 
@@ -6,7 +8,17 @@ import 'package:poliedroimagesgenerator/app/controllers/chat_controller.dart';
 import 'package:poliedroimagesgenerator/app/utils/app_colors.dart';
 
 class ChatPage extends StatefulWidget {
-  const ChatPage({super.key});
+  const ChatPage({
+    super.key,
+    this.image,
+    this.subject,
+    this.description,
+    this.chatId,
+  });
+  final Uint8List? image;
+  final String? subject;
+  final String? description;
+  final String? chatId;
 
   @override
   State<ChatPage> createState() => _ChatPageState();
@@ -24,6 +36,8 @@ class _ChatPageState extends State<ChatPage> {
       await Future.delayed(const Duration(milliseconds: 300));
       if (mounted) descriptionFocusNode.requestFocus();
     });
+    subjectController.text = widget.subject ?? '';
+    descriptionController.text = widget.description ?? '';
   }
 
   @override
@@ -133,6 +147,12 @@ class _ChatPageState extends State<ChatPage> {
                                 ),
                                 PopupMenuItem<String>(
                                   value: 'settings',
+                                  onTap: () {
+                                    chatController.deleteChat(
+                                      widget.chatId,
+                                      context,
+                                    );
+                                  },
                                   child: Row(
                                     children: [
                                       Icon(
@@ -185,49 +205,10 @@ class _ChatPageState extends State<ChatPage> {
                                     child: CircularProgressIndicator(),
                                   )
                                 else ...[
-                                  if (chatController.responseImage != null)
-                                    Padding(
-                                      padding: const EdgeInsets.all(12.0),
-                                      child: Image.memory(
-                                        chatController.responseImage!,
-                                        width: 400,
-                                        height: 400,
-                                        fit: BoxFit.contain,
-                                        errorBuilder:
-                                            (context, error, stackTrace) =>
-                                                Column(
-                                                  children: [
-                                                    Icon(
-                                                      Icons.broken_image,
-                                                      color: Colors.red,
-                                                      size: 80,
-                                                    ),
-                                                    Text(
-                                                      'Erro ao carregar imagem',
-                                                      style: TextStyle(
-                                                        color: Colors.red,
-                                                      ),
-                                                    ),
-                                                  ],
-                                                ),
-                                      ),
-                                    ),
-                                  if (chatController.responseMessage != null)
-                                    Padding(
-                                      padding: const EdgeInsets.symmetric(
-                                        vertical: 8.0,
-                                      ),
-                                      child: Text(
-                                        chatController.responseMessage!,
-                                        style: TextStyle(
-                                          color: Colors.white,
-                                          fontSize: 16,
-                                        ),
-                                        textAlign: TextAlign.center,
-                                      ),
-                                    ),
-                                  if (chatController.responseImage == null &&
-                                      chatController.responseMessage == null)
+                                  if ((chatController.responseImage == null &&
+                                          chatController.responseMessage ==
+                                              null) &&
+                                      widget.image == null)
                                     Padding(
                                       padding: const EdgeInsets.all(12.0),
                                       child: Column(
@@ -246,6 +227,41 @@ class _ChatPageState extends State<ChatPage> {
                                         ],
                                       ),
                                     ),
+                                  if (widget.image != null ||
+                                      chatController.responseImage != null)
+                                    Padding(
+                                      padding: const EdgeInsets.all(12.0),
+                                      child: ClipRRect(
+                                        borderRadius: BorderRadius.circular(12),
+                                        child: Image.memory(
+                                          widget.image ??
+                                              chatController.responseImage!,
+                                          width: 400,
+                                          height: 400,
+                                          fit: BoxFit.fill,
+                                          errorBuilder:
+                                              (
+                                                context,
+                                                error,
+                                                stackTrace,
+                                              ) => Column(
+                                                children: [
+                                                  Icon(
+                                                    Icons.broken_image,
+                                                    color: Colors.red,
+                                                    size: 80,
+                                                  ),
+                                                  Text(
+                                                    'Erro ao carregar imagem',
+                                                    style: TextStyle(
+                                                      color: Colors.red,
+                                                    ),
+                                                  ),
+                                                ],
+                                              ),
+                                        ),
+                                      ),
+                                    ),
                                 ],
                               ],
                             ),
@@ -260,21 +276,25 @@ class _ChatPageState extends State<ChatPage> {
                               ),
                             ),
                             const SizedBox(width: 12),
-                            FloatingActionButton(
-                              onPressed: () async {
-                                FocusScope.of(context).unfocus();
-                                await chatController.sendChat(
-                                  subject: subjectController.text,
-                                  prompt: descriptionController.text,
-                                );
-                              },
-                              backgroundColor: AppColors.blue,
-                              elevation: 0,
-                              child: const Icon(
-                                Icons.send,
-                                color: Colors.white,
-                              ),
-                            ),
+                            widget.image != null ||
+                                    chatController.isLoading ||
+                                    chatController.responseImage != null
+                                ? SizedBox.fromSize(size: Size.zero)
+                                : FloatingActionButton(
+                                    onPressed: () async {
+                                      FocusScope.of(context).unfocus();
+                                      await chatController.sendChat(
+                                        subject: subjectController.text,
+                                        prompt: descriptionController.text,
+                                      );
+                                    },
+                                    backgroundColor: AppColors.blue,
+                                    elevation: 0,
+                                    child: const Icon(
+                                      Icons.send,
+                                      color: Colors.white,
+                                    ),
+                                  ),
                           ],
                         ),
                         const SizedBox(height: 12),

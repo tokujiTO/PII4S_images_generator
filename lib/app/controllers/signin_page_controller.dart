@@ -94,6 +94,7 @@ class SignInPageController extends ChangeNotifier {
         .catchError((error) {
           // Impede de mandar novamente se já houver um snackbar visível
           if (ScaffoldMessenger.of(context).mounted) {
+            print('Erro de conexão: $error');
             ScaffoldMessenger.of(
               context,
             ).showSnackBar(SnackBar(content: Text('Erro de conexão: $error')));
