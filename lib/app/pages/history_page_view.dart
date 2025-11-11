@@ -1,6 +1,9 @@
+import 'dart:typed_data';
 import 'package:flutter/material.dart';
 import 'package:poliedroimagesgenerator/app/components/text_field_dynamic.dart';
 import 'package:poliedroimagesgenerator/app/utils/app_colors.dart';
+import 'package:provider/provider.dart';
+import 'package:poliedroimagesgenerator/app/controllers/history_controller.dart';
 
 class HistoryPage extends StatefulWidget {
   const HistoryPage({super.key});
@@ -10,6 +13,8 @@ class HistoryPage extends StatefulWidget {
 }
 
 class _HistoryPageState extends State<HistoryPage> {
+  bool _fetched = false;
+
   Widget _buildAppBar(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.fromLTRB(8.0, 16.0, 16.0, 8.0),
@@ -108,16 +113,44 @@ class _HistoryPageState extends State<HistoryPage> {
     );
   }
 
-  Widget _buildHistoryList() {
-    final int itemCount = 10;
-
+  Widget _buildHistoryList(HistoryController controller) {
+    if (controller.isLoading) {
+      return const Center(
+        child: Padding(
+          padding: EdgeInsets.all(32.0),
+          child: CircularProgressIndicator(),
+        ),
+      );
+    }
+    if (controller.error != null) {
+      return Padding(
+        padding: const EdgeInsets.all(32.0),
+        child: Text(
+          controller.error!,
+          style: const TextStyle(color: Colors.red),
+          textAlign: TextAlign.center,
+        ),
+      );
+    }
+    if (controller.historyItems.isEmpty) {
+      return const Padding(
+        padding: EdgeInsets.all(32.0),
+        child: Text(
+          'Nenhum histórico encontrado.',
+          style: TextStyle(color: Colors.white),
+          textAlign: TextAlign.center,
+        ),
+      );
+    }
     return ListView.builder(
       padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
-      itemCount: itemCount,
+      itemCount: controller.historyItems.length,
       itemBuilder: (context, index) {
+        final item = controller.historyItems[index];
         return _buildHistoryCard(
-          title: 'Física',
-          description: 'imagem exemplificando os vetores...',
+          title: item.subject.isNotEmpty ? item.subject : 'Histórico',
+          description: item.prompt,
+          imageBytes: item.imageBytes,
         );
       },
     );
@@ -126,6 +159,7 @@ class _HistoryPageState extends State<HistoryPage> {
   Widget _buildHistoryCard({
     required String title,
     required String description,
+    Uint8List? imageBytes,
   }) {
     return Padding(
       padding: const EdgeInsets.only(bottom: 12.0),
@@ -169,7 +203,14 @@ class _HistoryPageState extends State<HistoryPage> {
                 borderRadius: BorderRadius.circular(10.0),
               ),
               child: Center(
-                child: Icon(Icons.insights, color: AppColors.gray, size: 40),
+                child: imageBytes != null
+                    ? Image.memory(
+                        imageBytes,
+                        width: 80,
+                        height: 80,
+                        fit: BoxFit.cover,
+                      )
+                    : Icon(Icons.image, color: AppColors.gray, size: 40),
               ),
             ),
           ],
@@ -180,38 +221,49 @@ class _HistoryPageState extends State<HistoryPage> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: AppColors.background,
-      body: Stack(
-        children: [
-          Positioned(
-            top: 0,
-            left: 0,
-            right: 0,
-            child: Container(
-              height: 240,
-              decoration: BoxDecoration(
-                gradient: LinearGradient(
-                  begin: Alignment.topCenter,
-                  end: Alignment.bottomCenter,
-                  colors: [
-                    const Color(0xFF21BFBF).withOpacity(1.0),
-                    Colors.transparent,
-                  ],
-                ),
-              ),
-            ),
-          ),
-          SafeArea(
-            child: Column(
+    return ChangeNotifierProvider(
+      create: (_) => HistoryController(),
+      child: Consumer<HistoryController>(
+        builder: (context, historyController, _) {
+          if (!_fetched) {
+            _fetched = true;
+            historyController.fetchHistory();
+          }
+          return Scaffold(
+            backgroundColor: AppColors.background,
+            body: Stack(
               children: [
-                _buildAppBar(context),
-                _buildSearchBar(),
-                Expanded(child: _buildHistoryList()),
+                Positioned(
+                  top: 0,
+                  left: 0,
+                  right: 0,
+                  child: Container(
+                    height: 240,
+                    decoration: BoxDecoration(
+                      gradient: LinearGradient(
+                        begin: Alignment.topCenter,
+                        end: Alignment.bottomCenter,
+                        colors: [
+                          const Color(0xFF21BFBF).withOpacity(1.0),
+                          Colors.transparent,
+                        ],
+                      ),
+                    ),
+                  ),
+                ),
+                SafeArea(
+                  child: Column(
+                    children: [
+                      _buildAppBar(context),
+                      _buildSearchBar(),
+                      Expanded(child: _buildHistoryList(historyController)),
+                    ],
+                  ),
+                ),
               ],
             ),
-          ),
-        ],
+          );
+        },
       ),
     );
   }
