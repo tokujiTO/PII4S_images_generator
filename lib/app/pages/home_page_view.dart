@@ -252,7 +252,7 @@ class _HomePageState extends State<HomePage> {
                                 ),
                               ),
                               isDesktop
-                                  ? SizedBox(height: 24)
+                                  ? SliverToBoxAdapter(child: SizedBox(height: 24))
                                   : SliverPersistentHeader(
                                       pinned: true,
                                       delegate: _SliverHeaderDelegate(
@@ -321,7 +321,7 @@ class _HomePageState extends State<HomePage> {
                                     ),
                               // Lista dinâmica de pesquisas
                               isDesktop
-                                  ? SizedBox(height: 24)
+                                  ? SliverToBoxAdapter(child: SizedBox(height: 24))
                                   : SliverList(
                                       delegate: SliverChildBuilderDelegate(
                                         (context, index) {
