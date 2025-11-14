@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
+
 
 class SignInPageController extends ChangeNotifier {
   final TextEditingController emailController = TextEditingController();
@@ -13,6 +15,16 @@ class SignInPageController extends ChangeNotifier {
   String get password => _password;
 
   bool isPasswordVisible = false;
+
+  String getSecretKey() {
+    String? key = dotenv.env['API_SECRET_KEY'];
+
+    if (key == null) {
+      throw Exception("Erro: API_SECRET_KEY não encontrada no .env");
+    }
+
+    return key;
+  }
 
   void togglePasswordVisibility() {
     isPasswordVisible = !isPasswordVisible;
@@ -57,7 +69,7 @@ class SignInPageController extends ChangeNotifier {
     http
         .post(
           Uri.parse('https://polig-947071723613.southamerica-east1.run.app/login'),
-          headers: {'Content-Type': 'application/json'},
+          headers: {'Content-Type': 'application/json', 'Authorization': 'Bearer ${getSecretKey()}'},
           body: jsonEncode({'email': _email, 'senha': _password}),
         )
         .then((response) async {

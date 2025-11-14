@@ -2,6 +2,8 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
+import 'package:flutter_dotenv/flutter_dotenv.dart';
+
 
 class SignupPageController extends ChangeNotifier {
   final TextEditingController emailController = TextEditingController();
@@ -16,6 +18,16 @@ class SignupPageController extends ChangeNotifier {
   String email = '';
   String password = '';
   String name = '';
+
+  String getSecretKey() {
+    String? key = dotenv.env['API_SECRET_KEY'];
+
+    if (key == null) {
+      throw Exception("Erro: API_SECRET_KEY não encontrada no .env");
+    }
+
+    return key;
+  }
 
   void setEmail(String email) {
     this.email = email;
@@ -106,7 +118,7 @@ class SignupPageController extends ChangeNotifier {
     try {
       final response = await http.post(
         Uri.parse('https://polig-947071723613.southamerica-east1.run.app/signup'),
-        headers: {'Content-Type': 'application/json'},
+        headers: {'Content-Type': 'application/json', 'Authorization': 'Bearer ${getSecretKey()}'},
         body: jsonEncode({'nome': name, 'email': email, 'senha': password}),
       );
       isLoading = false;

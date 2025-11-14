@@ -11,8 +11,15 @@ import 'package:poliedroimagesgenerator/app/pages/settings_page_view.dart';
 import 'package:poliedroimagesgenerator/app/pages/signin_page.dart';
 import 'package:poliedroimagesgenerator/app/pages/signup_page.dart';
 import 'package:poliedroimagesgenerator/app/pages/contact_page_view.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 
-void main() {
+// void main() {
+//   runApp(DevicePreview(enabled: false, builder: (context) => const MyApp()));
+// }
+
+Future<void> main() async {
+  await dotenv.load(fileName: ".env");
+  
   runApp(DevicePreview(enabled: false, builder: (context) => const MyApp()));
 }
 
