@@ -22,7 +22,7 @@ class HistoryController extends ChangeNotifier {
         notifyListeners();
         return;
       }
-      final uri = Uri.parse('http://127.0.0.1:5000/history');
+      final uri = Uri.parse('https://polig-947071723613.southamerica-east1.run.app/history');
       final res = await http.post(
         uri,
         headers: {'Content-Type': 'application/json'},

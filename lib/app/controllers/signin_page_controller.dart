@@ -56,7 +56,7 @@ class SignInPageController extends ChangeNotifier {
 
     http
         .post(
-          Uri.parse('http://127.0.0.1:5000/login'),
+          Uri.parse('https://polig-947071723613.southamerica-east1.run.app/login'),
           headers: {'Content-Type': 'application/json'},
           body: jsonEncode({'email': _email, 'senha': _password}),
         )

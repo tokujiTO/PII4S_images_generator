@@ -28,7 +28,7 @@ class ChatController extends ChangeNotifier {
         notifyListeners();
         return;
       }
-      final uri = Uri.parse('http://127.0.0.1:5000/chat');
+      final uri = Uri.parse('https://polig-947071723613.southamerica-east1.run.app/chat');
       final res = await http.post(
         uri,
         headers: {'Content-Type': 'application/json'},
@@ -66,7 +66,7 @@ class ChatController extends ChangeNotifier {
   }
 
   Future<void> deleteChat(String? chatId, BuildContext context) async {
-    final uri = Uri.parse('http://127.0.0.1:5000/chat');
+    final uri = Uri.parse('docker push southamerica-east1-docker.pkg.dev/gen-lang-client-0961631614/polig-repo/polig:latest/chat');
     final res = await http.delete(
       uri,
       headers: const {'Content-Type': 'application/json'},

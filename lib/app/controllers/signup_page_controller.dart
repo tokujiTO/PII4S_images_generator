@@ -105,7 +105,7 @@ class SignupPageController extends ChangeNotifier {
 
     try {
       final response = await http.post(
-        Uri.parse('http://127.0.0.1:5000/signup'),
+        Uri.parse('https://polig-947071723613.southamerica-east1.run.app/signup'),
         headers: {'Content-Type': 'application/json'},
         body: jsonEncode({'nome': name, 'email': email, 'senha': password}),
       );
