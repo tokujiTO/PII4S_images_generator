@@ -114,10 +114,11 @@ class SignupPageController extends ChangeNotifier {
     isLoading = true;
     errorMessage = null;
     notifyListeners();
+  
 
     try {
       final response = await http.post(
-        Uri.parse('https://polig-947071723613.southamerica-east1.run.app/signup'),
+        Uri.parse('https://polig-947071723613.southamerica-east1.run.app/usuarios'),
         headers: {'Content-Type': 'application/json', 'Authorization': 'Bearer ${getSecretKey()}'},
         body: jsonEncode({'nome': name, 'email': email, 'senha': password}),
       );
