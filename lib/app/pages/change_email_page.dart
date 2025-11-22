@@ -90,7 +90,7 @@ class _ChangeEmailPageState extends State<ChangeEmailPage> {
                       child: const Text(
                         'Redefinir e-mail',
                         style: TextStyle(
-                          color: Colors.white,
+                          color: AppColors.white,
                           fontSize: 18,
                           fontWeight: FontWeight.w500,
                         ),
@@ -136,7 +136,7 @@ class _ChangeEmailPageState extends State<ChangeEmailPage> {
                   alignment: Alignment.topLeft,
                   child: Container(
                     // Posição fixa 
-                    margin: const EdgeInsets.only(top: 80, left: 60),
+                    margin: const EdgeInsets.only(top: 105, left: 60),
                     width: 450,
                     child: Column(
                       mainAxisSize: MainAxisSize.min,
@@ -145,8 +145,8 @@ class _ChangeEmailPageState extends State<ChangeEmailPage> {
                         const Text(
                           'Quer alterar seu e-mail?',
                           style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 32,
+                            color: AppColors.white,
+                            fontSize: 35,
                             fontWeight: FontWeight.w400,
                           ),
                         ),
@@ -189,8 +189,8 @@ class _ChangeEmailPageState extends State<ChangeEmailPage> {
         const Text(
           'Digite seu novo e-mail para\nefetuarmos a redefinição:',
           style: TextStyle(
-            color: Colors.white,
-            fontSize: 30,
+            color: AppColors.white,
+            fontSize: 27,
             height: 1.5,
           ),
           textAlign: TextAlign.center,
@@ -215,14 +215,14 @@ class _ChangeEmailPageState extends State<ChangeEmailPage> {
       children: [
         const Text(
           'Digite o código que enviamos\nagora para:',
-          style: TextStyle(color: Colors.white, fontSize: 30, height: 1.5),
+          style: TextStyle(color: AppColors.white, fontSize: 27, height: 1.5),
           textAlign: TextAlign.center,
         ),
         const SizedBox(height: 20),
         const Text(
           'exemplo@gmail.com',
           style: TextStyle(
-            color: Colors.white,
+            color: AppColors.white,
             fontSize: 22,
             fontWeight: FontWeight.bold,
           ),
@@ -232,7 +232,7 @@ class _ChangeEmailPageState extends State<ChangeEmailPage> {
         const Text(
           '_ _ _ _ _ _',
           style: TextStyle(
-            color: Colors.grey,
+            color: AppColors.gray,
             fontSize: 40,
             letterSpacing: 10,
             fontWeight: FontWeight.bold,
@@ -258,7 +258,7 @@ class _ChangeEmailPageState extends State<ChangeEmailPage> {
           'E-mail redefinido com sucesso!',
           style: TextStyle(
             color: Colors.white,
-            fontSize: 32, 
+            fontSize: 35, 
             fontWeight: FontWeight.bold,
           ),
           textAlign: TextAlign.center,
@@ -300,12 +300,12 @@ class _ChangeEmailPageState extends State<ChangeEmailPage> {
           padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 24),
           decoration: const BoxDecoration(
             border: Border(
-              bottom: BorderSide(color: Colors.white, width: 2),
+              bottom: BorderSide(color: AppColors.white, width: 2),
             ),
           ),
           child: Text(
             text,
-            style: const TextStyle(color: Colors.white, fontSize: 18),
+            style: const TextStyle(color: AppColors.white, fontSize: 18),
           ),
         ),
       ),
@@ -364,7 +364,7 @@ class _ChangeEmailPageState extends State<ChangeEmailPage> {
                   child: Row(
                     children: [
                       IconButton(
-                        icon: const Icon(Icons.arrow_back, color: Colors.white),
+                        icon: const Icon(Icons.arrow_back, color: AppColors.white),
                         onPressed: () => Navigator.of(context).pop(),
                       ),
                     ],
