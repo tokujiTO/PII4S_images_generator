@@ -117,8 +117,12 @@ class RenamePage extends StatelessWidget {
                 ),
 
                 //Formulário
-                Center(
+                Align(
+                  alignment: Alignment.topCenter, 
                   child: Container(
+
+                    margin: const EdgeInsets.only(top: 90), 
+                    
                     constraints: const BoxConstraints(maxWidth: 600),
                     padding: const EdgeInsets.all(40),
                     child: Column(
