@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:poliedroimagesgenerator/app/components/text_field_dynamic.dart';
 import 'package:poliedroimagesgenerator/app/utils/app_colors.dart';
+import 'rename_page.dart';
+import 'reset_password_page.dart';
+import 'delete_account_page.dart';
 
 class ChangeEmailPage extends StatefulWidget {
   const ChangeEmailPage({Key? key}) : super(key: key);
@@ -20,13 +23,14 @@ class _ChangeEmailPageState extends State<ChangeEmailPage> {
         if (constraints.maxWidth > 800) {
           return _buildWebLayout(context);
         }
-        //mobile
+        //mobile — NÃO ALTERADO
         return _buildMobileLayout(context);
       },
     );
   }
 
-  //web
+  // ------------------------------- WEB -------------------------------
+
   Widget _buildWebLayout(BuildContext context) {
     const Color highlightColor = AppColors.yellow;
 
@@ -49,7 +53,7 @@ class _ChangeEmailPageState extends State<ChangeEmailPage> {
       backgroundColor: AppColors.background,
       body: Row(
         children: [
-         //menu esquerdo
+          // ---------------- MENU ESQUERDO (alterei só os onTap) ----------------
           Container(
             width: 300,
             color: Colors.black,
@@ -68,17 +72,24 @@ class _ChangeEmailPageState extends State<ChangeEmailPage> {
                 _buildWebMenuItem(
                   text: 'Redefinir nome',
                   onTap: () {
-                    print("Ir para Redefinir Nome");
+                    Navigator.pushReplacement(
+                      context,
+                      MaterialPageRoute(builder: (_) => const RenamePage()),
+                    );
                   },
                 ),
 
                 _buildWebMenuItem(
                   text: 'Redefinir senha',
                   onTap: () {
-                    print("Ir para Redefinir Senha");
+                    Navigator.pushReplacement(
+                      context,
+                      MaterialPageRoute(builder: (_) => const ResetPasswordPage()),
+                    );
                   },
                 ),
 
+                // ESTA PÁGINA (DESTACADO)
                 Material(
                   color: highlightColor,
                   child: InkWell(
@@ -102,14 +113,17 @@ class _ChangeEmailPageState extends State<ChangeEmailPage> {
                 _buildWebMenuItem(
                   text: 'Excluir conta',
                   onTap: () {
-                    print("Ir para Excluir Conta");
+                    Navigator.pushReplacement(
+                      context,
+                      MaterialPageRoute(builder: (_) => const DeleteAccountPage()),
+                    );
                   },
                 ),
               ],
             ),
           ),
 
-          //conteúdo principal
+          // ------------------- CONTEÚDO PRINCIPAL -------------------
           Expanded(
             child: Stack(
               children: [
@@ -135,7 +149,6 @@ class _ChangeEmailPageState extends State<ChangeEmailPage> {
                 Align(
                   alignment: Alignment.topLeft,
                   child: Container(
-                    // Posição fixa 
                     margin: const EdgeInsets.only(top: 105, left: 60),
                     width: 450,
                     child: Column(
@@ -151,11 +164,7 @@ class _ChangeEmailPageState extends State<ChangeEmailPage> {
                           ),
                         ),
                         const SizedBox(height: 10),
-                        Container(
-                          height: 2,
-                          color: Colors.white,
-                          width: double.infinity,
-                        ),
+                        Container(height: 2, color: Colors.white),
                       ],
                     ),
                   ),
@@ -239,12 +248,9 @@ class _ChangeEmailPageState extends State<ChangeEmailPage> {
           ),
         ),
         const SizedBox(height: 40),
-        SizedBox(
-          width: double.infinity,
-          child: _buildWebButton('Enviar', highlightColor, () {
-            setState(() => _step = 3);
-          }),
-        ),
+        _buildWebButton('Enviar', highlightColor, () {
+          setState(() => _step = 3);
+        }),
       ],
     );
   }
@@ -258,7 +264,7 @@ class _ChangeEmailPageState extends State<ChangeEmailPage> {
           'E-mail redefinido com sucesso!',
           style: TextStyle(
             color: Colors.white,
-            fontSize: 35, 
+            fontSize: 35,
             fontWeight: FontWeight.bold,
           ),
           textAlign: TextAlign.center,
@@ -274,23 +280,21 @@ class _ChangeEmailPageState extends State<ChangeEmailPage> {
   Widget _buildWebButton(String text, Color color, VoidCallback onPressed) {
     return Container(
       height: 60,
-      margin: const EdgeInsets.only(top: 20), 
       decoration: BoxDecoration(
         border: Border.all(color: color, width: 2),
         borderRadius: BorderRadius.circular(8.0),
       ),
       child: TextButton(
         onPressed: onPressed,
-        child: Text(
-          text,
-          style: TextStyle(color: color, fontSize: 20),
-        ),
+        child: Text(text, style: TextStyle(color: color, fontSize: 20)),
       ),
     );
   }
 
-  Widget _buildWebMenuItem(
-      {required String text, required VoidCallback onTap}) {
+  Widget _buildWebMenuItem({
+    required String text,
+    required VoidCallback onTap,
+  }) {
     return Material(
       color: Colors.transparent,
       child: InkWell(
@@ -299,20 +303,17 @@ class _ChangeEmailPageState extends State<ChangeEmailPage> {
           width: double.infinity,
           padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 24),
           decoration: const BoxDecoration(
-            border: Border(
-              bottom: BorderSide(color: AppColors.white, width: 2),
-            ),
+            border: Border(bottom: BorderSide(color: AppColors.white, width: 2)),
           ),
-          child: Text(
-            text,
-            style: const TextStyle(color: AppColors.white, fontSize: 18),
-          ),
+          child: Text(text,
+              style: const TextStyle(color: Colors.white, fontSize: 18)),
         ),
       ),
     );
   }
 
   //mobile
+
   Widget _buildMobileLayout(BuildContext context) {
     const Color highlightColor = AppColors.yellow;
 
@@ -340,7 +341,7 @@ class _ChangeEmailPageState extends State<ChangeEmailPage> {
             left: 0,
             right: 0,
             child: Container(
-              height: 240, // Altura do brilho
+              height: 240,
               decoration: BoxDecoration(
                 gradient: LinearGradient(
                   begin: Alignment.topCenter,
@@ -354,11 +355,9 @@ class _ChangeEmailPageState extends State<ChangeEmailPage> {
             ),
           ),
 
-          //Conteúdo da página 
           SafeArea(
             child: Column(
               children: [
-                //AppBar
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 4.0),
                   child: Row(
@@ -370,6 +369,7 @@ class _ChangeEmailPageState extends State<ChangeEmailPage> {
                     ],
                   ),
                 ),
+
                 Expanded(
                   child: Padding(
                     padding: const EdgeInsets.all(30.0),
@@ -404,7 +404,6 @@ class _ChangeEmailPageState extends State<ChangeEmailPage> {
         const SizedBox(height: 20),
         CustomTextField(focusBorder: AppColors.yellow, labelText: 'E-mail'),
         const SizedBox(height: 40),
-        // Botão "Redefinir"
         Container(
           height: 50,
           decoration: BoxDecoration(
@@ -455,10 +454,9 @@ class _ChangeEmailPageState extends State<ChangeEmailPage> {
           ),
         ),
         const SizedBox(height: 60),
-        // Botão "Enviar"
         Container(
-           height: 55,
-           width: 700,
+          height: 55,
+          width: 700,
           decoration: BoxDecoration(
             border: Border.all(color: color, width: 2),
             borderRadius: BorderRadius.circular(5.0),
@@ -477,11 +475,9 @@ class _ChangeEmailPageState extends State<ChangeEmailPage> {
   Widget _buildStep3(Color color) {
     return Column(
       key: const ValueKey<int>(3),
-      mainAxisAlignment: MainAxisAlignment.start,
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: <Widget>[
         const SizedBox(height: 0),
-
         const Text(
           'E-mail redefinido com sucesso!',
           style: TextStyle(
@@ -492,8 +488,6 @@ class _ChangeEmailPageState extends State<ChangeEmailPage> {
           textAlign: TextAlign.center,
         ),
         const SizedBox(height: 50),
-
-        // Botão "Início"
         Container(
           height: 50,
           decoration: BoxDecoration(
@@ -501,10 +495,7 @@ class _ChangeEmailPageState extends State<ChangeEmailPage> {
             borderRadius: BorderRadius.circular(5.0),
           ),
           child: TextButton(
-            onPressed: () {
-              // Lógica para voltar, geralmente fechando a tela atual
-              Navigator.of(context).pop();
-            },
+            onPressed: () => Navigator.of(context).pop(),
             child: Text('Início', style: TextStyle(color: color, fontSize: 20)),
           ),
         ),

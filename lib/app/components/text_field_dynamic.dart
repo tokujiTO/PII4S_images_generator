@@ -30,7 +30,7 @@ class CustomTextField extends StatelessWidget {
     this.maxLines = 1,
     this.minLines,
     this.fillColor,
-    this.onSuffixIconTap, // Renomeado
+    this.onSuffixIconTap,
     this.focusNode,
     this.focusBorder,
   });
@@ -45,7 +45,6 @@ class CustomTextField extends StatelessWidget {
       onChanged: onChanged,
       maxLines: maxLines,
       minLines: minLines,
-      // REMOVIDO: onTap daqui (não pertence mais ao TextField inteiro)
       decoration: InputDecoration(
         labelText: labelText,
         labelStyle: TextStyle(
@@ -70,7 +69,7 @@ class CustomTextField extends StatelessWidget {
         ),
         suffixIcon: suffixIcon != null
             ? GestureDetector(
-                onTap: onSuffixIconTap, // Tap apenas no suffixIcon
+                onTap: onSuffixIconTap,
                 child: Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 12),
                   child: suffixIcon,
