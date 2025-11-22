@@ -457,8 +457,8 @@ class _ChangeEmailPageState extends State<ChangeEmailPage> {
         const SizedBox(height: 60),
         // Botão "Enviar"
         Container(
-          height: 50,
-          width: 200,
+           height: 55,
+           width: 700,
           decoration: BoxDecoration(
             border: Border.all(color: color, width: 2),
             borderRadius: BorderRadius.circular(5.0),
@@ -467,7 +467,7 @@ class _ChangeEmailPageState extends State<ChangeEmailPage> {
             onPressed: () {
               setState(() => _step = 3);
             },
-            child: Text('Enviar', style: TextStyle(color: color, fontSize: 20)),
+            child: Text('Enviar', style: TextStyle(color: color, fontSize: 24)),
           ),
         ),
       ],
@@ -486,7 +486,7 @@ class _ChangeEmailPageState extends State<ChangeEmailPage> {
           'E-mail redefinido com sucesso!',
           style: TextStyle(
             color: AppColors.white,
-            fontSize: 25,
+            fontSize: 27,
             fontWeight: FontWeight.bold,
           ),
           textAlign: TextAlign.center,
