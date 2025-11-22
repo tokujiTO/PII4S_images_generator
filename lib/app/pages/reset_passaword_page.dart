@@ -14,19 +14,20 @@ class _ResetPasswordPageState extends State<ResetPasswordPage> {
 
   @override
   Widget build(BuildContext context) {
+    // LayoutBuilder para decidir qual tela mostrar
     return LayoutBuilder(
       builder: (context, constraints) {
-        //Web
+        // Se largura > 800, mostra layout Web
         if (constraints.maxWidth > 800) {
           return _buildWebLayout(context);
         }
-        //mobile
+        // Senão, mostra seu mobile original intacto
         return _buildMobileLayout(context);
       },
     );
   }
 
-  //Web
+  //web
   Widget _buildWebLayout(BuildContext context) {
     const Color highlightColor = AppColors.yellow;
 
@@ -49,7 +50,7 @@ class _ResetPasswordPageState extends State<ResetPasswordPage> {
       backgroundColor: AppColors.background,
       body: Row(
         children: [
-         //menu esquerdo
+          //menu esquerdo
           Container(
             width: 300,
             color: Colors.black,
@@ -75,7 +76,7 @@ class _ResetPasswordPageState extends State<ResetPasswordPage> {
                 Material(
                   color: highlightColor,
                   child: InkWell(
-                    onTap: () {}, 
+                    onTap: () {},
                     child: Container(
                       width: double.infinity,
                       padding: const EdgeInsets.symmetric(
@@ -109,10 +110,11 @@ class _ResetPasswordPageState extends State<ResetPasswordPage> {
             ),
           ),
 
-         //conteúdo principal
+          //conteudo principal
           Expanded(
             child: Stack(
               children: [
+                // A. Brilho no topo
                 Positioned(
                   top: 0,
                   left: 0,
@@ -133,14 +135,14 @@ class _ResetPasswordPageState extends State<ResetPasswordPage> {
                 ),
 
                 Align(
-                  alignment: Alignment.topCenter,
+                  alignment: Alignment.topLeft,
                   child: Container(
-                    margin: const EdgeInsets.only(top: 100), 
-                    constraints: const BoxConstraints(maxWidth: 600),
-                    padding: const EdgeInsets.symmetric(horizontal: 40),
+                    // posição do título 
+                    margin: const EdgeInsets.only(top: 80, left: 60), 
+                    width: 450, // Largura da linha branca
                     child: Column(
                       mainAxisSize: MainAxisSize.min,
-                      crossAxisAlignment: CrossAxisAlignment.stretch,
+                      crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         const Text(
                           'Precisa alterar sua senha?',
@@ -151,20 +153,26 @@ class _ResetPasswordPageState extends State<ResetPasswordPage> {
                           ),
                         ),
                         const SizedBox(height: 10),
-                        // Linha branca divisória
                         Container(
                           height: 2,
                           color: Colors.white,
-                          width: double.infinity,
-                        ),
-                        const SizedBox(height: 40),
-
-                        // O conteúdo variável (Step 1, 2 ou 3) entra aqui
-                        AnimatedSwitcher(
-                          duration: const Duration(milliseconds: 300),
-                          child: currentWebStepWidget,
+                          width: 700,
                         ),
                       ],
+                    ),
+                  ),
+                ),
+
+                Align(
+                  alignment: Alignment.topCenter,
+                  child: Container(
+                    // Margem Top maior para ficar abaixo do título
+                    margin: const EdgeInsets.only(top: 200), 
+                    constraints: const BoxConstraints(maxWidth: 600),
+                    padding: const EdgeInsets.symmetric(horizontal: 40),
+                    child: AnimatedSwitcher(
+                      duration: const Duration(milliseconds: 300),
+                      child: currentWebStepWidget,
                     ),
                   ),
                 ),
@@ -176,7 +184,6 @@ class _ResetPasswordPageState extends State<ResetPasswordPage> {
     );
   }
 
-  // --- Widgets Específicos para os Passos da Web ---
 
   Widget _buildWebStep1(Color highlightColor) {
     return Column(
@@ -187,10 +194,10 @@ class _ResetPasswordPageState extends State<ResetPasswordPage> {
           'Digite seu novo e-mail para\nefetuarmos a redefinição:',
           style: TextStyle(
             color: Colors.white, 
-            fontSize: 22,
+            fontSize: 30,
             height: 1.5,
           ),
-          textAlign: TextAlign.center,
+          textAlign: TextAlign.center, // Texto centralizado no bloco central
         ),
         const SizedBox(height: 40),
         CustomTextField(
@@ -208,11 +215,11 @@ class _ResetPasswordPageState extends State<ResetPasswordPage> {
   Widget _buildWebStep2(Color highlightColor) {
     return Column(
       key: const ValueKey<int>(2),
-      crossAxisAlignment: CrossAxisAlignment.center, // Centralizado na Web
+      crossAxisAlignment: CrossAxisAlignment.center,
       children: [
         const Text(
           'Digite o código que enviamos\nagora para:',
-          style: TextStyle(color: Colors.white, fontSize: 22, height: 1.5),
+          style: TextStyle(color: Colors.white, fontSize: 30, height: 1.5),
           textAlign: TextAlign.center,
         ),
         const SizedBox(height: 20),
@@ -229,15 +236,15 @@ class _ResetPasswordPageState extends State<ResetPasswordPage> {
         const Text(
           '_ _ _ _ _ _',
           style: TextStyle(
-            color: Colors.grey, // Cinza como no print
+            color: Colors.grey,
             fontSize: 40,
             letterSpacing: 10,
             fontWeight: FontWeight.bold
           ),
         ),
-        // REMOVIDO O SIZEDBOX(HEIGHT: 60) AQUI
+        const SizedBox(height: 30),
         SizedBox(
-          width: double.infinity, // Botão esticado no container de 600px
+          width: double.infinity,
           child: _buildWebButton('Enviar', highlightColor, () {
             setState(() => _step = 3);
           }),
@@ -255,7 +262,7 @@ class _ResetPasswordPageState extends State<ResetPasswordPage> {
           alignment: Alignment.center,
           child: Text(
             'Digite sua nova senha:',
-            style: TextStyle(color: Colors.white, fontSize: 22),
+            style: TextStyle(color: Colors.white, fontSize: 30),
           ),
         ),
         const SizedBox(height: 40),
@@ -295,7 +302,6 @@ class _ResetPasswordPageState extends State<ResetPasswordPage> {
     );
   }
 
-  // menu lateral
   Widget _buildWebMenuItem({required String text, required VoidCallback onTap}) {
     return Material(
       color: Colors.transparent,
@@ -338,7 +344,7 @@ class _ResetPasswordPageState extends State<ResetPasswordPage> {
     }
 
     return Scaffold(
-      backgroundColor: AppColors.background, 
+      backgroundColor: AppColors.background,
       body: Stack(
         children: [
           Positioned(
@@ -346,7 +352,7 @@ class _ResetPasswordPageState extends State<ResetPasswordPage> {
             left: 0,
             right: 0,
             child: Container(
-              height: 240, // Altura do brilho
+              height: 240,
               decoration: BoxDecoration(
                 gradient: LinearGradient(
                   begin: Alignment.topCenter,
@@ -359,12 +365,9 @@ class _ResetPasswordPageState extends State<ResetPasswordPage> {
               ),
             ),
           ),
-
-          // Conteúdo da página
           SafeArea(
             child: Column(
               children: [
-                // AppBar 
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 4.0),
                   child: Row(
@@ -410,7 +413,6 @@ class _ResetPasswordPageState extends State<ResetPasswordPage> {
         const SizedBox(height: 20),
         CustomTextField(focusBorder: AppColors.yellow, labelText: 'E-mail'),
         const SizedBox(height: 40),
-        // Botão "Redefinir"
         Container(
           height: 50,
           decoration: BoxDecoration(
@@ -419,7 +421,6 @@ class _ResetPasswordPageState extends State<ResetPasswordPage> {
           ),
           child: TextButton(
             onPressed: () {
-              // envio do e-mail e avança
               setState(() => _step = 2);
             },
             child: Text(
@@ -453,9 +454,8 @@ class _ResetPasswordPageState extends State<ResetPasswordPage> {
           textAlign: TextAlign.center,
         ),
         const SizedBox(height: 30),
-
         const Text(
-          '_ _ _ _ _ _', // Simulação das linhas
+          '_ _ _ _ _ _',
           style: TextStyle(
             color: Colors.white,
             fontSize: 30,
@@ -463,7 +463,6 @@ class _ResetPasswordPageState extends State<ResetPasswordPage> {
           ),
         ),
         const SizedBox(height: 60),
-        // Botão "Enviar"
         Container(
           height: 50,
           width: 200,
@@ -473,7 +472,6 @@ class _ResetPasswordPageState extends State<ResetPasswordPage> {
           ),
           child: TextButton(
             onPressed: () {
-              //validação do código e avança
               setState(() => _step = 3);
             },
             child: Text('Enviar', style: TextStyle(color: color, fontSize: 20)),
