@@ -8,7 +8,7 @@ class RenamePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     const Color highlightColor = AppColors.yellow;
-
+  
     return Scaffold(
       backgroundColor: AppColors.background, // Fundo preto
       body: Stack(
