@@ -467,7 +467,7 @@ class _ChangeEmailPageState extends State<ChangeEmailPage> {
             onPressed: () {
               setState(() => _step = 3);
             },
-            child: Text('Enviar', style: TextStyle(color: color, fontSize: 20)),
+            child: Text('Enviar', style: TextStyle(color: color, fontSize: 24)),
           ),
         ),
       ],
@@ -486,7 +486,7 @@ class _ChangeEmailPageState extends State<ChangeEmailPage> {
           'E-mail redefinido com sucesso!',
           style: TextStyle(
             color: AppColors.white,
-            fontSize: 25,
+            fontSize: 27,
             fontWeight: FontWeight.bold,
           ),
           textAlign: TextAlign.center,

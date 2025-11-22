@@ -1,5 +1,3 @@
-// ignore_for_file: unused_local_variable
-
 import 'package:flutter/material.dart';
 import 'package:poliedroimagesgenerator/app/utils/app_colors.dart';
 
@@ -8,27 +6,34 @@ class DeleteAccountPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    // LayoutBuilder para manter responsividade
     return LayoutBuilder(
       builder: (context, constraints) {
-        //Web
+        // Se largura > 800, mostra layout Web
         if (constraints.maxWidth > 800) {
           return _buildWebLayout(context);
         }
-        // Mobile
+        // Mobile original intacto
         return _buildMobileLayout(context);
       },
     );
   }
 
-  //web
+  // ===========================================================================
+  // LAYOUT WEB (COM BOTÃO CANCELAR)
+  // ===========================================================================
   Widget _buildWebLayout(BuildContext context) {
-    const Color highLightColor = AppColors.red;
+    // Cores do print (Rosa/Avermelhado)
+    const Color primaryPink = Color(0xFFD81B60);
+    const Color glowColor = Color(0xFFF2275D);
 
     return Scaffold(
-      backgroundColor: Colors.black,
+      backgroundColor: Colors.black, // Fundo preto total
       body: Row(
         children: [
-        //menu esquerdo
+          // -------------------------------------------------------
+          // 1. MENU LATERAL
+          // -------------------------------------------------------
           Container(
             width: 300,
             color: Colors.black,
@@ -50,13 +55,12 @@ class DeleteAccountPage extends StatelessWidget {
                 _buildWebMenuItem(text: 'Redefinir senha', onTap: () {}),
                 _buildWebMenuItem(text: 'Redefinir e-mail', onTap: () {}),
 
+                // Item EXCLUIR CONTA (Bloco Sólido Rosa)
                 Container(
                   width: double.infinity,
-                  color: AppColors.red,
-                  padding: const EdgeInsets.symmetric(
-                    vertical: 24,
-                    horizontal: 24,
-                  ),
+                  color: primaryPink, // Fundo rosa sólido
+                  padding:
+                      const EdgeInsets.symmetric(vertical: 24, horizontal: 24),
                   child: const Text(
                     'Excluir conta',
                     style: TextStyle(
@@ -70,22 +74,25 @@ class DeleteAccountPage extends StatelessWidget {
             ),
           ),
 
-          //conteudo principal
+          // -------------------------------------------------------
+          // 2. ÁREA DE CONTEÚDO (DIREITA)
+          // -------------------------------------------------------
           Expanded(
             child: Stack(
               children: [
+                // A. Brilho no topo
                 Positioned(
                   top: 0,
                   left: 0,
                   right: 0,
-                  height: 350, // Altura do brilho
+                  height: 350,
                   child: Container(
                     decoration: BoxDecoration(
                       gradient: LinearGradient(
                         begin: Alignment.topCenter,
                         end: Alignment.bottomCenter,
                         colors: [
-                          AppColors.red.withOpacity(0.6), 
+                          glowColor.withOpacity(0.6), // Brilho rosa
                           Colors.transparent,
                         ],
                       ),
@@ -93,9 +100,9 @@ class DeleteAccountPage extends StatelessWidget {
                   ),
                 ),
 
+                // B. Conteúdo Centralizado e no Topo
                 Align(
-                  alignment:
-                      Alignment.topCenter, 
+                  alignment: Alignment.topCenter,
                   child: Container(
                     margin: const EdgeInsets.only(top: 120),
                     constraints: const BoxConstraints(maxWidth: 600),
@@ -109,30 +116,31 @@ class DeleteAccountPage extends StatelessWidget {
                           'Excluir conta',
                           style: TextStyle(
                             color: Colors.white,
-                            fontSize: 48,
+                            fontSize: 45,
                             fontWeight: FontWeight.w400,
                           ),
                           textAlign: TextAlign.center,
                         ),
                         const SizedBox(height: 60),
 
+                        // Texto Descritivo
                         const Text(
                           'Tem certeza que deseja excluir sua conta?\nIsso apagará permanentemente todas as\nsuas informações.',
                           style: TextStyle(
                             color: Colors.white,
-                            fontSize: 24,
+                            fontSize: 27,
                             height: 1.4,
                           ),
                           textAlign: TextAlign.center,
                         ),
-                        const SizedBox(height: 100),
+                        const SizedBox(height: 60),
 
-                        // Botão Excluir
+                        // Botão Excluir (Outline Rosa)
                         Container(
                           height: 55,
                           width: 700,
                           decoration: BoxDecoration(
-                            border: Border.all(color: AppColors.red, width: 2),
+                            border: Border.all(color: primaryPink, width: 2),
                             borderRadius: BorderRadius.circular(12.0),
                           ),
                           child: TextButton(
@@ -142,8 +150,33 @@ class DeleteAccountPage extends StatelessWidget {
                             child: const Text(
                               'Excluir',
                               style: TextStyle(
-                                color: AppColors.red,
-                                fontSize: 22,
+                                color: primaryPink,
+                                fontSize: 24,
+                                fontWeight: FontWeight.w400,
+                              ),
+                            ),
+                          ),
+                        ),
+
+                        const SizedBox(height: 20),
+
+                        // Botão Cancelar (Outline Branco) - ADICIONADO
+                        Container(
+                          height: 55,
+                          width: 700,
+                          decoration: BoxDecoration(
+                            border: Border.all(color: Colors.white, width: 2),
+                            borderRadius: BorderRadius.circular(12.0),
+                          ),
+                          child: TextButton(
+                            onPressed: () {
+                              Navigator.of(context).pop();
+                            },
+                            child: const Text(
+                              'Cancelar',
+                              style: TextStyle(
+                                color: Colors.white,
+                                fontSize: 24,
                                 fontWeight: FontWeight.w400,
                               ),
                             ),
@@ -161,10 +194,9 @@ class DeleteAccountPage extends StatelessWidget {
     );
   }
 
-  Widget _buildWebMenuItem({
-    required String text,
-    required VoidCallback onTap,
-  }) {
+  // Helper para itens do menu com linha branca
+  Widget _buildWebMenuItem(
+      {required String text, required VoidCallback onTap}) {
     return Material(
       color: Colors.transparent,
       child: InkWell(
@@ -174,10 +206,8 @@ class DeleteAccountPage extends StatelessWidget {
           padding: const EdgeInsets.symmetric(vertical: 24, horizontal: 24),
           decoration: const BoxDecoration(
             border: Border(
-              bottom: BorderSide(
-                color: Colors.white,
-                width: 1.5,
-              ), 
+              bottom:
+                  BorderSide(color: Colors.white, width: 1.5), // Linha branca
             ),
           ),
           child: Text(
@@ -189,7 +219,7 @@ class DeleteAccountPage extends StatelessWidget {
     );
   }
 
-  //mobile
+  //mobile 
   Widget _buildMobileLayout(BuildContext context) {
     const Color deleteColor = Color(0xFFE91E63);
 
@@ -216,11 +246,10 @@ class DeleteAccountPage extends StatelessWidget {
             ),
           ),
 
-          //Conteúdo
+          //Conteúdo da página
           SafeArea(
             child: Column(
               children: [
-                // Botão de voltar
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 4.0),
                   child: Row(
@@ -232,7 +261,6 @@ class DeleteAccountPage extends StatelessWidget {
                     ],
                   ),
                 ),
-
                 Expanded(
                   child: Padding(
                     padding: const EdgeInsets.all(30.0),
@@ -243,10 +271,9 @@ class DeleteAccountPage extends StatelessWidget {
                         const Text(
                           'Excluir conta',
                           style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 25,
-                            fontWeight: FontWeight.bold,
-                          ),
+                              color: Colors.white,
+                              fontSize: 25,
+                              fontWeight: FontWeight.bold),
                           textAlign: TextAlign.center,
                         ),
                         const SizedBox(height: 50),
@@ -262,7 +289,6 @@ class DeleteAccountPage extends StatelessWidget {
                           textAlign: TextAlign.center,
                         ),
                         const SizedBox(height: 80),
-                        // Botão "Excluir"
                         Container(
                           height: 50,
                           decoration: BoxDecoration(
@@ -273,10 +299,8 @@ class DeleteAccountPage extends StatelessWidget {
                             onPressed: () {},
                             child: const Text(
                               'Excluir',
-                              style: TextStyle(
-                                color: deleteColor,
-                                fontSize: 20,
-                              ),
+                              style:
+                                  TextStyle(color: deleteColor, fontSize: 20),
                             ),
                           ),
                         ),
@@ -293,10 +317,8 @@ class DeleteAccountPage extends StatelessWidget {
                             },
                             child: const Text(
                               'Cancelar',
-                              style: TextStyle(
-                                color: Colors.white,
-                                fontSize: 20,
-                              ),
+                              style:
+                                  TextStyle(color: Colors.white, fontSize: 20),
                             ),
                           ),
                         ),
