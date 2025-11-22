@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:poliedroimagesgenerator/app/utils/app_colors.dart';
+import 'package:poliedroimagesgenerator/app/pages/change_email_page.dart';
+import 'package:poliedroimagesgenerator/app/pages/reset_password_page.dart';
+import 'package:poliedroimagesgenerator/app/pages/rename_page.dart';
 
 class DeleteAccountPage extends StatelessWidget {
   const DeleteAccountPage({Key? key}) : super(key: key);
@@ -41,9 +44,33 @@ class DeleteAccountPage extends StatelessWidget {
                 ),
                 const SizedBox(height: 20),
 
-                _buildWebMenuItem(text: 'Redefinir nome', onTap: () {}),
-                _buildWebMenuItem(text: 'Redefinir senha', onTap: () {}),
-                _buildWebMenuItem(text: 'Redefinir e-mail', onTap: () {}),
+                _buildWebMenuItem(
+                  text: 'Redefinir nome',
+                  onTap: () {
+                    Navigator.pushReplacement(
+                      context,
+                      MaterialPageRoute(builder: (_) => const RenamePage()),
+                    );
+                  },
+                ),
+                _buildWebMenuItem(
+                  text: 'Redefinir senha',
+                  onTap: () {
+                    Navigator.pushReplacement(
+                      context,
+                      MaterialPageRoute(builder: (_) => const ResetPasswordPage()),
+                    );
+                  },
+                ),
+                _buildWebMenuItem(
+                  text: 'Redefinir e-mail',
+                  onTap: () {
+                    Navigator.pushReplacement(
+                      context,
+                      MaterialPageRoute(builder: (_) => const ChangeEmailPage()),
+                    );
+                  },
+                ),
 
                 
                 Container(

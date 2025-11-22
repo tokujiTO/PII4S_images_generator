@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:poliedroimagesgenerator/app/components/text_field_dynamic.dart';
 import 'package:poliedroimagesgenerator/app/utils/app_colors.dart';
+import 'change_email_page.dart';
+import 'reset_password_page.dart';
+import 'delete_account_page.dart';
 
 class RenamePage extends StatelessWidget {
   const RenamePage({Key? key}) : super(key: key);
@@ -9,11 +12,9 @@ class RenamePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return LayoutBuilder(
       builder: (context, constraints) {
-        //Web/Desktop
         if (constraints.maxWidth > 800) {
           return _buildWebLayout(context);
         }
-        // Mobile
         return _buildMobileLayout(context);
       },
     );
@@ -26,14 +27,12 @@ class RenamePage extends StatelessWidget {
       backgroundColor: AppColors.background,
       body: Row(
         children: [
-         //Menu esquerdo
           Container(
             width: 300,
             color: Colors.black,
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                // Voltar
                 Padding(
                   padding: const EdgeInsets.all(20.0),
                   child: IconButton(
@@ -43,16 +42,20 @@ class RenamePage extends StatelessWidget {
                 ),
                 const SizedBox(height: 20),
 
+                //Botão: Redefinir Nome
                 Material(
-                  color: highlightColor, 
+                  color: highlightColor,
                   child: InkWell(
                     onTap: () {
-                      // "Redefinir nome"
-                      print("Clicou em Redefinir nome");
+                      Navigator.pushReplacement(
+                        context,
+                        MaterialPageRoute(builder: (_) => const RenamePage()),
+                      );
                     },
                     child: Container(
                       width: double.infinity,
-                      padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 24),
+                      padding: const EdgeInsets.symmetric(
+                          vertical: 20, horizontal: 24),
                       child: const Text(
                         'Redefinir nome',
                         style: TextStyle(
@@ -65,35 +68,46 @@ class RenamePage extends StatelessWidget {
                   ),
                 ),
 
-                // Redefinir senha
+                // Botão: Redefinir Senha
                 _buildWebMenuItem(
                   text: 'Redefinir senha',
                   onTap: () {
-                    print("Clicou em Redefinir senha");
+                    Navigator.pushReplacement(
+                      context,
+                      MaterialPageRoute(
+                          builder: (_) => const ResetPasswordPage()),
+                    );
                   },
                 ),
 
-                //Redefinir e-mail
+                //Botão: Redefinir Email 
                 _buildWebMenuItem(
                   text: 'Redefinir e-mail',
                   onTap: () {
-                    print("Clicou em Redefinir e-mail");
+                    Navigator.pushReplacement(
+                      context,
+                      MaterialPageRoute(
+                          builder: (_) => const ChangeEmailPage()),
+                    );
                   },
                 ),
 
-                //Excluir conta
+                // Botão: Excluir Conta
                 _buildWebMenuItem(
                   text: 'Excluir conta',
                   onTap: () {
-                    // COLOQUE AQUI SUA NAVEGAÇÃO
-                    print("Clicou em Excluir conta");
+                    Navigator.pushReplacement(
+                      context,
+                      MaterialPageRoute(
+                          builder: (_) => const DeleteAccountPage()),
+                    );
                   },
                 ),
               ],
             ),
           ),
 
-          //Conteudo lado direito
+        //web
           Expanded(
             child: Stack(
               children: [
@@ -116,14 +130,11 @@ class RenamePage extends StatelessWidget {
                   ),
                 ),
 
-                //Formulário
                 Align(
-                  alignment: Alignment.topCenter, 
+                  alignment: Alignment.topCenter,
                   child: Container(
-
-                    margin: const EdgeInsets.only(top: 90), 
-                    
-                    constraints: const BoxConstraints(maxWidth: 600),
+                    margin: const EdgeInsets.only(top: 90),
+                    constraints: const BoxConstraints(maxWidth: 800),
                     padding: const EdgeInsets.all(40),
                     child: Column(
                       mainAxisSize: MainAxisSize.min,
@@ -133,7 +144,7 @@ class RenamePage extends StatelessWidget {
                           'Digite seu novo nome:',
                           style: TextStyle(
                             color: AppColors.white,
-                            fontSize: 32,
+                            fontSize: 27,
                           ),
                           textAlign: TextAlign.center,
                         ),
@@ -144,7 +155,8 @@ class RenamePage extends StatelessWidget {
                         ),
                         const SizedBox(height: 50),
                         Container(
-                          height: 60,
+                          height: 55,
+                          width: 700,
                           decoration: BoxDecoration(
                             border: Border.all(color: highlightColor, width: 2),
                             borderRadius: BorderRadius.circular(8.0),
@@ -155,7 +167,7 @@ class RenamePage extends StatelessWidget {
                               'Redefinir',
                               style: TextStyle(
                                 color: highlightColor,
-                                fontSize: 22,
+                                fontSize: 24,
                               ),
                             ),
                           ),
@@ -172,9 +184,11 @@ class RenamePage extends StatelessWidget {
     );
   }
 
-  Widget _buildWebMenuItem({required String text, required VoidCallback onTap}) {
+
+  Widget _buildWebMenuItem(
+      {required String text, required VoidCallback onTap}) {
     return Material(
-      color: Colors.transparent, 
+      color: Colors.transparent,
       child: InkWell(
         onTap: onTap,
         child: Container(
@@ -197,12 +211,12 @@ class RenamePage extends StatelessWidget {
     );
   }
 
-  //mobile layout
+//mobile 
   Widget _buildMobileLayout(BuildContext context) {
     const Color highlightColor = AppColors.yellow;
 
     return Scaffold(
-      backgroundColor: AppColors.background, 
+      backgroundColor: AppColors.background,
       body: Stack(
         children: [
           Positioned(
@@ -210,7 +224,7 @@ class RenamePage extends StatelessWidget {
             left: 0,
             right: 0,
             child: Container(
-              height: 240, // Altura do brilho
+              height: 240,
               decoration: BoxDecoration(
                 gradient: LinearGradient(
                   begin: Alignment.topCenter,
@@ -224,11 +238,9 @@ class RenamePage extends StatelessWidget {
             ),
           ),
 
-          // Conteúdo da página
           SafeArea(
             child: Column(
               children: [
-                // AppBar - botão de voltar
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 4.0),
                   child: Row(
@@ -241,7 +253,6 @@ class RenamePage extends StatelessWidget {
                   ),
                 ),
 
-                // Conteúdo original da página
                 Expanded(
                   child: Padding(
                     padding: const EdgeInsets.all(30.0),
@@ -262,7 +273,6 @@ class RenamePage extends StatelessWidget {
                           focusBorder: AppColors.yellow,
                         ),
                         const SizedBox(height: 40),
-                        // Botão "Redefinir"
                         Container(
                           height: 50,
                           decoration: BoxDecoration(

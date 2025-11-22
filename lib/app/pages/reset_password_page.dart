@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:poliedroimagesgenerator/app/components/text_field_dynamic.dart';
 import 'package:poliedroimagesgenerator/app/utils/app_colors.dart';
+import 'rename_page.dart';
+import 'change_email_page.dart';
+import 'delete_account_page.dart';
 
 class ResetPasswordPage extends StatefulWidget {
   const ResetPasswordPage({Key? key}) : super(key: key);
@@ -14,14 +17,13 @@ class _ResetPasswordPageState extends State<ResetPasswordPage> {
 
   @override
   Widget build(BuildContext context) {
-    // LayoutBuilder para decidir qual tela mostrar
     return LayoutBuilder(
       builder: (context, constraints) {
-        // Se largura > 800, mostra layout Web
+        // Web
         if (constraints.maxWidth > 800) {
           return _buildWebLayout(context);
         }
-        // Senão, mostra seu mobile original intacto
+        // mobile 
         return _buildMobileLayout(context);
       },
     );
@@ -69,7 +71,10 @@ class _ResetPasswordPageState extends State<ResetPasswordPage> {
                 _buildWebMenuItem(
                   text: 'Redefinir nome',
                   onTap: () {
-                    print("Ir para Redefinir Nome");
+                    Navigator.pushReplacement(
+                      context,
+                      MaterialPageRoute(builder: (_) => const RenamePage()),
+                    );
                   },
                 ),
 
@@ -96,14 +101,20 @@ class _ResetPasswordPageState extends State<ResetPasswordPage> {
                 _buildWebMenuItem(
                   text: 'Redefinir e-mail',
                   onTap: () {
-                    print("Ir para Redefinir E-mail");
+                    Navigator.pushReplacement(
+                      context,
+                      MaterialPageRoute(builder: (_) => const ChangeEmailPage()),
+                    );
                   },
                 ),
 
                 _buildWebMenuItem(
                   text: 'Excluir conta',
                   onTap: () {
-                    print("Ir para Excluir Conta");
+                    Navigator.pushReplacement(
+                      context,
+                      MaterialPageRoute(builder: (_) => const DeleteAccountPage()),
+                    );
                   },
                 ),
               ],
@@ -193,7 +204,7 @@ class _ResetPasswordPageState extends State<ResetPasswordPage> {
         const Text(
           'Digite seu novo e-mail para\nefetuarmos a redefinição:',
           style: TextStyle(
-            color: Colors.white, 
+            color: AppColors.white, 
             fontSize: 30,
             height: 1.5,
           ),
