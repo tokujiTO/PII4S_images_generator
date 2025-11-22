@@ -457,8 +457,8 @@ class _ChangeEmailPageState extends State<ChangeEmailPage> {
         const SizedBox(height: 60),
         // Botão "Enviar"
         Container(
-          height: 50,
-          width: 200,
+           height: 55,
+           width: 700,
           decoration: BoxDecoration(
             border: Border.all(color: color, width: 2),
             borderRadius: BorderRadius.circular(5.0),
