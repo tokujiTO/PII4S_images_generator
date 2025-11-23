@@ -84,7 +84,7 @@ class _ChangeEmailPageState extends State<ChangeEmailPage> {
                   onTap: () {
                     Navigator.pushReplacement(
                       context,
-                      MaterialPageRoute(builder: (_) => const ResetPasswordPage()),
+                      MaterialPageRoute(builder: (_) => const ResetPasswordPage(loginFlow: false,)),
                     );
                   },
                 ),

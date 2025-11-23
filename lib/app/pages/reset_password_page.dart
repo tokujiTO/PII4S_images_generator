@@ -6,7 +6,10 @@ import 'change_email_page.dart';
 import 'delete_account_page.dart';
 
 class ResetPasswordPage extends StatefulWidget {
-  const ResetPasswordPage({Key? key}) : super(key: key);
+  const ResetPasswordPage({Key? key, required this.loginFlow})
+    : super(key: key);
+
+  final bool loginFlow;
 
   @override
   State<ResetPasswordPage> createState() => _ResetPasswordPageState();
@@ -23,7 +26,7 @@ class _ResetPasswordPageState extends State<ResetPasswordPage> {
         if (constraints.maxWidth > 800) {
           return _buildWebLayout(context);
         }
-        // mobile 
+        // mobile
         return _buildMobileLayout(context);
       },
     );
@@ -53,73 +56,86 @@ class _ResetPasswordPageState extends State<ResetPasswordPage> {
       body: Row(
         children: [
           //menu esquerdo
-          Container(
-            width: 300,
-            color: Colors.black,
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Padding(
-                  padding: const EdgeInsets.all(20.0),
-                  child: IconButton(
-                    icon: const Icon(Icons.arrow_back, color: AppColors.white),
-                    onPressed: () => Navigator.of(context).pop(),
-                  ),
-                ),
-                const SizedBox(height: 20),
-
-                _buildWebMenuItem(
-                  text: 'Redefinir nome',
-                  onTap: () {
-                    Navigator.pushReplacement(
-                      context,
-                      MaterialPageRoute(builder: (_) => const RenamePage()),
-                    );
-                  },
-                ),
-
-                Material(
-                  color: highlightColor,
-                  child: InkWell(
-                    onTap: () {},
-                    child: Container(
-                      width: double.infinity,
-                      padding: const EdgeInsets.symmetric(
-                          vertical: 20, horizontal: 24),
-                      child: const Text(
-                        'Redefinir senha',
-                        style: TextStyle(
-                          color: AppColors.white,
-                          fontSize: 18,
-                          fontWeight: FontWeight.w500,
+          widget.loginFlow
+              ? Container()
+              : Container(
+                  width: 300,
+                  color: Colors.black,
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.all(20.0),
+                        child: IconButton(
+                          icon: const Icon(
+                            Icons.arrow_back,
+                            color: AppColors.white,
+                          ),
+                          onPressed: () => Navigator.of(context).pop(),
                         ),
                       ),
-                    ),
+                      const SizedBox(height: 20),
+
+                      _buildWebMenuItem(
+                        text: 'Redefinir nome',
+                        onTap: () {
+                          Navigator.pushReplacement(
+                            context,
+                            MaterialPageRoute(
+                              builder: (_) => const RenamePage(),
+                            ),
+                          );
+                        },
+                      ),
+
+                      Material(
+                        color: highlightColor,
+                        child: InkWell(
+                          onTap: () {},
+                          child: Container(
+                            width: double.infinity,
+                            padding: const EdgeInsets.symmetric(
+                              vertical: 20,
+                              horizontal: 24,
+                            ),
+                            child: const Text(
+                              'Redefinir senha',
+                              style: TextStyle(
+                                color: AppColors.white,
+                                fontSize: 18,
+                                fontWeight: FontWeight.w500,
+                              ),
+                            ),
+                          ),
+                        ),
+                      ),
+
+                      _buildWebMenuItem(
+                        text: 'Redefinir e-mail',
+                        onTap: () {
+                          Navigator.pushReplacement(
+                            context,
+                            MaterialPageRoute(
+                              builder: (_) => const ChangeEmailPage(),
+                            ),
+                          );
+                        },
+                      ),
+
+                      _buildWebMenuItem(
+                        text: 'Excluir conta',
+                        onTap: () {
+                          Navigator.pushReplacement(
+                            context,
+                            MaterialPageRoute(
+                              builder: (_) => const DeleteAccountPage(),
+                            ),
+                          );
+                        },
+                      ),
+                    ],
                   ),
                 ),
-
-                _buildWebMenuItem(
-                  text: 'Redefinir e-mail',
-                  onTap: () {
-                    Navigator.pushReplacement(
-                      context,
-                      MaterialPageRoute(builder: (_) => const ChangeEmailPage()),
-                    );
-                  },
-                ),
-
-                _buildWebMenuItem(
-                  text: 'Excluir conta',
-                  onTap: () {
-                    Navigator.pushReplacement(
-                      context,
-                      MaterialPageRoute(builder: (_) => const DeleteAccountPage()),
-                    );
-                  },
-                ),
-              ],
-            ),
-          ),
 
           //conteudo principal
           Expanded(
@@ -148,8 +164,8 @@ class _ResetPasswordPageState extends State<ResetPasswordPage> {
                 Align(
                   alignment: Alignment.topCenter,
                   child: Container(
-                    // posição do título 
-                    margin: const EdgeInsets.only(top: 110, left: 60), 
+                    // posição do título
+                    margin: const EdgeInsets.only(top: 110, left: 60),
                     width: 450, // Largura da linha branca
                     child: Column(
                       mainAxisSize: MainAxisSize.min,
@@ -171,12 +187,15 @@ class _ResetPasswordPageState extends State<ResetPasswordPage> {
                         Align(
                           alignment: Alignment.centerLeft,
                           child: Container(
-                            margin: const EdgeInsets.only(left: 0, right: 60), // desloca
+                            margin: const EdgeInsets.only(
+                              left: 0,
+                              right: 60,
+                            ), // desloca
                             width: 550, // aumenta tamanho
                             height: 2,
                             color: AppColors.white,
                           ),
-                        )
+                        ),
                       ],
                     ),
                   ),
@@ -186,7 +205,7 @@ class _ResetPasswordPageState extends State<ResetPasswordPage> {
                   alignment: Alignment.topCenter,
                   child: Container(
                     // Margem Top maior para ficar abaixo do título
-                    margin: const EdgeInsets.only(top: 200), 
+                    margin: const EdgeInsets.only(top: 200),
                     constraints: const BoxConstraints(maxWidth: 600),
                     padding: const EdgeInsets.symmetric(horizontal: 40),
                     child: AnimatedSwitcher(
@@ -203,7 +222,6 @@ class _ResetPasswordPageState extends State<ResetPasswordPage> {
     );
   }
 
-
   Widget _buildWebStep1(Color highlightColor) {
     return Column(
       key: const ValueKey<int>(1),
@@ -211,18 +229,11 @@ class _ResetPasswordPageState extends State<ResetPasswordPage> {
       children: [
         const Text(
           'Digite seu novo e-mail para\nefetuarmos a redefinição:',
-          style: TextStyle(
-            color: AppColors.white, 
-            fontSize: 27,
-            height: 1.5,
-          ),
+          style: TextStyle(color: AppColors.white, fontSize: 27, height: 1.5),
           textAlign: TextAlign.center, // Texto centralizado no bloco central
         ),
         const SizedBox(height: 40),
-        CustomTextField(
-          focusBorder: AppColors.yellow, 
-          labelText: 'E-mail'
-        ),
+        CustomTextField(focusBorder: AppColors.yellow, labelText: 'E-mail'),
         const SizedBox(height: 20),
         _buildWebButton('Redefinir', highlightColor, () {
           setState(() => _step = 2);
@@ -258,7 +269,7 @@ class _ResetPasswordPageState extends State<ResetPasswordPage> {
             color: AppColors.gray,
             fontSize: 40,
             letterSpacing: 10,
-            fontWeight: FontWeight.bold
+            fontWeight: FontWeight.bold,
           ),
         ),
         const SizedBox(height: 30),
@@ -313,15 +324,15 @@ class _ResetPasswordPageState extends State<ResetPasswordPage> {
       ),
       child: TextButton(
         onPressed: onPressed,
-        child: Text(
-          text,
-          style: TextStyle(color: color, fontSize: 20),
-        ),
+        child: Text(text, style: TextStyle(color: color, fontSize: 20)),
       ),
     );
   }
 
-  Widget _buildWebMenuItem({required String text, required VoidCallback onTap}) {
+  Widget _buildWebMenuItem({
+    required String text,
+    required VoidCallback onTap,
+  }) {
     return Material(
       color: Colors.transparent,
       child: InkWell(
@@ -376,10 +387,7 @@ class _ResetPasswordPageState extends State<ResetPasswordPage> {
                 gradient: LinearGradient(
                   begin: Alignment.topCenter,
                   end: Alignment.bottomCenter,
-                  colors: [
-                    highlightColor.withOpacity(1.0),
-                    Colors.transparent,
-                  ],
+                  colors: [highlightColor.withOpacity(1.0), Colors.transparent],
                 ),
               ),
             ),
@@ -392,7 +400,10 @@ class _ResetPasswordPageState extends State<ResetPasswordPage> {
                   child: Row(
                     children: [
                       IconButton(
-                        icon: const Icon(Icons.arrow_back, color: AppColors.white),
+                        icon: const Icon(
+                          Icons.arrow_back,
+                          color: AppColors.white,
+                        ),
                         onPressed: () => Navigator.of(context).pop(),
                       ),
                     ],
@@ -454,139 +465,136 @@ class _ResetPasswordPageState extends State<ResetPasswordPage> {
     );
   }
 
- Widget _buildStep2(Color color) {
-  return Column(
-    key: const ValueKey<int>(2),
-    crossAxisAlignment: CrossAxisAlignment.start, // título à esquerda
-    children: <Widget>[
-      const Align(
-        alignment: Alignment.centerLeft,
-        child: Text(
-          'Quer alterar sua senha?',
-          style: TextStyle(
-            color: AppColors.white,
-            fontSize: 25,
+  Widget _buildStep2(Color color) {
+    return Column(
+      key: const ValueKey<int>(2),
+      crossAxisAlignment: CrossAxisAlignment.start, // título à esquerda
+      children: <Widget>[
+        const Align(
+          alignment: Alignment.centerLeft,
+          child: Text(
+            'Quer alterar sua senha?',
+            style: TextStyle(color: AppColors.white, fontSize: 25),
           ),
         ),
-      ),
 
-      const SizedBox(height: 10),
-      Container(height: 2, color: AppColors.white),
-      const SizedBox(height: 15),
+        const SizedBox(height: 10),
+        Container(height: 2, color: AppColors.white),
+        const SizedBox(height: 15),
 
-      Center(
-        child: Column(
-          children: const [
-            Text(
-              'Digite o código que enviamos agora para:',
-              style: TextStyle(color: AppColors.white, fontSize: 20),
-              textAlign: TextAlign.center,
-            ),
-            SizedBox(height: 10),
-            Text(
-              'exemplo@gmail.com',
-              style: TextStyle(
-                color: AppColors.white,
-                fontSize: 20,
-                fontWeight: FontWeight.bold,
+        Center(
+          child: Column(
+            children: const [
+              Text(
+                'Digite o código que enviamos agora para:',
+                style: TextStyle(color: AppColors.white, fontSize: 20),
+                textAlign: TextAlign.center,
               ),
-              textAlign: TextAlign.center,
-            ),
-            SizedBox(height: 30),
-            Text(
-              '_ _ _ _ _ _',
-              style: TextStyle(
-                color: AppColors.white,
-                fontSize: 30,
-                letterSpacing: 10,
+              SizedBox(height: 10),
+              Text(
+                'exemplo@gmail.com',
+                style: TextStyle(
+                  color: AppColors.white,
+                  fontSize: 20,
+                  fontWeight: FontWeight.bold,
+                ),
+                textAlign: TextAlign.center,
               ),
-              textAlign: TextAlign.center,
-            ),
-            SizedBox(height: 60),
-          ],
-        ),
-      ),
-
-      Center(
-        child: Container(
-          height: 55,
-          width: 700,
-          decoration: BoxDecoration(
-            border: Border.all(color: color, width: 2),
-            borderRadius: BorderRadius.circular(5.0),
-          ),
-          child: TextButton(
-            onPressed: () {
-              setState(() => _step = 3);
-            },
-            child: Text(
-              'Enviar',
-              style: TextStyle(color: color, fontSize: 20),
-            ),
-          ),
-        ),
-      ),
-    ],
-  );
-}
-
-Widget _buildStep3(Color color) {
-  return Column(
-    key: const ValueKey<int>(3),
-    crossAxisAlignment: CrossAxisAlignment.start, 
-    children: <Widget>[
-      const Align(
-        alignment: Alignment.centerLeft,
-        child: Text(
-          'Quer alterar sua senha?',
-          style: TextStyle(
-            color: AppColors.white,
-            fontSize: 25,
-          ),
-        ),
-      ),
-
-      const SizedBox(height: 10),
-      Container(height: 2, color: AppColors.white),
-      const SizedBox(height: 40),
-      Center(
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            const Text(
-              'Digite sua nova senha:',
-              style: TextStyle(color: AppColors.white, fontSize: 20),
-              textAlign: TextAlign.center,
-            ),
-            const SizedBox(height: 30),
-
-            SizedBox(width: 700, child: _buildPasswordField('Senha')),
-            const SizedBox(height: 20),
-            SizedBox(width: 700, child: _buildPasswordField('Confirme sua senha')),
-
-            const SizedBox(height: 30),
-
-            Container(
-              height: 50,
-              width: 700,
-              decoration: BoxDecoration(
-                border: Border.all(color: color, width: 2),
-                borderRadius: BorderRadius.circular(5.0),
+              SizedBox(height: 30),
+              Text(
+                '_ _ _ _ _ _',
+                style: TextStyle(
+                  color: AppColors.white,
+                  fontSize: 30,
+                  letterSpacing: 10,
+                ),
+                textAlign: TextAlign.center,
               ),
-              child: TextButton(
-                onPressed: () {},
-                child: Text(
-                  'Redefinir',
-                  style: TextStyle(color: color, fontSize: 20),
+              SizedBox(height: 60),
+            ],
+          ),
+        ),
+
+        Center(
+          child: Container(
+            height: 55,
+            width: 700,
+            decoration: BoxDecoration(
+              border: Border.all(color: color, width: 2),
+              borderRadius: BorderRadius.circular(5.0),
+            ),
+            child: TextButton(
+              onPressed: () {
+                setState(() => _step = 3);
+              },
+              child: Text(
+                'Enviar',
+                style: TextStyle(color: color, fontSize: 20),
+              ),
+            ),
+          ),
+        ),
+      ],
+    );
+  }
+
+  Widget _buildStep3(Color color) {
+    return Column(
+      key: const ValueKey<int>(3),
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: <Widget>[
+        const Align(
+          alignment: Alignment.centerLeft,
+          child: Text(
+            'Quer alterar sua senha?',
+            style: TextStyle(color: AppColors.white, fontSize: 25),
+          ),
+        ),
+
+        const SizedBox(height: 10),
+        Container(height: 2, color: AppColors.white),
+        const SizedBox(height: 40),
+        Center(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              const Text(
+                'Digite sua nova senha:',
+                style: TextStyle(color: AppColors.white, fontSize: 20),
+                textAlign: TextAlign.center,
+              ),
+              const SizedBox(height: 30),
+
+              SizedBox(width: 700, child: _buildPasswordField('Senha')),
+              const SizedBox(height: 20),
+              SizedBox(
+                width: 700,
+                child: _buildPasswordField('Confirme sua senha'),
+              ),
+
+              const SizedBox(height: 30),
+
+              Container(
+                height: 50,
+                width: 700,
+                decoration: BoxDecoration(
+                  border: Border.all(color: color, width: 2),
+                  borderRadius: BorderRadius.circular(5.0),
+                ),
+                child: TextButton(
+                  onPressed: () {},
+                  child: Text(
+                    'Redefinir',
+                    style: TextStyle(color: color, fontSize: 20),
+                  ),
                 ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
-      ),
-    ],
-  );
-}
+      ],
+    );
+  }
 
   Widget _buildPasswordField(String hint) {
     return CustomTextField(

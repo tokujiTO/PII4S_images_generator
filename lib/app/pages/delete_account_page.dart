@@ -73,7 +73,8 @@ class DeleteAccountPage extends StatelessWidget {
                     Navigator.pushReplacement(
                       context,
                       MaterialPageRoute(
-                        builder: (_) => const ResetPasswordPage(),
+                        builder: (_) =>
+                            const ResetPasswordPage(loginFlow: false),
                       ),
                     );
                   },

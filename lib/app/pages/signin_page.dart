@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:poliedroimagesgenerator/app/components/text_field_dynamic.dart';
 import 'package:poliedroimagesgenerator/app/controllers/signin_page_controller.dart';
+import 'package:poliedroimagesgenerator/app/pages/reset_password_page.dart';
 import 'package:poliedroimagesgenerator/app/utils/app_colors.dart';
 import 'package:provider/provider.dart';
 
@@ -129,7 +130,12 @@ class _SignInPageState extends State<SignInPage> {
                           alignment: Alignment
                               .center, // Centraliza o botão ou ajusta conforme design
                           child: ElevatedButton(
-                            onPressed: () {},
+                            onPressed: () => Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => const ResetPasswordPage(loginFlow: true,),
+                              ),
+                            ),
                             style: ButtonStyle(
                               elevation: WidgetStateProperty.all(0),
                               backgroundColor: WidgetStateProperty.all(

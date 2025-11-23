@@ -64,7 +64,8 @@ class SettingsPageView extends StatelessWidget {
                   () => Navigator.push(
                     context,
                     MaterialPageRoute(
-                      builder: (context) => const ResetPasswordPage(),
+                      builder: (context) =>
+                          const ResetPasswordPage(loginFlow: false),
                     ),
                   ),
                   AppColors.yellow,
