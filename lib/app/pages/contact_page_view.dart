@@ -147,7 +147,7 @@ class _ContactPageState extends State<ContactPageView> {
                           fontSize: 35, 
                         ),
                         
-                        const SizedBox(height: 100),
+                        const SizedBox(height: 40),
 
                         Center(
                           child: SizedBox(
