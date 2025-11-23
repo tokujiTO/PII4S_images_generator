@@ -1,6 +1,5 @@
 import 'dart:ui';
 import 'dart:typed_data';
-
 import 'package:flutter/material.dart';
 import 'package:poliedroimagesgenerator/app/components/filter_button.dart';
 import 'package:poliedroimagesgenerator/app/components/text_field_ai.dart';
