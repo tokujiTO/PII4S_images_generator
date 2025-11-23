@@ -102,7 +102,11 @@ class _HistoryPageState extends State<HistoryPage> {
                   ),
                 ),
               ],
-              icon: const Icon(Icons.filter_alt, color: AppColors.white, size: 28),
+              icon: const Icon(
+                Icons.filter_alt,
+                color: AppColors.white,
+                size: 28,
+              ),
               tooltip: 'Mais opções',
               style: ButtonStyle(
                 backgroundColor: WidgetStateProperty.all(Colors.transparent),
@@ -119,7 +123,7 @@ class _HistoryPageState extends State<HistoryPage> {
       return const Center(
         child: Padding(
           padding: EdgeInsets.all(32.0),
-          child: CircularProgressIndicator(),
+          child: CircularProgressIndicator(color: AppColors.white),
         ),
       );
     }
@@ -265,7 +269,9 @@ class _HistoryPageState extends State<HistoryPage> {
                         begin: Alignment.topCenter,
                         end: Alignment.bottomCenter,
                         colors: [
-                          const Color(0xFF21BFBF).withOpacity(1.0),
+                          const Color(
+                            0xFF21BFBF,
+                          ).withAlpha((255 * 1.0).toInt()),
                           Colors.transparent,
                         ],
                       ),

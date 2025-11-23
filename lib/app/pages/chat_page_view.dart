@@ -69,10 +69,7 @@ class _ChatPageState extends State<ChatPage> {
                       gradient: LinearGradient(
                         begin: Alignment.topCenter,
                         end: Alignment.bottomCenter,
-                        colors: [
-                          const Color(0xFF21BFBF).withOpacity(1.0),
-                          Colors.transparent,
-                        ],
+                        colors: [const Color(0xFF21BFBF), Colors.transparent],
                       ),
                     ),
                   ),
@@ -202,7 +199,9 @@ class _ChatPageState extends State<ChatPage> {
                                 if (chatController.isLoading)
                                   const Padding(
                                     padding: EdgeInsets.all(8.0),
-                                    child: CircularProgressIndicator(),
+                                    child: CircularProgressIndicator(
+                                      color: AppColors.white,
+                                    ),
                                   )
                                 else ...[
                                   if ((chatController.responseImage == null &&

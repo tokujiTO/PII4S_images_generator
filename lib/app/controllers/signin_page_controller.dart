@@ -7,8 +7,9 @@ import 'package:shared_preferences/shared_preferences.dart';
 class SignInPageController extends ChangeNotifier {
   final TextEditingController emailController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
-  String _email = '';
-  String _password = '';
+  String _email = 'tiagomassuda123@gmail.com';
+  String _password = 'Teste123@';
+  bool isLoading = false;
 
   String get email => _email;
   String get password => _password;
@@ -40,6 +41,9 @@ class SignInPageController extends ChangeNotifier {
   }
 
   void signIn(BuildContext context) {
+    isLoading = true;
+    notifyListeners();
+
     if (_email.isEmpty || !_isValidEmail(_email)) {
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(content: Text('Por favor insira um e-mail válido')),
@@ -93,6 +97,8 @@ class SignInPageController extends ChangeNotifier {
               context,
             ).showSnackBar(SnackBar(content: Text(message)));
           }
+          isLoading = false;
+          notifyListeners();
         })
         .catchError((error) {
           // Impede de mandar novamente se já houver um snackbar visível
@@ -102,6 +108,8 @@ class SignInPageController extends ChangeNotifier {
               context,
             ).showSnackBar(SnackBar(content: Text('Erro de conexão: $error')));
           }
+          isLoading = false;
+          notifyListeners();
         });
   }
 }

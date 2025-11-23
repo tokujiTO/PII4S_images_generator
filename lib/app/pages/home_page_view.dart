@@ -124,7 +124,7 @@ class _HomePageState extends State<HomePage> {
                 ? Container(
                     padding: const EdgeInsets.fromLTRB(24, 12, 24, 24),
                     decoration: BoxDecoration(
-                      color: Colors.black.withOpacity(0.8),
+                      color: Colors.black.withAlpha((255 * 0.8).toInt()),
                       border: Border(top: BorderSide(color: AppColors.gray)),
                     ),
                     child: SizedBox(
@@ -156,7 +156,9 @@ class _HomePageState extends State<HomePage> {
                         begin: Alignment.topCenter,
                         end: Alignment.bottomCenter,
                         colors: [
-                          const Color(0xFF21BFBF).withOpacity(1.0),
+                          const Color(
+                            0xFF21BFBF,
+                          ).withAlpha((255 * 1.0).toInt()),
                           Colors.transparent,
                         ],
                       ),
@@ -188,27 +190,34 @@ class _HomePageState extends State<HomePage> {
                                     context,
                                   ).modalBarrierDismissLabel,
                                   barrierColor: Colors.black54,
-                                  transitionDuration:
-                                      const Duration(milliseconds: 300),
+                                  transitionDuration: const Duration(
+                                    milliseconds: 300,
+                                  ),
                                   pageBuilder:
                                       (context, animation, secondaryAnimation) {
-                                    return const _SideSheetMenu();
-                                  },
-                                  transitionBuilder: (context, animation,
-                                      secondaryAnimation, child) {
-                                    return SlideTransition(
-                                      position: Tween<Offset>(
-                                        begin: const Offset(-1.0, 0.0),
-                                        end: Offset.zero,
-                                      ).animate(
-                                        CurvedAnimation(
-                                          parent: animation,
-                                          curve: Curves.easeInOut,
-                                        ),
-                                      ),
-                                      child: child,
-                                    );
-                                  },
+                                        return const _SideSheetMenu();
+                                      },
+                                  transitionBuilder:
+                                      (
+                                        context,
+                                        animation,
+                                        secondaryAnimation,
+                                        child,
+                                      ) {
+                                        return SlideTransition(
+                                          position:
+                                              Tween<Offset>(
+                                                begin: const Offset(-1.0, 0.0),
+                                                end: Offset.zero,
+                                              ).animate(
+                                                CurvedAnimation(
+                                                  parent: animation,
+                                                  curve: Curves.easeInOut,
+                                                ),
+                                              ),
+                                          child: child,
+                                        );
+                                      },
                                 );
                               },
                             ),
@@ -219,6 +228,13 @@ class _HomePageState extends State<HomePage> {
 
                       Expanded(
                         child: RefreshIndicator(
+                          color: Colors.transparent,
+                          backgroundColor: Colors.transparent,
+                          elevation: 0,
+                          notificationPredicate:
+                              (ScrollNotification notification) {
+                                return notification.metrics.pixels == 0;
+                              },
                           onRefresh: () async {
                             await homeController.fetchResearches();
                           },
@@ -236,9 +252,10 @@ class _HomePageState extends State<HomePage> {
                                         tag: 'logo',
                                         child: Image.asset(
                                           'lib/app/assets/horizontalColored.png',
-                                          width: MediaQuery.of(context)
-                                                  .size
-                                                  .width *
+                                          width:
+                                              MediaQuery.of(
+                                                context,
+                                              ).size.width *
                                               0.9,
                                         ),
                                       ),
@@ -248,8 +265,10 @@ class _HomePageState extends State<HomePage> {
                                       if (!isDesktop)
                                         SizedBox(
                                           width:
-                                              MediaQuery.of(context).size.width *
-                                                  0.9,
+                                              MediaQuery.of(
+                                                context,
+                                              ).size.width *
+                                              0.9,
                                           child: Hero(
                                             tag: 'text_field',
                                             child: Material(
@@ -276,7 +295,8 @@ class _HomePageState extends State<HomePage> {
 
                               isDesktop
                                   ? SliverToBoxAdapter(
-                                      child: SizedBox(height: 24))
+                                      child: SizedBox(height: 24),
+                                    )
                                   : SliverPersistentHeader(
                                       pinned: true,
                                       delegate: _SliverHeaderDelegate(
@@ -289,9 +309,10 @@ class _HomePageState extends State<HomePage> {
                                                 color: AppColors.blue,
                                               ),
                                               height: 12,
-                                              width: MediaQuery.of(context)
-                                                      .size
-                                                      .width *
+                                              width:
+                                                  MediaQuery.of(
+                                                    context,
+                                                  ).size.width *
                                                   0.9,
                                             ),
                                             const SizedBox(height: 24),
@@ -300,21 +321,23 @@ class _HomePageState extends State<HomePage> {
                                                   MainAxisAlignment.center,
                                               children: [
                                                 Container(
-                                                  padding: const EdgeInsets
-                                                      .symmetric(
-                                                    vertical: 14,
-                                                    horizontal: 16,
-                                                  ),
+                                                  padding:
+                                                      const EdgeInsets.symmetric(
+                                                        vertical: 14,
+                                                        horizontal: 16,
+                                                      ),
                                                   decoration: BoxDecoration(
                                                     borderRadius:
                                                         BorderRadius.circular(
-                                                            40),
+                                                          40,
+                                                        ),
                                                     color: AppColors.blue,
                                                   ),
                                                   height: 60,
-                                                  width: MediaQuery.of(context)
-                                                          .size
-                                                          .width *
+                                                  width:
+                                                      MediaQuery.of(
+                                                        context,
+                                                      ).size.width *
                                                       0.6,
                                                   child: const Text(
                                                     'Últimas Pesquisas',
@@ -343,7 +366,8 @@ class _HomePageState extends State<HomePage> {
 
                               isDesktop
                                   ? SliverToBoxAdapter(
-                                      child: SizedBox(height: 24))
+                                      child: SizedBox(height: 24),
+                                    )
                                   : SliverList(
                                       delegate: SliverChildBuilderDelegate(
                                         (context, index) {
@@ -352,18 +376,22 @@ class _HomePageState extends State<HomePage> {
                                               child: Padding(
                                                 padding: EdgeInsets.all(32.0),
                                                 child:
-                                                    CircularProgressIndicator(),
+                                                    CircularProgressIndicator(
+                                                      color: AppColors.white,
+                                                    ),
                                               ),
                                             );
                                           }
                                           if (homeController.error != null) {
                                             return Padding(
-                                              padding:
-                                                  const EdgeInsets.all(32.0),
+                                              padding: const EdgeInsets.all(
+                                                32.0,
+                                              ),
                                               child: Text(
                                                 homeController.error!,
                                                 style: const TextStyle(
-                                                    color: Colors.red),
+                                                  color: Colors.red,
+                                                ),
                                                 textAlign: TextAlign.center,
                                               ),
                                             );
@@ -376,7 +404,8 @@ class _HomePageState extends State<HomePage> {
                                               child: Text(
                                                 'Nenhuma pesquisa encontrada.',
                                                 style: TextStyle(
-                                                    color: AppColors.white),
+                                                  color: AppColors.white,
+                                                ),
                                                 textAlign: TextAlign.center,
                                               ),
                                             );
@@ -386,9 +415,12 @@ class _HomePageState extends State<HomePage> {
                                               homeController.researches[index];
 
                                           return Padding(
-                                            padding:
-                                                const EdgeInsets.fromLTRB(
-                                                    24, 0, 24, 16),
+                                            padding: const EdgeInsets.fromLTRB(
+                                              24,
+                                              0,
+                                              24,
+                                              16,
+                                            ),
                                             child: _buildHistoryCard(
                                               title: item.subject.isNotEmpty
                                                   ? item.subject
@@ -401,13 +433,12 @@ class _HomePageState extends State<HomePage> {
                                         },
                                         childCount:
                                             homeController.isLoading ||
-                                                    homeController.error !=
-                                                        null ||
-                                                    homeController
-                                                        .researches.isEmpty
-                                                ? 1
-                                                : homeController
-                                                    .researches.length,
+                                                homeController.error != null ||
+                                                homeController
+                                                    .researches
+                                                    .isEmpty
+                                            ? 1
+                                            : homeController.researches.length,
                                       ),
                                     ),
                             ],
@@ -434,7 +465,10 @@ class _SliverHeaderDelegate extends SliverPersistentHeaderDelegate {
 
   @override
   Widget build(
-      BuildContext context, double shrinkOffset, bool overlapsContent) {
+    BuildContext context,
+    double shrinkOffset,
+    bool overlapsContent,
+  ) {
     final backgroundColor = overlapsContent
         ? AppColors.gray.withAlpha((0.3 * 255).toInt())
         : Colors.transparent;
