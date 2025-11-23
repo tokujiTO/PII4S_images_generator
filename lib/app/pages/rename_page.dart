@@ -133,7 +133,7 @@ class RenamePage extends StatelessWidget {
                 Align(
                   alignment: Alignment.topCenter,
                   child: Container(
-                    margin: const EdgeInsets.only(top: 90),
+                    margin: const EdgeInsets.only(top: 110),
                     constraints: const BoxConstraints(maxWidth: 800),
                     padding: const EdgeInsets.all(40),
                     child: Column(
@@ -153,7 +153,7 @@ class RenamePage extends StatelessWidget {
                           labelText: 'Nome',
                           focusBorder: AppColors.yellow,
                         ),
-                        const SizedBox(height: 50),
+                        const SizedBox(height: 20),
                         Container(
                           height: 55,
                           width: 700,
@@ -167,7 +167,7 @@ class RenamePage extends StatelessWidget {
                               'Redefinir',
                               style: TextStyle(
                                 color: highlightColor,
-                                fontSize: 24,
+                                fontSize: 25,
                               ),
                             ),
                           ),

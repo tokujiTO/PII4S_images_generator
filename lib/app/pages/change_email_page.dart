@@ -89,7 +89,6 @@ class _ChangeEmailPageState extends State<ChangeEmailPage> {
                   },
                 ),
 
-                // ESTA PÁGINA (DESTACADO)
                 Material(
                   color: highlightColor,
                   child: InkWell(
@@ -209,7 +208,7 @@ class _ChangeEmailPageState extends State<ChangeEmailPage> {
           focusBorder: AppColors.yellow,
           labelText: 'E-mail',
         ),
-        const SizedBox(height: 50),
+        const SizedBox(height: 20),
         _buildWebButton('Redefinir', highlightColor, () {
           setState(() => _step = 2);
         }),
@@ -279,7 +278,8 @@ class _ChangeEmailPageState extends State<ChangeEmailPage> {
 
   Widget _buildWebButton(String text, Color color, VoidCallback onPressed) {
     return Container(
-      height: 60,
+      width: 700, // Alterado para 700
+      height: 55, // Alterado para 55
       decoration: BoxDecoration(
         border: Border.all(color: color, width: 2),
         borderRadius: BorderRadius.circular(8.0),

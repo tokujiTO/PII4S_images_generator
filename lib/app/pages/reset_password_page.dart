@@ -149,7 +149,7 @@ class _ResetPasswordPageState extends State<ResetPasswordPage> {
                   alignment: Alignment.topLeft,
                   child: Container(
                     // posição do título 
-                    margin: const EdgeInsets.only(top: 80, left: 60), 
+                    margin: const EdgeInsets.only(top: 105, left: 60), 
                     width: 450, // Largura da linha branca
                     child: Column(
                       mainAxisSize: MainAxisSize.min,
@@ -159,7 +159,7 @@ class _ResetPasswordPageState extends State<ResetPasswordPage> {
                           'Precisa alterar sua senha?',
                           style: TextStyle(
                             color: Colors.white,
-                            fontSize: 32,
+                            fontSize: 35,
                             fontWeight: FontWeight.w400,
                           ),
                         ),
@@ -205,7 +205,7 @@ class _ResetPasswordPageState extends State<ResetPasswordPage> {
           'Digite seu novo e-mail para\nefetuarmos a redefinição:',
           style: TextStyle(
             color: AppColors.white, 
-            fontSize: 30,
+            fontSize: 27,
             height: 1.5,
           ),
           textAlign: TextAlign.center, // Texto centralizado no bloco central
@@ -215,7 +215,7 @@ class _ResetPasswordPageState extends State<ResetPasswordPage> {
           focusBorder: AppColors.yellow, 
           labelText: 'E-mail'
         ),
-        const SizedBox(height: 50),
+        const SizedBox(height: 20),
         _buildWebButton('Redefinir', highlightColor, () {
           setState(() => _step = 2);
         }),
@@ -230,7 +230,7 @@ class _ResetPasswordPageState extends State<ResetPasswordPage> {
       children: [
         const Text(
           'Digite o código que enviamos\nagora para:',
-          style: TextStyle(color: Colors.white, fontSize: 30, height: 1.5),
+          style: TextStyle(color: Colors.white, fontSize: 27, height: 1.5),
           textAlign: TextAlign.center,
         ),
         const SizedBox(height: 20),
@@ -273,7 +273,7 @@ class _ResetPasswordPageState extends State<ResetPasswordPage> {
           alignment: Alignment.center,
           child: Text(
             'Digite sua nova senha:',
-            style: TextStyle(color: Colors.white, fontSize: 30),
+            style: TextStyle(color: Colors.white, fontSize: 27),
           ),
         ),
         const SizedBox(height: 40),
@@ -288,7 +288,7 @@ class _ResetPasswordPageState extends State<ResetPasswordPage> {
           labelText: 'Confirme sua senha',
           isPassword: true,
         ),
-        const SizedBox(height: 50),
+        const SizedBox(height: 20),
         _buildWebButton('Redefinir', highlightColor, () {
           // Ação final
         }),

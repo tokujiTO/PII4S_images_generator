@@ -129,7 +129,7 @@ class DeleteAccountPage extends StatelessWidget {
                           'Excluir conta',
                           style: TextStyle(
                             color: AppColors.white,
-                            fontSize: 45,
+                            fontSize: 35,
                             fontWeight: FontWeight.w400,
                           ),
                           textAlign: TextAlign.center,
@@ -164,7 +164,7 @@ class DeleteAccountPage extends StatelessWidget {
                               'Excluir',
                               style: TextStyle(
                                 color: AppColors.red,
-                                fontSize: 24,
+                                fontSize: 25,
                                 fontWeight: FontWeight.w400,
                               ),
                             ),
@@ -189,7 +189,7 @@ class DeleteAccountPage extends StatelessWidget {
                               'Cancelar',
                               style: TextStyle(
                                 color: AppColors.white,
-                                fontSize: 24,
+                                fontSize: 25,
                                 fontWeight: FontWeight.w400,
                               ),
                             ),
