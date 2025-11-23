@@ -1,6 +1,5 @@
 import 'dart:ui';
 import 'dart:typed_data';
-
 import 'package:flutter/material.dart';
 import 'package:poliedroimagesgenerator/app/components/filter_button.dart';
 import 'package:poliedroimagesgenerator/app/components/text_field_ai.dart';
@@ -137,7 +136,7 @@ class _HomePageState extends State<HomePage> {
                         suffixIcon: const Icon(
                           Icons.auto_awesome,
                           size: 34,
-                          color: Colors.white,
+                          color: AppColors.white,
                         ),
                       ),
                     ),
@@ -179,7 +178,7 @@ class _HomePageState extends State<HomePage> {
                               icon: const Icon(
                                 Icons.menu,
                                 size: 40,
-                                color: Colors.white,
+                                color: AppColors.white,
                               ),
                               onPressed: () {
                                 showGeneralDialog(
@@ -262,7 +261,7 @@ class _HomePageState extends State<HomePage> {
                                                 suffixIcon: const Icon(
                                                   Icons.auto_awesome,
                                                   size: 34,
-                                                  color: Colors.white,
+                                                  color: AppColors.white,
                                                 ),
                                               ),
                                             ),
@@ -321,7 +320,7 @@ class _HomePageState extends State<HomePage> {
                                                     'Últimas Pesquisas',
                                                     textAlign: TextAlign.center,
                                                     style: TextStyle(
-                                                      color: Colors.white,
+                                                      color: AppColors.white,
                                                       fontSize: 23,
                                                     ),
                                                   ),
@@ -331,7 +330,7 @@ class _HomePageState extends State<HomePage> {
                                                   onPressed: () {},
                                                   backgroundColor:
                                                       AppColors.blue,
-                                                  color: Colors.white,
+                                                  color: AppColors.white,
                                                   iconSize: 40,
                                                 ),
                                               ],
@@ -377,7 +376,7 @@ class _HomePageState extends State<HomePage> {
                                               child: Text(
                                                 'Nenhuma pesquisa encontrada.',
                                                 style: TextStyle(
-                                                    color: Colors.white),
+                                                    color: AppColors.white),
                                                 textAlign: TextAlign.center,
                                               ),
                                             );
