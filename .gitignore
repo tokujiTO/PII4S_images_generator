@@ -132,3 +132,4 @@ project.pbxproj
 contents.xcworkspacedata
 Flutter-Debug.xcconfig
 Flutter-Release.xcconfig
+lib/app/assets/.env
