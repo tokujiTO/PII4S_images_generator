@@ -246,72 +246,88 @@ class _HistoryPageState extends State<HistoryPage> {
                                   width: 2,
                                 ),
                               ),
-                              child: PopupMenuButton<String>(
-                                onSelected: (value) {
-                                  if (value == 'chemistry') {
-                                    Provider.of<HistoryController>(
-                                      context,
-                                      listen: false,
-                                    ).search = "Química";
-                                  } else if (value == 'physics') {
-                                    Provider.of<HistoryController>(
-                                      context,
-                                      listen: false,
-                                    ).search = "Física";
-                                  }
-                                },
-                                color: AppColors.background,
-                                itemBuilder: (BuildContext context) =>
-                                    <PopupMenuEntry<String>>[
-                                      const PopupMenuItem<String>(
-                                        value: 'physics',
-                                        child: Row(
-                                          children: [
-                                            Icon(
-                                              Icons.picture_as_pdf_outlined,
-                                              color: AppColors.white,
+                              child:
+                                  historyController.search?.isNotEmpty ?? false
+                                  ? IconButton(
+                                      icon: const Icon(
+                                        Icons.clear,
+                                        color: AppColors.white,
+                                      ),
+                                      onPressed: () {
+                                        Provider.of<HistoryController>(
+                                          context,
+                                          listen: false,
+                                        ).search = "";
+                                      },
+                                    )
+                                  : PopupMenuButton<String>(
+                                      onSelected: (value) {
+                                        if (value == 'chemistry') {
+                                          Provider.of<HistoryController>(
+                                            context,
+                                            listen: false,
+                                          ).search = "Química";
+                                        } else if (value == 'physics') {
+                                          Provider.of<HistoryController>(
+                                            context,
+                                            listen: false,
+                                          ).search = "Física";
+                                        }
+                                      },
+                                      color: AppColors.background,
+                                      itemBuilder: (BuildContext context) =>
+                                          <PopupMenuEntry<String>>[
+                                            const PopupMenuItem<String>(
+                                              value: 'physics',
+                                              child: Row(
+                                                children: [
+                                                  Icon(
+                                                    Icons
+                                                        .picture_as_pdf_outlined,
+                                                    color: AppColors.white,
+                                                  ),
+                                                  SizedBox(width: 12),
+                                                  Text(
+                                                    'Física',
+                                                    style: TextStyle(
+                                                      color: AppColors.white,
+                                                    ),
+                                                  ),
+                                                ],
+                                              ),
                                             ),
-                                            SizedBox(width: 12),
-                                            Text(
-                                              'Física',
-                                              style: TextStyle(
-                                                color: AppColors.white,
+                                            const PopupMenuItem<String>(
+                                              value: 'chemistry',
+                                              child: Row(
+                                                children: [
+                                                  Icon(
+                                                    Icons.delete,
+                                                    color: AppColors.white,
+                                                  ),
+                                                  SizedBox(width: 12),
+                                                  Text(
+                                                    'Química',
+                                                    style: TextStyle(
+                                                      color: AppColors.white,
+                                                    ),
+                                                  ),
+                                                ],
                                               ),
                                             ),
                                           ],
-                                        ),
+                                      icon: const Icon(
+                                        Icons.filter_alt,
+                                        color: AppColors.white,
+                                        size: 28,
                                       ),
-                                      const PopupMenuItem<String>(
-                                        value: 'chemistry',
-                                        child: Row(
-                                          children: [
-                                            Icon(
-                                              Icons.delete,
-                                              color: AppColors.white,
+                                      tooltip: 'Mais opções',
+                                      style: ButtonStyle(
+                                        backgroundColor:
+                                            WidgetStateProperty.all(
+                                              Colors.transparent,
                                             ),
-                                            SizedBox(width: 12),
-                                            Text(
-                                              'Química',
-                                              style: TextStyle(
-                                                color: AppColors.white,
-                                              ),
-                                            ),
-                                          ],
-                                        ),
                                       ),
-                                    ],
-                                icon: const Icon(
-                                  Icons.filter_alt,
-                                  color: AppColors.white,
-                                  size: 28,
-                                ),
-                                tooltip: 'Mais opções',
-                                style: ButtonStyle(
-                                  backgroundColor: WidgetStateProperty.all(
-                                    Colors.transparent,
-                                  ),
-                                ),
-                              ),
+                                    ),
                             ),
                           ],
                         ),

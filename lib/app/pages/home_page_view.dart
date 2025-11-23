@@ -316,47 +316,31 @@ class _HomePageState extends State<HomePage> {
                                                   0.9,
                                             ),
                                             const SizedBox(height: 24),
-                                            Row(
-                                              mainAxisAlignment:
-                                                  MainAxisAlignment.center,
-                                              children: [
-                                                Container(
-                                                  padding:
-                                                      const EdgeInsets.symmetric(
-                                                        vertical: 14,
-                                                        horizontal: 16,
-                                                      ),
-                                                  decoration: BoxDecoration(
-                                                    borderRadius:
-                                                        BorderRadius.circular(
-                                                          40,
-                                                        ),
-                                                    color: AppColors.blue,
+                                            Container(
+                                              padding:
+                                                  const EdgeInsets.symmetric(
+                                                    vertical: 14,
+                                                    horizontal: 16,
                                                   ),
-                                                  height: 60,
-                                                  width:
-                                                      MediaQuery.of(
-                                                        context,
-                                                      ).size.width *
-                                                      0.6,
-                                                  child: const Text(
-                                                    'Últimas Pesquisas',
-                                                    textAlign: TextAlign.center,
-                                                    style: TextStyle(
-                                                      color: AppColors.white,
-                                                      fontSize: 23,
-                                                    ),
-                                                  ),
-                                                ),
-                                                const SizedBox(width: 12),
-                                                FilterButton(
-                                                  onPressed: () {},
-                                                  backgroundColor:
-                                                      AppColors.blue,
+                                              decoration: BoxDecoration(
+                                                borderRadius:
+                                                    BorderRadius.circular(40),
+                                                color: AppColors.blue,
+                                              ),
+                                              height: 60,
+                                              width:
+                                                  MediaQuery.of(
+                                                    context,
+                                                  ).size.width *
+                                                  0.8,
+                                              child: const Text(
+                                                'Últimas Pesquisas',
+                                                textAlign: TextAlign.center,
+                                                style: TextStyle(
                                                   color: AppColors.white,
-                                                  iconSize: 40,
+                                                  fontSize: 23,
                                                 ),
-                                              ],
+                                              ),
                                             ),
                                           ],
                                         ),
