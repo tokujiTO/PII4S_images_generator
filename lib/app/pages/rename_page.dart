@@ -167,7 +167,7 @@ class RenamePage extends StatelessWidget {
                               'Redefinir',
                               style: TextStyle(
                                 color: highlightColor,
-                                fontSize: 25,
+                                fontSize: 20,
                               ),
                             ),
                           ),

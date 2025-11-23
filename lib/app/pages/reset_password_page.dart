@@ -62,7 +62,7 @@ class _ResetPasswordPageState extends State<ResetPasswordPage> {
                 Padding(
                   padding: const EdgeInsets.all(20.0),
                   child: IconButton(
-                    icon: const Icon(Icons.arrow_back, color: Colors.white),
+                    icon: const Icon(Icons.arrow_back, color: AppColors.white),
                     onPressed: () => Navigator.of(context).pop(),
                   ),
                 ),
@@ -89,7 +89,7 @@ class _ResetPasswordPageState extends State<ResetPasswordPage> {
                       child: const Text(
                         'Redefinir senha',
                         style: TextStyle(
-                          color: Colors.white,
+                          color: AppColors.white,
                           fontSize: 18,
                           fontWeight: FontWeight.w500,
                         ),
@@ -158,7 +158,7 @@ class _ResetPasswordPageState extends State<ResetPasswordPage> {
                         const Text(
                           'Precisa alterar sua senha?',
                           style: TextStyle(
-                            color: Colors.white,
+                            color: AppColors.white,
                             fontSize: 35,
                             fontWeight: FontWeight.w400,
                           ),
@@ -166,7 +166,7 @@ class _ResetPasswordPageState extends State<ResetPasswordPage> {
                         const SizedBox(height: 10),
                         Container(
                           height: 2,
-                          color: Colors.white,
+                          color: AppColors.white,
                           width: 700,
                         ),
                       ],
@@ -230,14 +230,14 @@ class _ResetPasswordPageState extends State<ResetPasswordPage> {
       children: [
         const Text(
           'Digite o código que enviamos\nagora para:',
-          style: TextStyle(color: Colors.white, fontSize: 27, height: 1.5),
+          style: TextStyle(color: AppColors.white, fontSize: 27, height: 1.5),
           textAlign: TextAlign.center,
         ),
         const SizedBox(height: 20),
         const Text(
           'exemplo@gmail.com',
           style: TextStyle(
-            color: Colors.white,
+            color: AppColors.white,
             fontSize: 22,
             fontWeight: FontWeight.bold,
           ),
@@ -247,7 +247,7 @@ class _ResetPasswordPageState extends State<ResetPasswordPage> {
         const Text(
           '_ _ _ _ _ _',
           style: TextStyle(
-            color: Colors.grey,
+            color: AppColors.gray,
             fontSize: 40,
             letterSpacing: 10,
             fontWeight: FontWeight.bold
@@ -273,7 +273,7 @@ class _ResetPasswordPageState extends State<ResetPasswordPage> {
           alignment: Alignment.center,
           child: Text(
             'Digite sua nova senha:',
-            style: TextStyle(color: Colors.white, fontSize: 27),
+            style: TextStyle(color: AppColors.white, fontSize: 27),
           ),
         ),
         const SizedBox(height: 40),
@@ -323,12 +323,12 @@ class _ResetPasswordPageState extends State<ResetPasswordPage> {
           padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 24),
           decoration: const BoxDecoration(
             border: Border(
-              bottom: BorderSide(color: Colors.white, width: 2),
+              bottom: BorderSide(color: AppColors.white, width: 2),
             ),
           ),
           child: Text(
             text,
-            style: const TextStyle(color: Colors.white, fontSize: 18),
+            style: const TextStyle(color: AppColors.white, fontSize: 18),
           ),
         ),
       ),
@@ -384,7 +384,7 @@ class _ResetPasswordPageState extends State<ResetPasswordPage> {
                   child: Row(
                     children: [
                       IconButton(
-                        icon: const Icon(Icons.arrow_back, color: Colors.white),
+                        icon: const Icon(Icons.arrow_back, color: AppColors.white),
                         onPressed: () => Navigator.of(context).pop(),
                       ),
                     ],
@@ -414,12 +414,12 @@ class _ResetPasswordPageState extends State<ResetPasswordPage> {
       children: <Widget>[
         const Text(
           'Precisa alterar sua senha?',
-          style: TextStyle(color: Colors.white, fontSize: 25),
+          style: TextStyle(color: AppColors.white, fontSize: 25),
         ),
         const SizedBox(height: 15),
         const Text(
           'Digite seu novo e-mail para efetuarmos a redefinição:',
-          style: TextStyle(color: Colors.white, fontSize: 20),
+          style: TextStyle(color: AppColors.white, fontSize: 20),
         ),
         const SizedBox(height: 20),
         CustomTextField(focusBorder: AppColors.yellow, labelText: 'E-mail'),
@@ -451,14 +451,14 @@ class _ResetPasswordPageState extends State<ResetPasswordPage> {
       children: <Widget>[
         const Text(
           'Digite o código que enviamos agora para:',
-          style: TextStyle(color: Colors.white, fontSize: 20),
+          style: TextStyle(color: AppColors.white, fontSize: 20),
           textAlign: TextAlign.center,
         ),
         const SizedBox(height: 10),
         const Text(
           'exemplo@gmail.com',
           style: TextStyle(
-            color: Colors.white,
+            color: AppColors.white,
             fontSize: 20,
             fontWeight: FontWeight.bold,
           ),
@@ -468,7 +468,7 @@ class _ResetPasswordPageState extends State<ResetPasswordPage> {
         const Text(
           '_ _ _ _ _ _',
           style: TextStyle(
-            color: Colors.white,
+            color: AppColors.white,
             fontSize: 30,
             letterSpacing: 10,
           ),
@@ -499,7 +499,7 @@ class _ResetPasswordPageState extends State<ResetPasswordPage> {
       children: <Widget>[
         const Text(
           'Digite sua nova senha:',
-          style: TextStyle(color: Colors.white, fontSize: 20),
+          style: TextStyle(color: AppColors.white, fontSize: 20),
         ),
         const SizedBox(height: 30),
         _buildPasswordField('Senha'),

@@ -38,7 +38,7 @@ class SettingsPageView extends StatelessWidget {
                   child: Row(
                     children: [
                       IconButton(
-                        icon: const Icon(Icons.arrow_back, color: Colors.white),
+                        icon: const Icon(Icons.arrow_back, color: AppColors.white),
                         onPressed: () => Navigator.of(context).pop(),
                       ),
                     ],
@@ -160,12 +160,12 @@ class _OptionTileState extends State<_OptionTile> {
         color: _isPressed ? widget.pressedColor : Colors.transparent,
         child: Container(
           decoration: const BoxDecoration(
-            border: Border(bottom: BorderSide(color: Colors.white, width: 0.5)),
+            border: Border(bottom: BorderSide(color: AppColors.white, width: 0.5)),
           ),
           child: ListTile(
             title: Text(
               widget.title,
-              style: const TextStyle(color: Colors.white, fontSize: 23),
+              style: const TextStyle(color: AppColors.white, fontSize: 23),
             ),
             trailing: const Icon(
               Icons.arrow_forward_ios,

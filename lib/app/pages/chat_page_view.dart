@@ -93,7 +93,7 @@ class _ChatPageState extends State<ChatPage> {
                           icon: const Icon(
                             Icons.arrow_back_ios_new_outlined,
                             size: 24,
-                            color: Colors.white,
+                            color: AppColors.white,
                           ),
                           onPressed: () {
                             Navigator.pop(context);
@@ -104,7 +104,7 @@ class _ChatPageState extends State<ChatPage> {
                         const Text(
                           'Chat Page',
                           style: TextStyle(
-                            color: Colors.white,
+                            color: AppColors.white,
                             fontSize: 20,
                             fontWeight: FontWeight.bold,
                           ),
@@ -118,7 +118,7 @@ class _ChatPageState extends State<ChatPage> {
                                 const SnackBar(
                                   content: Text(
                                     'Funcionalidade "Exportar para PDF" a ser implementada!',
-                                    style: TextStyle(color: Colors.white),
+                                    style: TextStyle(color: AppColors.white),
                                   ),
                                 ),
                               );
@@ -172,7 +172,7 @@ class _ChatPageState extends State<ChatPage> {
                               ],
                           icon: const Icon(
                             Icons.more_vert,
-                            color: Colors.white,
+                            color: AppColors.white,
                             size: 28,
                           ),
                           tooltip: 'Mais opções',
@@ -292,7 +292,7 @@ class _ChatPageState extends State<ChatPage> {
                                     elevation: 0,
                                     child: const Icon(
                                       Icons.send,
-                                      color: Colors.white,
+                                      color: AppColors.white,
                                     ),
                                   ),
                           ],

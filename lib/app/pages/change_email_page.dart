@@ -63,7 +63,7 @@ class _ChangeEmailPageState extends State<ChangeEmailPage> {
                 Padding(
                   padding: const EdgeInsets.all(20.0),
                   child: IconButton(
-                    icon: const Icon(Icons.arrow_back, color: Colors.white),
+                    icon: const Icon(Icons.arrow_back, color: AppColors.white),
                     onPressed: () => Navigator.of(context).pop(),
                   ),
                 ),
@@ -163,7 +163,7 @@ class _ChangeEmailPageState extends State<ChangeEmailPage> {
                           ),
                         ),
                         const SizedBox(height: 10),
-                        Container(height: 2, color: Colors.white),
+                        Container(height: 2, color: AppColors.white),
                       ],
                     ),
                   ),
@@ -262,7 +262,7 @@ class _ChangeEmailPageState extends State<ChangeEmailPage> {
         const Text(
           'E-mail redefinido com sucesso!',
           style: TextStyle(
-            color: Colors.white,
+            color: AppColors.white,
             fontSize: 35,
             fontWeight: FontWeight.bold,
           ),
@@ -306,7 +306,7 @@ class _ChangeEmailPageState extends State<ChangeEmailPage> {
             border: Border(bottom: BorderSide(color: AppColors.white, width: 2)),
           ),
           child: Text(text,
-              style: const TextStyle(color: Colors.white, fontSize: 18)),
+              style: const TextStyle(color: AppColors.white, fontSize: 18)),
         ),
       ),
     );

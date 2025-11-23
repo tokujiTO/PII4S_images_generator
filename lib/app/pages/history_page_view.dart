@@ -70,7 +70,7 @@ class _HistoryPageState extends State<HistoryPage> {
                     const SnackBar(
                       content: Text(
                         'Física selecionada',
-                        style: TextStyle(color: Colors.white),
+                        style: TextStyle(color: AppColors.white),
                       ),
                     ),
                   );
@@ -87,7 +87,7 @@ class _HistoryPageState extends State<HistoryPage> {
                         color: AppColors.white,
                       ),
                       SizedBox(width: 12),
-                      Text('Física', style: TextStyle(color: Colors.white)),
+                      Text('Física', style: TextStyle(color: AppColors.white)),
                     ],
                   ),
                 ),
@@ -102,7 +102,7 @@ class _HistoryPageState extends State<HistoryPage> {
                   ),
                 ),
               ],
-              icon: const Icon(Icons.filter_alt, color: Colors.white, size: 28),
+              icon: const Icon(Icons.filter_alt, color: AppColors.white, size: 28),
               tooltip: 'Mais opções',
               style: ButtonStyle(
                 backgroundColor: WidgetStateProperty.all(Colors.transparent),
@@ -138,7 +138,7 @@ class _HistoryPageState extends State<HistoryPage> {
         padding: EdgeInsets.all(32.0),
         child: Text(
           'Nenhum histórico encontrado.',
-          style: TextStyle(color: Colors.white),
+          style: TextStyle(color: AppColors.white),
           textAlign: TextAlign.center,
         ),
       );

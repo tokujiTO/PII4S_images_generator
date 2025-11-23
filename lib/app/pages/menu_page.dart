@@ -59,7 +59,7 @@ class MenuPage extends StatelessWidget {
               title: Text(
                 'Histórico',
                 style: TextStyle(
-                  color: Colors.white,
+                  color: AppColors.white,
                   fontSize: isDesktop ? 24 : 20,
                 ),
               ),
@@ -89,7 +89,7 @@ class MenuPage extends StatelessWidget {
             ListTile(
               leading: Icon(
                 Icons.headphones,
-                color: Colors.white,
+                color: AppColors.white,
                 size: isDesktop ? 48 : 40,
               ),
               title: Text(
