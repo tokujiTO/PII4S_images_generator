@@ -3,6 +3,7 @@ import 'dart:typed_data';
 import 'package:flutter/material.dart';
 import 'package:poliedroimagesgenerator/app/components/dropdown.dart';
 import 'package:poliedroimagesgenerator/app/components/text_field_dynamic.dart';
+import 'package:poliedroimagesgenerator/app/utils/pdf_service.dart';
 
 import 'package:provider/provider.dart';
 import 'package:poliedroimagesgenerator/app/controllers/chat_controller.dart';
@@ -53,6 +54,23 @@ class _ChatPageState extends State<ChatPage> {
     DropdownMenuItem(value: 'Química', child: Text('Química')),
     DropdownMenuItem(value: 'Física', child: Text('Física')),
   ];
+
+  Future<void> _printPDF() async {
+    try {
+      await PdfDownloadService.printPDF(
+        imageData: widget.image!,
+        prompt: descriptionController.text,
+      );
+    } catch (e) {
+      _showError('Error printing: $e');
+    }
+  }
+
+  void _showError(String message) {
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(content: Text(message), backgroundColor: Colors.red),
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -115,23 +133,14 @@ class _ChatPageState extends State<ChatPage> {
 
                         // Botão de Mais Opções
                         PopupMenuButton<String>(
-                          onSelected: (value) {
-                            if (value == 'export_pdf') {
-                              ScaffoldMessenger.of(context).showSnackBar(
-                                const SnackBar(
-                                  content: Text(
-                                    'Funcionalidade "Exportar para PDF" a ser implementada!',
-                                    style: TextStyle(color: AppColors.white),
-                                  ),
-                                ),
-                              );
-                            }
-                          },
                           color: AppColors.background,
                           itemBuilder: (BuildContext context) =>
                               <PopupMenuEntry<String>>[
                                 PopupMenuItem<String>(
                                   value: 'export_pdf',
+                                  onTap: () {
+                                    _printPDF();
+                                  },
                                   child: Row(
                                     children: [
                                       Icon(
