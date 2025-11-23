@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:poliedroimagesgenerator/app/utils/app_colors.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class MenuPage extends StatelessWidget {
   const MenuPage({super.key});
@@ -117,7 +118,9 @@ class MenuPage extends StatelessWidget {
                   fontSize: isDesktop ? 24 : 20,
                 ),
               ),
-              onTap: () {
+              onTap: () async {
+                final prefs = await SharedPreferences.getInstance();
+                await prefs.clear();
                 Navigator.pushNamedAndRemoveUntil(
                   context,
                   "/first",

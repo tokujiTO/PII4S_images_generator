@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:poliedroimagesgenerator/app/utils/app_colors.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class LoadingPage extends StatefulWidget {
   const LoadingPage({super.key});
@@ -11,16 +12,26 @@ class LoadingPage extends StatefulWidget {
 class _LoadingPageState extends State<LoadingPage> {
   bool _isAnimating = true;
   bool _forward = true;
+  bool _isLoggedIn = false;
 
   @override
   void initState() {
     super.initState();
+    _initialize();
     Future.delayed(const Duration(seconds: 3), () {
       if (mounted) {
         setState(() {
           _isAnimating = false;
         });
       }
+    });
+  }
+
+  Future<void> _initialize() async {
+    final prefs = await SharedPreferences.getInstance();
+    final userId = prefs.getString('userId');
+    setState(() {
+      _isLoggedIn = userId != null && userId.isNotEmpty;
     });
   }
 
@@ -52,7 +63,11 @@ class _LoadingPageState extends State<LoadingPage> {
                 _forward = !_forward;
               });
             } else if (!_isAnimating) {
-              Navigator.of(context).pushReplacementNamed('/first');
+              if (_isLoggedIn) {
+                Navigator.of(context).pushReplacementNamed('/home');
+              } else {
+                Navigator.of(context).pushReplacementNamed('/first');
+              }
             }
           },
         ),
