@@ -134,6 +134,8 @@ class DeleteAccountPage extends StatelessWidget {
                           ),
                           textAlign: TextAlign.center,
                         ),
+                        const SizedBox(height: 10),
+                        Container(height: 2, color: AppColors.white),
                         const SizedBox(height: 60),
 
                         // Texto Descritivo
@@ -288,19 +290,15 @@ class DeleteAccountPage extends StatelessWidget {
                               fontWeight: FontWeight.bold),
                           textAlign: TextAlign.center,
                         ),
+                        const SizedBox(height: 10),
+                        Container(height: 2, color: AppColors.white),
                         const SizedBox(height: 50),
                         const Text(
-                          'Tem certeza que deseja excluir sua conta?',
+                          'Tem certeza que deseja excluir sua conta? Isso apagará permanentemente todas as suas informações.',
                           style: TextStyle(color: AppColors.white, fontSize: 20),
                           textAlign: TextAlign.center,
                         ),
-                        const SizedBox(height: 10),
-                        const Text(
-                          'Isso apagará permanentemente todas as suas informações.',
-                          style: TextStyle(color: AppColors.white, fontSize: 18),
-                          textAlign: TextAlign.center,
-                        ),
-                        const SizedBox(height: 80),
+                        const SizedBox(height: 50),
                         Container(
                           height: 50,
                           decoration: BoxDecoration(

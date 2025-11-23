@@ -67,7 +67,7 @@ class RenamePage extends StatelessWidget {
                     ),
                   ),
                 ),
-
+                
                 // Botão: Redefinir Senha
                 _buildWebMenuItem(
                   text: 'Redefinir senha',
@@ -272,7 +272,7 @@ class RenamePage extends StatelessWidget {
                           labelText: 'Nome',
                           focusBorder: AppColors.yellow,
                         ),
-                        const SizedBox(height: 40),
+                        const SizedBox(height: 20),
                         Container(
                           height: 50,
                           decoration: BoxDecoration(
