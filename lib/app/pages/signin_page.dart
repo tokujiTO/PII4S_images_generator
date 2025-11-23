@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart'; 
 import 'package:flutter/material.dart';
 import 'package:poliedroimagesgenerator/app/components/text_field_dynamic.dart';
 import 'package:poliedroimagesgenerator/app/controllers/signin_page_controller.dart';
@@ -27,6 +28,10 @@ class _SignInPageState extends State<SignInPage> {
 
   @override
   Widget build(BuildContext context) {
+    // --- TAMANHOS QUE DEVEM SER USADOS NA WEB ---
+    final double webButtonWidth = 700; // igual ao usado na tela de cadastro
+    final double webButtonHeight = 55; // igual ao usado na tela de cadastro
+
     return Scaffold(
       body: Container(
         decoration: BoxDecoration(
@@ -43,6 +48,7 @@ class _SignInPageState extends State<SignInPage> {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 const SizedBox(height: 40),
+
                 Hero(
                   tag: 'logo',
                   child: Image.asset(
@@ -50,24 +56,34 @@ class _SignInPageState extends State<SignInPage> {
                     width: 350,
                   ),
                 ),
+
                 const SizedBox(height: 40),
+
+                // CAMPO EMAIL
                 SizedBox(
-                  width: MediaQuery.of(context).size.width * 0.8,
+                  width: kIsWeb
+                      ? webButtonWidth
+                      : MediaQuery.of(context).size.width * 0.8,
                   child: CustomTextField(
                     controller: controller.emailController,
-                    onChanged: (value) => {controller.updateEmail(value)},
+                    onChanged: controller.updateEmail,
                     fillColor: Colors.transparent,
                     labelText: 'E-mail',
                     suffixIcon: Icon(Icons.person, color: AppColors.white),
                   ),
                 ),
+
                 SizedBox(height: 20),
+
+                // CAMPO SENHA
                 SizedBox(
-                  width: MediaQuery.of(context).size.width * 0.8,
+                  width: kIsWeb
+                      ? webButtonWidth
+                      : MediaQuery.of(context).size.width * 0.8,
                   child: CustomTextField(
                     controller: controller.passwordController,
                     fillColor: Colors.transparent,
-                    onChanged: (value) => {controller.updatePassword(value)},
+                    onChanged: controller.updatePassword,
                     labelText: 'Senha',
                     suffixIcon: controller.isPasswordVisible
                         ? Icon(Icons.visibility, color: AppColors.white)
@@ -80,11 +96,12 @@ class _SignInPageState extends State<SignInPage> {
                     },
                   ),
                 ),
-                SizedBox(height: 30),
+
+                const SizedBox(height: 30),
+
+                // ESQUECI SENHA
                 ElevatedButton(
-                  onPressed: () {
-                    // Handle sign up logic
-                  },
+                  onPressed: () {},
                   style: ButtonStyle(
                     elevation: WidgetStateProperty.all(0),
                     backgroundColor: WidgetStateProperty.all(
@@ -103,12 +120,19 @@ class _SignInPageState extends State<SignInPage> {
                     ),
                   ),
                 ),
-                SizedBox(height: 30),
+
+                const SizedBox(height: 30),
+
+                // BOTÃO ENTRAR
                 Hero(
                   tag: 'signinBtn',
                   child: SizedBox(
-                    width: MediaQuery.of(context).size.width * 0.8,
-                    height: MediaQuery.of(context).size.height * 0.062,
+                    width: kIsWeb
+                        ? webButtonWidth
+                        : MediaQuery.of(context).size.width * 0.8,
+                    height: kIsWeb
+                        ? webButtonHeight
+                        : MediaQuery.of(context).size.height * 0.062,
                     child: ElevatedButton(
                       style: ButtonStyle(
                         elevation: WidgetStateProperty.all(2),
@@ -122,16 +146,11 @@ class _SignInPageState extends State<SignInPage> {
                           ),
                         ),
                       ),
-                      onPressed: () => {
-                        // Navigator.pushNamedAndRemoveUntil(
-                        //   context,
-                        //   "/home",
-                        //   (route) => false,
-                        controller.signIn(context),
-                      },
+                      onPressed: () => controller.signIn(context),
                       child: Text(
                         'Entrar',
-                        style: TextStyle(fontSize: 25, color: AppColors.white),
+                        style:
+                            TextStyle(fontSize: 25, color: AppColors.white),
                       ),
                     ),
                   ),
