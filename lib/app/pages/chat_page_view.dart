@@ -3,6 +3,8 @@ import 'dart:typed_data';
 import 'package:flutter/material.dart';
 import 'package:poliedroimagesgenerator/app/components/dropdown.dart';
 import 'package:poliedroimagesgenerator/app/components/text_field_dynamic.dart';
+import 'package:poliedroimagesgenerator/app/controllers/home_page_controller.dart';
+import 'package:poliedroimagesgenerator/app/pages/home_page_view.dart';
 import 'package:poliedroimagesgenerator/app/utils/pdf_service.dart';
 
 import 'package:provider/provider.dart';

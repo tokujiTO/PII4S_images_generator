@@ -28,8 +28,8 @@ class _HomePageState extends State<HomePage> {
     return Padding(
       padding: const EdgeInsets.only(bottom: 12.0),
       child: GestureDetector(
-        onTap: () {
-          Navigator.push(
+        onTap: () async {
+          await Navigator.push(
             context,
             MaterialPageRoute(
               builder: (context) => ChatPage(
@@ -40,6 +40,11 @@ class _HomePageState extends State<HomePage> {
               ),
             ),
           );
+          final homeController = Provider.of<HomePageController>(
+            context,
+            listen: false,
+          );
+          await homeController.fetchResearches();
         },
         child: Container(
           padding: const EdgeInsets.all(12.0),
@@ -261,7 +266,7 @@ class _HomePageState extends State<HomePage> {
                                       ),
                                       const SizedBox(height: 32),
 
-                                      // ❗❗ NO DESKTOP NÃO É FIXO AQUI, ENTÃO FICA IGUAL
+                                      // NO DESKTOP NÃO É FIXO AQUI, ENTÃO FICA IGUAL
                                       if (!isDesktop)
                                         SizedBox(
                                           width:
