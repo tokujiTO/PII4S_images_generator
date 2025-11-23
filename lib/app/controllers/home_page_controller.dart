@@ -2,12 +2,24 @@ import 'dart:convert';
 import 'dart:typed_data';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
+import 'package:poliedroimagesgenerator/app/env.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 
 class HomePageController extends ChangeNotifier {
   List<ResearchItem> researches = [];
   bool isLoading = false;
   String? error;
+
+  String getSecretKey() {
+    String? key = dotenv.env['API_SECRET_KEY'];
+
+    if (key == null) {
+      throw Exception("Erro: API_SECRET_KEY não encontrada no .env");
+    }
+
+    return key;
+  }
 
   Future<void> fetchResearches() async {
     isLoading = true;
@@ -22,13 +34,15 @@ class HomePageController extends ChangeNotifier {
         notifyListeners();
         return;
       }
-      final uri = Uri.parse('http://127.0.0.1:5000/home');
+      final uri = Env.loader.makeHttpUri('API_URL', path: '/home')!;
       final res = await http.post(
         uri,
-        headers: {'Content-Type': 'application/json'},
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': 'Bearer ${Env.loader.get('API_SECRET_KEY')}',
+        },
         body: jsonEncode({'user_id': userId}),
       );
-      print(res.body);
       if (res.statusCode == 200) {
         // decoded is _Map<String, dynamic>
         final decoded = jsonDecode(res.body);

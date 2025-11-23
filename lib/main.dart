@@ -11,8 +11,15 @@ import 'package:poliedroimagesgenerator/app/pages/settings_page_view.dart';
 import 'package:poliedroimagesgenerator/app/pages/signin_page.dart';
 import 'package:poliedroimagesgenerator/app/pages/signup_page.dart';
 import 'package:poliedroimagesgenerator/app/pages/contact_page_view.dart';
+import 'package:poliedroimagesgenerator/app/env.dart';
 
-void main() {
+// void main() {
+//   runApp(DevicePreview(enabled: false, builder: (context) => const MyApp()));
+// }
+
+Future<void> main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Env.init();
   runApp(DevicePreview(enabled: false, builder: (context) => const MyApp()));
 }
 
@@ -53,6 +60,3 @@ class MyApp extends StatelessWidget {
     );
   }
 }
-
-
-

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'dart:convert';
 import 'package:http/http.dart' as http;
+import 'package:poliedroimagesgenerator/app/env.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class SignInPageController extends ChangeNotifier {
@@ -53,11 +54,13 @@ class SignInPageController extends ChangeNotifier {
       );
       return;
     }
-
     http
         .post(
-          Uri.parse('http://127.0.0.1:5000/login'),
-          headers: {'Content-Type': 'application/json'},
+          Env.loader.makeHttpUri('API_URL', path: '/login')!,
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer ${Env.loader.get('API_SECRET_KEY')}',
+          },
           body: jsonEncode({'email': _email, 'senha': _password}),
         )
         .then((response) async {

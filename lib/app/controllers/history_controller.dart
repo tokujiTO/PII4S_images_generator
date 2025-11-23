@@ -2,7 +2,10 @@ import 'dart:convert';
 import 'dart:typed_data';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
+import 'package:poliedroimagesgenerator/app/env.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
+
 
 class HistoryController extends ChangeNotifier {
   List<HistoryItem> historyItems = [];
@@ -22,10 +25,10 @@ class HistoryController extends ChangeNotifier {
         notifyListeners();
         return;
       }
-      final uri = Uri.parse('http://127.0.0.1:5000/history');
+      final uri = Env.loader.makeHttpUri('API_URL', path: '/history')!;
       final res = await http.post(
         uri,
-        headers: {'Content-Type': 'application/json'},
+        headers: {'Content-Type': 'application/json', 'Authorization': 'Bearer ${Env.loader.get('API_SECRET_KEY')}'},
         body: jsonEncode({'user_id': userId}),
       );
       if (res.statusCode == 200) {
