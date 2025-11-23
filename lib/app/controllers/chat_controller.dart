@@ -3,10 +3,9 @@ import 'dart:typed_data';
 
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
+import 'package:poliedroimagesgenerator/app/env.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
-
-
 
 class ChatController extends ChangeNotifier {
   // Estado do chat
@@ -14,16 +13,6 @@ class ChatController extends ChangeNotifier {
   Uint8List? responseImage;
   bool isLoading = false;
   String? chatId;
-
-  String getSecretKey() {
-    String? key = dotenv.env['API_SECRET_KEY'];
-
-    if (key == null) {
-      throw Exception("Erro: API_SECRET_KEY não encontrada no .env");
-    }
-
-    return key;
-  }
 
   // Envia requisição POST para /chat
   Future<void> sendChat({
@@ -41,10 +30,13 @@ class ChatController extends ChangeNotifier {
         notifyListeners();
         return;
       }
-      final uri = Uri.parse('https://polig-947071723613.southamerica-east1.run.app/chat');
+      final uri = Env.loader.makeHttpUri('API_URL', path: '/chat')!;
       final res = await http.post(
         uri,
-        headers: {'Content-Type': 'application/json', 'Authorization': 'Bearer ${getSecretKey()}'},
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': 'Bearer ${Env.loader.get('API_SECRET_KEY')}',
+        },
         body: jsonEncode({
           'user_id': userId,
           'subject': subject,
@@ -79,10 +71,13 @@ class ChatController extends ChangeNotifier {
   }
 
   Future<void> deleteChat(String? chatId, BuildContext context) async {
-    final uri = Uri.parse('docker push southamerica-east1-docker.pkg.dev/gen-lang-client-0961631614/polig-repo/polig:latest/chat');
+    final uri = Env.loader.makeHttpUri('API_URL', path: '/chat')!;
     final res = await http.delete(
       uri,
-      headers: {'Content-Type': 'application/json', 'Authorization': 'Bearer ${getSecretKey()}'},
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer ${Env.loader.get('API_SECRET_KEY')}',
+      },
       body: jsonEncode({'chat_id': chatId}),
     );
     if (res.statusCode == 200) {

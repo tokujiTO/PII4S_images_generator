@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'dart:typed_data';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
+import 'package:poliedroimagesgenerator/app/env.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 
@@ -10,16 +11,6 @@ class HistoryController extends ChangeNotifier {
   List<HistoryItem> historyItems = [];
   bool isLoading = false;
   String? error;
-
-  String getSecretKey() {
-    String? key = dotenv.env['API_SECRET_KEY'];
-
-    if (key == null) {
-      throw Exception("Erro: API_SECRET_KEY não encontrada no .env");
-    }
-
-    return key;
-  } 
 
   Future<void> fetchHistory() async {
     isLoading = true;
@@ -34,10 +25,10 @@ class HistoryController extends ChangeNotifier {
         notifyListeners();
         return;
       }
-      final uri = Uri.parse('https://polig-947071723613.southamerica-east1.run.app/history');
+      final uri = Env.loader.makeHttpUri('API_URL', path: '/history')!;
       final res = await http.post(
         uri,
-        headers: {'Content-Type': 'application/json', 'Authorization': 'Bearer ${getSecretKey()}'},
+        headers: {'Content-Type': 'application/json', 'Authorization': 'Bearer ${Env.loader.get('API_SECRET_KEY')}'},
         body: jsonEncode({'user_id': userId}),
       );
       if (res.statusCode == 200) {
