@@ -28,13 +28,18 @@ class _SignUpPageState extends State<SignUpPage> {
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
-    final isWeb = size.width > 800; // define web layout
+    final isWeb = size.width > 800;
 
+    double fieldWidth = isWeb ? 700 : size.width * 0.8;
+    double fieldHeight = isWeb ? 55 : size.height * 0.062;
+
+    // Definição dos campos (Extraído para manter o código limpo)
     Widget fields = Column(
       children: [
         // Nome
         SizedBox(
-          width: isWeb ? 500 : size.width * 0.8,
+          width: fieldWidth,
+          height: fieldHeight,
           child: CustomTextField(
             focusBorder: AppColors.yellow,
             controller: controller.nameController,
@@ -47,7 +52,8 @@ class _SignUpPageState extends State<SignUpPage> {
 
         // Email
         SizedBox(
-          width: isWeb ? 500 : size.width * 0.8,
+          width: fieldWidth,
+          height: fieldHeight,
           child: CustomTextField(
             focusBorder: AppColors.yellow,
             suffixIcon: Icon(Icons.mail, color: AppColors.white),
@@ -61,7 +67,8 @@ class _SignUpPageState extends State<SignUpPage> {
 
         // Senha
         SizedBox(
-          width: isWeb ? 500 : size.width * 0.8,
+          width: fieldWidth,
+          height: fieldHeight,
           child: CustomTextField(
             focusBorder: AppColors.yellow,
             controller: controller.passwordController,
@@ -80,9 +87,10 @@ class _SignUpPageState extends State<SignUpPage> {
         ),
         SizedBox(height: 16),
 
-        // Confirmar senha
+        // Confirmar Senha
         SizedBox(
-          width: isWeb ? 500 : size.width * 0.8,
+          width: fieldWidth,
+          height: fieldHeight,
           child: CustomTextField(
             focusBorder: AppColors.yellow,
             controller: controller.confirmPasswordController,
@@ -102,11 +110,12 @@ class _SignUpPageState extends State<SignUpPage> {
       ],
     );
 
+    // Definição do Botão
     Widget signupButton = Hero(
       tag: 'signupBtn',
       child: SizedBox(
-        width: isWeb ? 500 : size.width * 0.8,
-        height: size.height * 0.062,
+        width: fieldWidth,
+        height: fieldHeight,
         child: ElevatedButton(
           style: ButtonStyle(
             elevation: WidgetStateProperty.all(2),
@@ -135,43 +144,36 @@ class _SignUpPageState extends State<SignUpPage> {
 
     return Scaffold(
       body: Container(
+        width: double.infinity,
+        height: double.infinity,
         decoration: BoxDecoration(
           gradient: LinearGradient(
             colors: [AppColors.yellow, AppColors.yellow, AppColors.background],
             begin: Alignment.topCenter,
             end: Alignment.bottomCenter,
-            stops: [0.0, 0.1, 0.4],
+            stops: const [0.0, 0.1, 0.4],
           ),
         ),
         child: SafeArea(
+          // 1. Center: Garante que fique no meio se a tela for grande
           child: Center(
-            child: isWeb
-                ? Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Image.asset(
-                        'lib/app/assets/PolIG.png',
-                        width: 180,
-                      ),
-                      SizedBox(height: 30),
-                      fields,
-                      signupButton,
-                    ],
-                  )
-                : Padding(
-                    padding: const EdgeInsets.symmetric(vertical: 20),
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Image.asset(
-                          'lib/app/assets/PolIG.png',
-                          width: size.width * 0.6,
-                        ),
-                        fields,
-                        signupButton,
-                      ],
-                    ),
+            // 2. SingleChildScrollView: Permite rolar se a tela for pequena (evita erro amarelo)
+            child: SingleChildScrollView(
+              padding: const EdgeInsets.symmetric(vertical: 24),
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Image.asset(
+                    'lib/app/assets/PolIG.png',
+                    width: isWeb ? 180 : size.width * 0.6,
                   ),
+                  const SizedBox(height: 30),
+                  fields,
+                  signupButton,
+                ],
+              ),
+            ),
           ),
         ),
       ),
