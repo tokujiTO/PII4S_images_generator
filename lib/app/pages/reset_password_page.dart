@@ -146,29 +146,37 @@ class _ResetPasswordPageState extends State<ResetPasswordPage> {
                 ),
 
                 Align(
-                  alignment: Alignment.topLeft,
+                  alignment: Alignment.topCenter,
                   child: Container(
                     // posição do título 
-                    margin: const EdgeInsets.only(top: 105, left: 60), 
+                    margin: const EdgeInsets.only(top: 110, left: 60), 
                     width: 450, // Largura da linha branca
                     child: Column(
                       mainAxisSize: MainAxisSize.min,
-                      crossAxisAlignment: CrossAxisAlignment.start,
+                      crossAxisAlignment: CrossAxisAlignment.stretch,
                       children: [
-                        const Text(
-                          'Precisa alterar sua senha?',
-                          style: TextStyle(
-                            color: AppColors.white,
-                            fontSize: 35,
-                            fontWeight: FontWeight.w400,
+                        Container(
+                          child: const Text(
+                            '\u2006Quer alterar sua senha?',
+                            style: TextStyle(
+                              color: AppColors.white,
+                              fontSize: 35,
+                              fontWeight: FontWeight.w400,
+                            ),
+                            textAlign: TextAlign.left,
                           ),
                         ),
+
                         const SizedBox(height: 10),
-                        Container(
-                          height: 2,
-                          color: AppColors.white,
-                          width: 700,
-                        ),
+                        Align(
+                          alignment: Alignment.centerLeft,
+                          child: Container(
+                            margin: const EdgeInsets.only(left: 0, right: 60), // desloca
+                            width: 550, // aumenta tamanho
+                            height: 2,
+                            color: AppColors.white,
+                          ),
+                        )
                       ],
                     ),
                   ),
@@ -413,9 +421,11 @@ class _ResetPasswordPageState extends State<ResetPasswordPage> {
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: <Widget>[
         const Text(
-          'Precisa alterar sua senha?',
+          'Quer alterar sua senha?',
           style: TextStyle(color: AppColors.white, fontSize: 25),
         ),
+        const SizedBox(height: 10),
+        Container(height: 2, color: AppColors.white),
         const SizedBox(height: 15),
         const Text(
           'Digite seu novo e-mail para efetuarmos a redefinição:',
@@ -423,7 +433,7 @@ class _ResetPasswordPageState extends State<ResetPasswordPage> {
         ),
         const SizedBox(height: 20),
         CustomTextField(focusBorder: AppColors.yellow, labelText: 'E-mail'),
-        const SizedBox(height: 40),
+        const SizedBox(height: 20),
         Container(
           height: 50,
           decoration: BoxDecoration(
@@ -444,39 +454,63 @@ class _ResetPasswordPageState extends State<ResetPasswordPage> {
     );
   }
 
-  Widget _buildStep2(Color color) {
-    return Column(
-      key: const ValueKey<int>(2),
-      crossAxisAlignment: CrossAxisAlignment.center,
-      children: <Widget>[
-        const Text(
-          'Digite o código que enviamos agora para:',
-          style: TextStyle(color: AppColors.white, fontSize: 20),
-          textAlign: TextAlign.center,
-        ),
-        const SizedBox(height: 10),
-        const Text(
-          'exemplo@gmail.com',
+ Widget _buildStep2(Color color) {
+  return Column(
+    key: const ValueKey<int>(2),
+    crossAxisAlignment: CrossAxisAlignment.start, // título à esquerda
+    children: <Widget>[
+      const Align(
+        alignment: Alignment.centerLeft,
+        child: Text(
+          'Quer alterar sua senha?',
           style: TextStyle(
             color: AppColors.white,
-            fontSize: 20,
-            fontWeight: FontWeight.bold,
-          ),
-          textAlign: TextAlign.center,
-        ),
-        const SizedBox(height: 30),
-        const Text(
-          '_ _ _ _ _ _',
-          style: TextStyle(
-            color: AppColors.white,
-            fontSize: 30,
-            letterSpacing: 10,
+            fontSize: 25,
           ),
         ),
-        const SizedBox(height: 60),
-        Container(
-          height: 50,
-          width: 200,
+      ),
+
+      const SizedBox(height: 10),
+      Container(height: 2, color: AppColors.white),
+      const SizedBox(height: 15),
+
+      Center(
+        child: Column(
+          children: const [
+            Text(
+              'Digite o código que enviamos agora para:',
+              style: TextStyle(color: AppColors.white, fontSize: 20),
+              textAlign: TextAlign.center,
+            ),
+            SizedBox(height: 10),
+            Text(
+              'exemplo@gmail.com',
+              style: TextStyle(
+                color: AppColors.white,
+                fontSize: 20,
+                fontWeight: FontWeight.bold,
+              ),
+              textAlign: TextAlign.center,
+            ),
+            SizedBox(height: 30),
+            Text(
+              '_ _ _ _ _ _',
+              style: TextStyle(
+                color: AppColors.white,
+                fontSize: 30,
+                letterSpacing: 10,
+              ),
+              textAlign: TextAlign.center,
+            ),
+            SizedBox(height: 60),
+          ],
+        ),
+      ),
+
+      Center(
+        child: Container(
+          height: 55,
+          width: 700,
           decoration: BoxDecoration(
             border: Border.all(color: color, width: 2),
             borderRadius: BorderRadius.circular(5.0),
@@ -485,44 +519,74 @@ class _ResetPasswordPageState extends State<ResetPasswordPage> {
             onPressed: () {
               setState(() => _step = 3);
             },
-            child: Text('Enviar', style: TextStyle(color: color, fontSize: 20)),
-          ),
-        ),
-      ],
-    );
-  }
-
-  Widget _buildStep3(Color color) {
-    return Column(
-      key: const ValueKey<int>(3),
-      crossAxisAlignment: CrossAxisAlignment.stretch,
-      children: <Widget>[
-        const Text(
-          'Digite sua nova senha:',
-          style: TextStyle(color: AppColors.white, fontSize: 20),
-        ),
-        const SizedBox(height: 30),
-        _buildPasswordField('Senha'),
-        const SizedBox(height: 20),
-        _buildPasswordField('Confirme sua senha'),
-        const SizedBox(height: 40),
-        Container(
-          height: 50,
-          decoration: BoxDecoration(
-            border: Border.all(color: color, width: 2),
-            borderRadius: BorderRadius.circular(5.0),
-          ),
-          child: TextButton(
-            onPressed: () {},
             child: Text(
-              'Redefinir',
+              'Enviar',
               style: TextStyle(color: color, fontSize: 20),
             ),
           ),
         ),
-      ],
-    );
-  }
+      ),
+    ],
+  );
+}
+
+Widget _buildStep3(Color color) {
+  return Column(
+    key: const ValueKey<int>(3),
+    crossAxisAlignment: CrossAxisAlignment.start, 
+    children: <Widget>[
+      const Align(
+        alignment: Alignment.centerLeft,
+        child: Text(
+          'Quer alterar sua senha?',
+          style: TextStyle(
+            color: AppColors.white,
+            fontSize: 25,
+          ),
+        ),
+      ),
+
+      const SizedBox(height: 10),
+      Container(height: 2, color: AppColors.white),
+      const SizedBox(height: 40),
+      Center(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            const Text(
+              'Digite sua nova senha:',
+              style: TextStyle(color: AppColors.white, fontSize: 20),
+              textAlign: TextAlign.center,
+            ),
+            const SizedBox(height: 30),
+
+            SizedBox(width: 700, child: _buildPasswordField('Senha')),
+            const SizedBox(height: 20),
+            SizedBox(width: 700, child: _buildPasswordField('Confirme sua senha')),
+
+            const SizedBox(height: 30),
+
+            Container(
+              height: 50,
+              width: 700,
+              decoration: BoxDecoration(
+                border: Border.all(color: color, width: 2),
+                borderRadius: BorderRadius.circular(5.0),
+              ),
+              child: TextButton(
+                onPressed: () {},
+                child: Text(
+                  'Redefinir',
+                  style: TextStyle(color: color, fontSize: 20),
+                ),
+              ),
+            ),
+          ],
+        ),
+      ),
+    ],
+  );
+}
 
   Widget _buildPasswordField(String hint) {
     return CustomTextField(

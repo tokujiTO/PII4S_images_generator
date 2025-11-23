@@ -23,13 +23,13 @@ class _ChangeEmailPageState extends State<ChangeEmailPage> {
         if (constraints.maxWidth > 800) {
           return _buildWebLayout(context);
         }
-        //mobile — NÃO ALTERADO
+        //mobile 
         return _buildMobileLayout(context);
       },
     );
   }
 
-  // ------------------------------- WEB -------------------------------
+  // WEB 
 
   Widget _buildWebLayout(BuildContext context) {
     const Color highlightColor = AppColors.yellow;
@@ -53,7 +53,7 @@ class _ChangeEmailPageState extends State<ChangeEmailPage> {
       backgroundColor: AppColors.background,
       body: Row(
         children: [
-          // ---------------- MENU ESQUERDO (alterei só os onTap) ----------------
+          // MENU ESQUERDO 
           Container(
             width: 300,
             color: Colors.black,
@@ -121,8 +121,8 @@ class _ChangeEmailPageState extends State<ChangeEmailPage> {
               ],
             ),
           ),
-
-          // ------------------- CONTEÚDO PRINCIPAL -------------------
+        
+          // CONTEÚDO PRINCIPAL
           Expanded(
             child: Stack(
               children: [
@@ -146,16 +146,16 @@ class _ChangeEmailPageState extends State<ChangeEmailPage> {
                 ),
 
                 Align(
-                  alignment: Alignment.topLeft,
+                  alignment: Alignment.topCenter,
                   child: Container(
-                    margin: const EdgeInsets.only(top: 105, left: 60),
+                    margin: const EdgeInsets.only(top: 110, left: 60),
                     width: 450,
                     child: Column(
                       mainAxisSize: MainAxisSize.min,
-                      crossAxisAlignment: CrossAxisAlignment.start,
+                      crossAxisAlignment: CrossAxisAlignment.stretch,
                       children: [
                         const Text(
-                          'Quer alterar seu e-mail?',
+                          '\u2006Quer alterar seu e-mail?',
                           style: TextStyle(
                             color: AppColors.white,
                             fontSize: 35,
@@ -163,7 +163,17 @@ class _ChangeEmailPageState extends State<ChangeEmailPage> {
                           ),
                         ),
                         const SizedBox(height: 10),
-                        Container(height: 2, color: AppColors.white),
+                        Align(
+                          alignment: Alignment.centerLeft,
+                          child: Container(
+                            margin: const EdgeInsets.only(left: 5, right: 60), // desloca
+                            width: 550, // aumenta tamanho
+                            height: 2,
+                            color: AppColors.white,
+                          ),
+                        )
+
+
                       ],
                     ),
                   ),
@@ -396,6 +406,8 @@ class _ChangeEmailPageState extends State<ChangeEmailPage> {
           'Quer alterar seu e-mail?',
           style: TextStyle(color: AppColors.white, fontSize: 25),
         ),
+        const SizedBox(height: 10),
+        Container(height: 2, color: AppColors.white),
         const SizedBox(height: 15),
         const Text(
           'Digite seu novo e-mail para efetuarmos a redefinição:',
@@ -403,7 +415,7 @@ class _ChangeEmailPageState extends State<ChangeEmailPage> {
         ),
         const SizedBox(height: 20),
         CustomTextField(focusBorder: AppColors.yellow, labelText: 'E-mail'),
-        const SizedBox(height: 40),
+        const SizedBox(height: 20),
         Container(
           height: 50,
           decoration: BoxDecoration(
@@ -425,81 +437,131 @@ class _ChangeEmailPageState extends State<ChangeEmailPage> {
   }
 
   Widget _buildStep2(Color color) {
-    return Column(
-      key: const ValueKey<int>(2),
-      crossAxisAlignment: CrossAxisAlignment.center,
-      children: <Widget>[
-        const Text(
-          'Digite o código que enviamos agora para:',
-          style: TextStyle(color: AppColors.white, fontSize: 20),
-          textAlign: TextAlign.center,
+  return Column(
+    key: const ValueKey<int>(2),
+    crossAxisAlignment: CrossAxisAlignment.start, // mantém o primeiro à esquerda
+    children: <Widget>[
+      const Align(
+        alignment: Alignment.center,
+        child: Text(
+          'Quer alterar seu e-mail?',
+          style: TextStyle(color: AppColors.white, fontSize: 25),
         ),
-        const SizedBox(height: 10),
-        const Text(
-          'exemplo@gmail.com',
+      ),
+      const SizedBox(height: 10),
+      Container(height: 2, color: AppColors.white),
+      const SizedBox(height: 15),
+
+      // TEXTOS CENTRAIS AGRUPADOS 
+      Center(
+        child: Column(
+          children: const [
+            Text(
+              'Digite o código que enviamos agora para:',
+              style: TextStyle(color: AppColors.white, fontSize: 20),
+              textAlign: TextAlign.center,
+            ),
+            SizedBox(height: 10),
+            Text(
+              'exemplo@gmail.com',
+              style: TextStyle(
+                color: AppColors.white,
+                fontSize: 20,
+                fontWeight: FontWeight.bold,
+              ),
+              textAlign: TextAlign.center,
+            ),
+            SizedBox(height: 30),
+            Text(
+              '_ _ _ _ _ _',
+              textAlign: TextAlign.center,
+              style: TextStyle(
+                color: AppColors.white,
+                fontSize: 30,
+                letterSpacing: 10,
+              ),
+            ),
+          ],
+        ),
+      ),
+
+      const SizedBox(height: 60),
+
+      Container(
+        height: 55,
+        width: 700,
+        decoration: BoxDecoration(
+          border: Border.all(color: color, width: 2),
+          borderRadius: BorderRadius.circular(5.0),
+        ),
+        child: TextButton(
+          onPressed: () {
+            setState(() => _step = 3);
+          },
+          child: Text(
+            'Enviar',
+            style: TextStyle(color: color, fontSize: 20),
+          ),
+        ),
+      ),
+    ],
+  );
+}
+
+  Widget _buildStep3(Color color) {
+  return Column(
+    key: const ValueKey<int>(3),
+    crossAxisAlignment: CrossAxisAlignment.center, // mantém o primeiro à esquerda
+    children: <Widget>[
+      Center(
+        child: Text(
+          'Quer alterar seu e-mail?',
           style: TextStyle(
             color: AppColors.white,
-            fontSize: 20,
-            fontWeight: FontWeight.bold,
-          ),
-          textAlign: TextAlign.center,
-        ),
-        const SizedBox(height: 30),
-        const Text(
-          '_ _ _ _ _ _',
-          style: TextStyle(
-            color: AppColors.white,
-            fontSize: 30,
-            letterSpacing: 10,
+            fontSize: 25,
           ),
         ),
-        const SizedBox(height: 60),
-        Container(
-          height: 55,
+      ),
+
+      const SizedBox(height: 10),
+      Container(height: 2, color: AppColors.white),
+      const SizedBox(height: 40),
+
+      Center(
+        child: Column(
+          children: const [
+            Text(
+              'E-mail redefinido com sucesso!',
+              style: TextStyle(
+                color: AppColors.white,
+                fontSize: 27,
+                fontWeight: FontWeight.bold,
+              ),
+              textAlign: TextAlign.center,
+            ),
+            SizedBox(height: 50),
+          ],
+        ),
+      ),
+
+      Center(
+        child: Container(
+          height: 50,
           width: 700,
           decoration: BoxDecoration(
             border: Border.all(color: color, width: 2),
             borderRadius: BorderRadius.circular(5.0),
           ),
           child: TextButton(
-            onPressed: () {
-              setState(() => _step = 3);
-            },
-            child: Text('Enviar', style: TextStyle(color: color, fontSize: 24)),
-          ),
-        ),
-      ],
-    );
-  }
-
-  Widget _buildStep3(Color color) {
-    return Column(
-      key: const ValueKey<int>(3),
-      crossAxisAlignment: CrossAxisAlignment.stretch,
-      children: <Widget>[
-        const SizedBox(height: 0),
-        const Text(
-          'E-mail redefinido com sucesso!',
-          style: TextStyle(
-            color: AppColors.white,
-            fontSize: 27,
-            fontWeight: FontWeight.bold,
-          ),
-          textAlign: TextAlign.center,
-        ),
-        const SizedBox(height: 50),
-        Container(
-          height: 50,
-          decoration: BoxDecoration(
-            border: Border.all(color: color, width: 2),
-            borderRadius: BorderRadius.circular(5.0),
-          ),
-          child: TextButton(
             onPressed: () => Navigator.of(context).pop(),
-            child: Text('Início', style: TextStyle(color: color, fontSize: 20)),
+            child: Text(
+              'Início',
+              style: TextStyle(color: color, fontSize: 20),
+            ),
           ),
         ),
-      ],
-    );
-  }
+      ),
+    ],
+  );
+}
 }
