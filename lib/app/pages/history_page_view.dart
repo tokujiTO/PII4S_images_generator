@@ -47,77 +47,6 @@ class _HistoryPageState extends State<HistoryPage> {
     );
   }
 
-  Widget _buildSearchBar() {
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 12.0),
-      child: Row(
-        children: [
-          Expanded(child: CustomTextField(labelText: 'Pesquisar no histórico')),
-          const SizedBox(width: 10),
-
-          Container(
-            height: 48,
-            width: 48,
-            decoration: BoxDecoration(
-              color: Colors.transparent,
-              borderRadius: BorderRadius.circular(10.0),
-              border: Border.all(color: AppColors.blue, width: 2),
-            ),
-            child: PopupMenuButton<String>(
-              onSelected: (value) {
-                if (value == 'physics') {
-                  ScaffoldMessenger.of(context).showSnackBar(
-                    const SnackBar(
-                      content: Text(
-                        'Física selecionada',
-                        style: TextStyle(color: AppColors.white),
-                      ),
-                    ),
-                  );
-                }
-              },
-              color: AppColors.background,
-              itemBuilder: (BuildContext context) => <PopupMenuEntry<String>>[
-                const PopupMenuItem<String>(
-                  value: 'physics',
-                  child: Row(
-                    children: [
-                      Icon(
-                        Icons.picture_as_pdf_outlined,
-                        color: AppColors.white,
-                      ),
-                      SizedBox(width: 12),
-                      Text('Física', style: TextStyle(color: AppColors.white)),
-                    ],
-                  ),
-                ),
-                const PopupMenuItem<String>(
-                  value: 'chemistry',
-                  child: Row(
-                    children: [
-                      Icon(Icons.delete, color: AppColors.white),
-                      SizedBox(width: 12),
-                      Text('Química', style: TextStyle(color: AppColors.white)),
-                    ],
-                  ),
-                ),
-              ],
-              icon: const Icon(
-                Icons.filter_alt,
-                color: AppColors.white,
-                size: 28,
-              ),
-              tooltip: 'Mais opções',
-              style: ButtonStyle(
-                backgroundColor: WidgetStateProperty.all(Colors.transparent),
-              ),
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-
   Widget _buildHistoryList(HistoryController controller) {
     if (controller.isLoading) {
       return const Center(
@@ -149,9 +78,9 @@ class _HistoryPageState extends State<HistoryPage> {
     }
     return ListView.builder(
       padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
-      itemCount: controller.historyItems.length,
+      itemCount: controller.filteredHistoryItems.length,
       itemBuilder: (context, index) {
-        final item = controller.historyItems[index];
+        final item = controller.filteredHistoryItems[index];
         return _buildHistoryCard(
           title: item.subject.isNotEmpty ? item.subject : 'Histórico',
           description: item.prompt,
@@ -286,7 +215,107 @@ class _HistoryPageState extends State<HistoryPage> {
                   child: Column(
                     children: [
                       _buildAppBar(context),
-                      _buildSearchBar(),
+                      Padding(
+                        padding: const EdgeInsets.symmetric(
+                          horizontal: 16.0,
+                          vertical: 12.0,
+                        ),
+                        child: Row(
+                          children: [
+                            Expanded(
+                              child: CustomTextField(
+                                labelText: 'Pesquisar no histórico',
+                                onChanged: (value) {
+                                  Provider.of<HistoryController>(
+                                    context,
+                                    listen: false,
+                                  ).search = value;
+                                },
+                              ),
+                            ),
+                            const SizedBox(width: 10),
+
+                            Container(
+                              height: 48,
+                              width: 48,
+                              decoration: BoxDecoration(
+                                color: Colors.transparent,
+                                borderRadius: BorderRadius.circular(10.0),
+                                border: Border.all(
+                                  color: AppColors.blue,
+                                  width: 2,
+                                ),
+                              ),
+                              child: PopupMenuButton<String>(
+                                onSelected: (value) {
+                                  if (value == 'chemistry') {
+                                    Provider.of<HistoryController>(
+                                      context,
+                                      listen: false,
+                                    ).search = "Química";
+                                  } else if (value == 'physics') {
+                                    Provider.of<HistoryController>(
+                                      context,
+                                      listen: false,
+                                    ).search = "Física";
+                                  }
+                                },
+                                color: AppColors.background,
+                                itemBuilder: (BuildContext context) =>
+                                    <PopupMenuEntry<String>>[
+                                      const PopupMenuItem<String>(
+                                        value: 'physics',
+                                        child: Row(
+                                          children: [
+                                            Icon(
+                                              Icons.picture_as_pdf_outlined,
+                                              color: AppColors.white,
+                                            ),
+                                            SizedBox(width: 12),
+                                            Text(
+                                              'Física',
+                                              style: TextStyle(
+                                                color: AppColors.white,
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+                                      const PopupMenuItem<String>(
+                                        value: 'chemistry',
+                                        child: Row(
+                                          children: [
+                                            Icon(
+                                              Icons.delete,
+                                              color: AppColors.white,
+                                            ),
+                                            SizedBox(width: 12),
+                                            Text(
+                                              'Química',
+                                              style: TextStyle(
+                                                color: AppColors.white,
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+                                    ],
+                                icon: const Icon(
+                                  Icons.filter_alt,
+                                  color: AppColors.white,
+                                  size: 28,
+                                ),
+                                tooltip: 'Mais opções',
+                                style: ButtonStyle(
+                                  backgroundColor: WidgetStateProperty.all(
+                                    Colors.transparent,
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
                       Expanded(child: _buildHistoryList(historyController)),
                     ],
                   ),

@@ -4,13 +4,30 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:poliedroimagesgenerator/app/env.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:flutter_dotenv/flutter_dotenv.dart';
-
 
 class HistoryController extends ChangeNotifier {
   List<HistoryItem> historyItems = [];
   bool isLoading = false;
   String? error;
+  String? _search;
+
+  String? get search => _search;
+
+  set search(String? value) {
+    _search = value;
+    notifyListeners();
+  }
+
+  List<HistoryItem> get filteredHistoryItems {
+    if (_search == null || _search!.isEmpty) {
+      return historyItems;
+    }
+    final lowerSearch = _search!.toLowerCase();
+    return historyItems.where((item) {
+      return item.subject.toLowerCase().contains(lowerSearch) ||
+          item.prompt.toLowerCase().contains(lowerSearch);
+    }).toList();
+  }
 
   Future<void> fetchHistory() async {
     isLoading = true;
@@ -28,7 +45,10 @@ class HistoryController extends ChangeNotifier {
       final uri = Env.loader.makeHttpUri('API_URL', path: '/history')!;
       final res = await http.post(
         uri,
-        headers: {'Content-Type': 'application/json', 'Authorization': 'Bearer ${Env.loader.get('API_SECRET_KEY')}'},
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': 'Bearer ${Env.loader.get('API_SECRET_KEY')}',
+        },
         body: jsonEncode({'user_id': userId}),
       );
       if (res.statusCode == 200) {
