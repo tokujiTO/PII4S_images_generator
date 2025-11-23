@@ -1,6 +1,10 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
+import 'package:http/http.dart' as http;
 import 'package:poliedroimagesgenerator/app/components/text_field_dynamic.dart';
 import 'package:poliedroimagesgenerator/app/utils/app_colors.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'change_email_page.dart';
 import 'reset_password_page.dart';
 import 'delete_account_page.dart';
@@ -20,9 +24,27 @@ class RenamePage extends StatelessWidget {
     );
   }
 
+  Future<void> _renameUser(BuildContext context, String newName) async {
+    final prefs = await SharedPreferences.getInstance();
+    final userMail = prefs.getString('email') ?? '';
+    final uri = Uri.parse('http://127.0.0.1:5000/usuarios/$userMail');
+    final response = await http.put(
+      uri,
+      headers: {'Content-Type': 'application/json'},
+      body: jsonEncode({'nome': newName}),
+    );
+    if (response.statusCode == 200) {
+      print('Nome atualizado com sucesso.');
+      print(response.body);
+      Navigator.pushNamedAndRemoveUntil(context, '/home', (route) => false);
+    } else {
+      print('Falha ao atualizar o nome. Código: ${response.statusCode}');
+    }
+  }
+
   Widget _buildWebLayout(BuildContext context) {
     const Color highlightColor = AppColors.yellow;
-
+    String newName = '';
     return Scaffold(
       backgroundColor: AppColors.background,
       body: Row(
@@ -55,7 +77,9 @@ class RenamePage extends StatelessWidget {
                     child: Container(
                       width: double.infinity,
                       padding: const EdgeInsets.symmetric(
-                          vertical: 20, horizontal: 24),
+                        vertical: 20,
+                        horizontal: 24,
+                      ),
                       child: const Text(
                         'Redefinir nome',
                         style: TextStyle(
@@ -67,7 +91,7 @@ class RenamePage extends StatelessWidget {
                     ),
                   ),
                 ),
-                
+
                 // Botão: Redefinir Senha
                 _buildWebMenuItem(
                   text: 'Redefinir senha',
@@ -75,19 +99,21 @@ class RenamePage extends StatelessWidget {
                     Navigator.pushReplacement(
                       context,
                       MaterialPageRoute(
-                          builder: (_) => const ResetPasswordPage()),
+                        builder: (_) => const ResetPasswordPage(),
+                      ),
                     );
                   },
                 ),
 
-                //Botão: Redefinir Email 
+                //Botão: Redefinir Email
                 _buildWebMenuItem(
                   text: 'Redefinir e-mail',
                   onTap: () {
                     Navigator.pushReplacement(
                       context,
                       MaterialPageRoute(
-                          builder: (_) => const ChangeEmailPage()),
+                        builder: (_) => const ChangeEmailPage(),
+                      ),
                     );
                   },
                 ),
@@ -99,7 +125,8 @@ class RenamePage extends StatelessWidget {
                     Navigator.pushReplacement(
                       context,
                       MaterialPageRoute(
-                          builder: (_) => const DeleteAccountPage()),
+                        builder: (_) => const DeleteAccountPage(),
+                      ),
                     );
                   },
                 ),
@@ -107,7 +134,7 @@ class RenamePage extends StatelessWidget {
             ),
           ),
 
-        //web
+          //web
           Expanded(
             child: Stack(
               children: [
@@ -152,6 +179,9 @@ class RenamePage extends StatelessWidget {
                         CustomTextField(
                           labelText: 'Nome',
                           focusBorder: AppColors.yellow,
+                          onChanged: (value) {
+                            newName = value;
+                          },
                         ),
                         const SizedBox(height: 20),
                         Container(
@@ -162,7 +192,9 @@ class RenamePage extends StatelessWidget {
                             borderRadius: BorderRadius.circular(8.0),
                           ),
                           child: TextButton(
-                            onPressed: () {},
+                            onPressed: () {
+                              _renameUser(context, newName);
+                            },
                             child: const Text(
                               'Redefinir',
                               style: TextStyle(
@@ -184,9 +216,10 @@ class RenamePage extends StatelessWidget {
     );
   }
 
-
-  Widget _buildWebMenuItem(
-      {required String text, required VoidCallback onTap}) {
+  Widget _buildWebMenuItem({
+    required String text,
+    required VoidCallback onTap,
+  }) {
     return Material(
       color: Colors.transparent,
       child: InkWell(
@@ -195,26 +228,21 @@ class RenamePage extends StatelessWidget {
           width: double.infinity,
           padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 24),
           decoration: const BoxDecoration(
-            border: Border(
-              bottom: BorderSide(color: Colors.white, width: 2),
-            ),
+            border: Border(bottom: BorderSide(color: Colors.white, width: 2)),
           ),
           child: Text(
             text,
-            style: const TextStyle(
-              color: Colors.white,
-              fontSize: 18,
-            ),
+            style: const TextStyle(color: Colors.white, fontSize: 18),
           ),
         ),
       ),
     );
   }
 
-//mobile 
+  //mobile
   Widget _buildMobileLayout(BuildContext context) {
     const Color highlightColor = AppColors.yellow;
-
+    String newName = '';
     return Scaffold(
       backgroundColor: AppColors.background,
       body: Stack(
@@ -271,6 +299,9 @@ class RenamePage extends StatelessWidget {
                         CustomTextField(
                           labelText: 'Nome',
                           focusBorder: AppColors.yellow,
+                          onChanged: (value) {
+                            newName = value;
+                          },
                         ),
                         const SizedBox(height: 20),
                         Container(
@@ -280,7 +311,9 @@ class RenamePage extends StatelessWidget {
                             borderRadius: BorderRadius.circular(5.0),
                           ),
                           child: TextButton(
-                            onPressed: () {},
+                            onPressed: () {
+                              _renameUser(context, newName);
+                            },
                             child: const Text(
                               'Redefinir',
                               style: TextStyle(

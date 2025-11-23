@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'package:poliedroimagesgenerator/app/env.dart';
+import 'package:poliedroimagesgenerator/app/pages/change_email_page.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class SignInPageController extends ChangeNotifier {
@@ -74,9 +75,11 @@ class SignInPageController extends ChangeNotifier {
             if (body is Map) {
               final userID = body["usuario"]['user_id'];
               final userName = body["usuario"]['nome'];
-              print('UserID: $userID, Nome: $userName');
+              final email = body["usuario"]['email'];
+              print('UserID: $userID, Nome: $userName, Email: $email');
               // Armazena o userID e o nome do usuário no local storage ou estado global, se necessário
               final prefs = await SharedPreferences.getInstance();
+              await prefs.setString('email', email);
               await prefs.setString('userId', userID);
               await prefs.setString('userName', userName);
             }

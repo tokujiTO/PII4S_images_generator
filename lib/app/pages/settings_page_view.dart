@@ -28,7 +28,7 @@ class SettingsPageView extends StatelessWidget {
       backgroundColor: AppColors.background, // Fundo preto
       body: Stack(
         children: [
-          //Conteúdo da página 
+          //Conteúdo da página
           SafeArea(
             child: Column(
               children: <Widget>[
@@ -38,13 +38,16 @@ class SettingsPageView extends StatelessWidget {
                   child: Row(
                     children: [
                       IconButton(
-                        icon: const Icon(Icons.arrow_back, color: AppColors.white),
+                        icon: const Icon(
+                          Icons.arrow_back,
+                          color: AppColors.white,
+                        ),
                         onPressed: () => Navigator.of(context).pop(),
                       ),
                     ],
                   ),
                 ),
-                
+
                 // Opções de configuração (agora usando _OptionTile)
                 _buildOption(
                   context,
@@ -102,11 +105,7 @@ class SettingsPageView extends StatelessWidget {
     VoidCallback onTap,
     Color pressedColor,
   ) {
-    return _OptionTile(
-      title: title,
-      onTap: onTap,
-      pressedColor: pressedColor,
-    );
+    return _OptionTile(title: title, onTap: onTap, pressedColor: pressedColor);
   }
 }
 
@@ -142,7 +141,7 @@ class _OptionTileState extends State<_OptionTile> {
     setState(() => _isPressed = true);
     // pequeno delay para o usuário ver o destaque
     await Future.delayed(const Duration(milliseconds: 120));
-    // primeiro remove o destaque e só então chama onTap 
+    // primeiro remove o destaque e só então chama onTap
     if (!mounted) return;
     setState(() => _isPressed = false);
     widget.onTap();
@@ -156,11 +155,12 @@ class _OptionTileState extends State<_OptionTile> {
       onTapUp: _handleTapUp,
       onTapCancel: _handleTapCancel,
       child: Container(
-        
         color: _isPressed ? widget.pressedColor : Colors.transparent,
         child: Container(
           decoration: const BoxDecoration(
-            border: Border(bottom: BorderSide(color: AppColors.white, width: 0.5)),
+            border: Border(
+              bottom: BorderSide(color: AppColors.white, width: 0.5),
+            ),
           ),
           child: ListTile(
             title: Text(
@@ -172,7 +172,10 @@ class _OptionTileState extends State<_OptionTile> {
               color: Colors.transparent,
               size: 0,
             ),
-            contentPadding: const EdgeInsets.symmetric(horizontal: 20, vertical: 8),
+            contentPadding: const EdgeInsets.symmetric(
+              horizontal: 20,
+              vertical: 8,
+            ),
           ),
         ),
       ),

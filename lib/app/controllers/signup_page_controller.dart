@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:poliedroimagesgenerator/app/env.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class SignupPageController extends ChangeNotifier {
   final TextEditingController emailController = TextEditingController();
@@ -116,6 +117,12 @@ class SignupPageController extends ChangeNotifier {
       isLoading = false;
       notifyListeners();
       if (response.statusCode == 201 || response.statusCode == 200) {
+        final body = jsonDecode(response.body);
+        print(body);
+        final prefs = await SharedPreferences.getInstance();
+        await prefs.setString('email', email);
+        await prefs.setString('name', name);
+        await prefs.setString('userId', body['usuario']['user_id'].toString());
         Navigator.pushNamedAndRemoveUntil(context, "/home", (route) => false);
         return true;
       } else {

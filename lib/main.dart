@@ -45,7 +45,7 @@ class MyApp extends StatelessWidget {
         builder: DevicePreview.appBuilder,
         initialRoute: "/",
         routes: {
-          '/': (_) => const DevPageView(),
+          '/': (_) => const LoadingPage(),
           '/first': (_) => const FirstPage(),
           '/signup': (_) => const SignUpPage(),
           '/signin': (_) => const SignInPage(),
