@@ -1,6 +1,7 @@
 import 'dart:typed_data';
 
 import 'package:flutter/material.dart';
+import 'package:poliedroimagesgenerator/app/components/dropdown.dart';
 import 'package:poliedroimagesgenerator/app/components/text_field_dynamic.dart';
 
 import 'package:provider/provider.dart';
@@ -47,6 +48,11 @@ class _ChatPageState extends State<ChatPage> {
     descriptionFocusNode.dispose();
     super.dispose();
   }
+
+  final List<DropdownMenuItem<String>> items = [
+    DropdownMenuItem(value: 'Química', child: Text('Química')),
+    DropdownMenuItem(value: 'Física', child: Text('Física')),
+  ];
 
   @override
   Widget build(BuildContext context) {
@@ -269,8 +275,22 @@ class _ChatPageState extends State<ChatPage> {
                         Row(
                           children: [
                             Expanded(
-                              child: CustomTextField(
-                                controller: subjectController,
+                              // child: CustomTextField(
+                              //   controller: subjectController,
+                              //   labelText: 'Matéria',
+                              // ),
+                              child: CustomDropdown(
+                                items: items,
+                                onChanged: (val) => setState(() {
+                                  subjectController.text = val!;
+                                }),
+                                value:
+                                    items.any(
+                                      (item) =>
+                                          item.value == subjectController.text,
+                                    )
+                                    ? subjectController.text
+                                    : null,
                                 labelText: 'Matéria',
                               ),
                             ),
