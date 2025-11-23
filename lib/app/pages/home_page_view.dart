@@ -1,6 +1,5 @@
 import 'dart:ui';
 import 'dart:typed_data';
-
 import 'package:flutter/material.dart';
 import 'package:poliedroimagesgenerator/app/components/filter_button.dart';
 import 'package:poliedroimagesgenerator/app/components/text_field_ai.dart';
@@ -107,6 +106,7 @@ class _HomePageState extends State<HomePage> {
     final screenWidth = MediaQuery.of(context).size.width;
     final isDesktop = screenWidth > 600;
     final TextEditingController controller = TextEditingController();
+
     return ChangeNotifierProvider(
       create: (_) => HomePageController(),
       child: Consumer<HomePageController>(
@@ -115,11 +115,36 @@ class _HomePageState extends State<HomePage> {
             _fetched = true;
             homeController.fetchResearches();
           }
+
           return Scaffold(
             backgroundColor: AppColors.background,
+
+            // BARRA FIXA
+            bottomNavigationBar: isDesktop
+                ? Container(
+                    padding: const EdgeInsets.fromLTRB(24, 12, 24, 24),
+                    decoration: BoxDecoration(
+                      color: Colors.black.withOpacity(0.8),
+                      border: Border(top: BorderSide(color: AppColors.gray)),
+                    ),
+                    child: SizedBox(
+                      width: double.infinity,
+                      child: CustomTextAIField(
+                        fillColor: Colors.transparent,
+                        controller: controller,
+                        labelText: "Gerar nova imagem",
+                        suffixIcon: const Icon(
+                          Icons.auto_awesome,
+                          size: 34,
+                          color: AppColors.white,
+                        ),
+                      ),
+                    ),
+                  )
+                : null,
+
             body: Stack(
               children: [
-                // 1. Efeito de brilho verde/ciano no topo
                 Positioned(
                   top: 0,
                   left: 0,
@@ -153,7 +178,7 @@ class _HomePageState extends State<HomePage> {
                               icon: const Icon(
                                 Icons.menu,
                                 size: 40,
-                                color: Colors.white,
+                                color: AppColors.white,
                               ),
                               onPressed: () {
                                 showGeneralDialog(
@@ -163,34 +188,27 @@ class _HomePageState extends State<HomePage> {
                                     context,
                                   ).modalBarrierDismissLabel,
                                   barrierColor: Colors.black54,
-                                  transitionDuration: const Duration(
-                                    milliseconds: 300,
-                                  ),
+                                  transitionDuration:
+                                      const Duration(milliseconds: 300),
                                   pageBuilder:
                                       (context, animation, secondaryAnimation) {
-                                        return const _SideSheetMenu();
-                                      },
-                                  transitionBuilder:
-                                      (
-                                        context,
-                                        animation,
-                                        secondaryAnimation,
-                                        child,
-                                      ) {
-                                        return SlideTransition(
-                                          position:
-                                              Tween<Offset>(
-                                                begin: const Offset(-1.0, 0.0),
-                                                end: Offset.zero,
-                                              ).animate(
-                                                CurvedAnimation(
-                                                  parent: animation,
-                                                  curve: Curves.easeInOut,
-                                                ),
-                                              ),
-                                          child: child,
-                                        );
-                                      },
+                                    return const _SideSheetMenu();
+                                  },
+                                  transitionBuilder: (context, animation,
+                                      secondaryAnimation, child) {
+                                    return SlideTransition(
+                                      position: Tween<Offset>(
+                                        begin: const Offset(-1.0, 0.0),
+                                        end: Offset.zero,
+                                      ).animate(
+                                        CurvedAnimation(
+                                          parent: animation,
+                                          curve: Curves.easeInOut,
+                                        ),
+                                      ),
+                                      child: child,
+                                    );
+                                  },
                                 );
                               },
                             ),
@@ -198,6 +216,7 @@ class _HomePageState extends State<HomePage> {
                           ],
                         ),
                       ),
+
                       Expanded(
                         child: RefreshIndicator(
                           onRefresh: () async {
@@ -217,42 +236,47 @@ class _HomePageState extends State<HomePage> {
                                         tag: 'logo',
                                         child: Image.asset(
                                           'lib/app/assets/horizontalColored.png',
-                                          width:
-                                              MediaQuery.of(
-                                                context,
-                                              ).size.width *
+                                          width: MediaQuery.of(context)
+                                                  .size
+                                                  .width *
                                               0.9,
                                         ),
                                       ),
                                       const SizedBox(height: 32),
-                                      SizedBox(
-                                        width:
-                                            MediaQuery.of(context).size.width *
-                                            0.9,
-                                        child: Hero(
-                                          tag: 'text_field',
-                                          child: Material(
-                                            type: MaterialType.transparency,
-                                            child: CustomTextAIField(
-                                              fillColor: Colors.transparent,
-                                              controller: controller,
-                                              labelText: "Gerar nova imagem",
-                                              suffixIcon: const Icon(
-                                                Icons.auto_awesome,
-                                                size: 34,
-                                                color: Colors.white,
+
+                                      // ❗❗ NO DESKTOP NÃO É FIXO AQUI, ENTÃO FICA IGUAL
+                                      if (!isDesktop)
+                                        SizedBox(
+                                          width:
+                                              MediaQuery.of(context).size.width *
+                                                  0.9,
+                                          child: Hero(
+                                            tag: 'text_field',
+                                            child: Material(
+                                              type: MaterialType.transparency,
+                                              child: CustomTextAIField(
+                                                fillColor: Colors.transparent,
+                                                controller: controller,
+                                                labelText: "Gerar nova imagem",
+                                                suffixIcon: const Icon(
+                                                  Icons.auto_awesome,
+                                                  size: 34,
+                                                  color: AppColors.white,
+                                                ),
                                               ),
                                             ),
                                           ),
                                         ),
-                                      ),
+
                                       const SizedBox(height: 32),
                                     ],
                                   ),
                                 ),
                               ),
+
                               isDesktop
-                                  ? SizedBox(height: 24)
+                                  ? SliverToBoxAdapter(
+                                      child: SizedBox(height: 24))
                                   : SliverPersistentHeader(
                                       pinned: true,
                                       delegate: _SliverHeaderDelegate(
@@ -265,10 +289,9 @@ class _HomePageState extends State<HomePage> {
                                                 color: AppColors.blue,
                                               ),
                                               height: 12,
-                                              width:
-                                                  MediaQuery.of(
-                                                    context,
-                                                  ).size.width *
+                                              width: MediaQuery.of(context)
+                                                      .size
+                                                      .width *
                                                   0.9,
                                             ),
                                             const SizedBox(height: 24),
@@ -277,29 +300,27 @@ class _HomePageState extends State<HomePage> {
                                                   MainAxisAlignment.center,
                                               children: [
                                                 Container(
-                                                  padding:
-                                                      const EdgeInsets.symmetric(
-                                                        vertical: 14,
-                                                        horizontal: 16,
-                                                      ),
+                                                  padding: const EdgeInsets
+                                                      .symmetric(
+                                                    vertical: 14,
+                                                    horizontal: 16,
+                                                  ),
                                                   decoration: BoxDecoration(
                                                     borderRadius:
                                                         BorderRadius.circular(
-                                                          40,
-                                                        ),
+                                                            40),
                                                     color: AppColors.blue,
                                                   ),
                                                   height: 60,
-                                                  width:
-                                                      MediaQuery.of(
-                                                        context,
-                                                      ).size.width *
+                                                  width: MediaQuery.of(context)
+                                                          .size
+                                                          .width *
                                                       0.6,
                                                   child: const Text(
                                                     'Últimas Pesquisas',
                                                     textAlign: TextAlign.center,
                                                     style: TextStyle(
-                                                      color: Colors.white,
+                                                      color: AppColors.white,
                                                       fontSize: 23,
                                                     ),
                                                   ),
@@ -309,7 +330,7 @@ class _HomePageState extends State<HomePage> {
                                                   onPressed: () {},
                                                   backgroundColor:
                                                       AppColors.blue,
-                                                  color: Colors.white,
+                                                  color: AppColors.white,
                                                   iconSize: 40,
                                                 ),
                                               ],
@@ -319,9 +340,10 @@ class _HomePageState extends State<HomePage> {
                                         height: 130,
                                       ),
                                     ),
-                              // Lista dinâmica de pesquisas
+
                               isDesktop
-                                  ? SizedBox(height: 24)
+                                  ? SliverToBoxAdapter(
+                                      child: SizedBox(height: 24))
                                   : SliverList(
                                       delegate: SliverChildBuilderDelegate(
                                         (context, index) {
@@ -336,14 +358,12 @@ class _HomePageState extends State<HomePage> {
                                           }
                                           if (homeController.error != null) {
                                             return Padding(
-                                              padding: const EdgeInsets.all(
-                                                32.0,
-                                              ),
+                                              padding:
+                                                  const EdgeInsets.all(32.0),
                                               child: Text(
                                                 homeController.error!,
                                                 style: const TextStyle(
-                                                  color: Colors.red,
-                                                ),
+                                                    color: Colors.red),
                                                 textAlign: TextAlign.center,
                                               ),
                                             );
@@ -356,21 +376,19 @@ class _HomePageState extends State<HomePage> {
                                               child: Text(
                                                 'Nenhuma pesquisa encontrada.',
                                                 style: TextStyle(
-                                                  color: Colors.white,
-                                                ),
+                                                    color: AppColors.white),
                                                 textAlign: TextAlign.center,
                                               ),
                                             );
                                           }
+
                                           final item =
                                               homeController.researches[index];
+
                                           return Padding(
-                                            padding: const EdgeInsets.fromLTRB(
-                                              24,
-                                              0,
-                                              24,
-                                              16,
-                                            ),
+                                            padding:
+                                                const EdgeInsets.fromLTRB(
+                                                    24, 0, 24, 16),
                                             child: _buildHistoryCard(
                                               title: item.subject.isNotEmpty
                                                   ? item.subject
@@ -383,12 +401,13 @@ class _HomePageState extends State<HomePage> {
                                         },
                                         childCount:
                                             homeController.isLoading ||
-                                                homeController.error != null ||
-                                                homeController
-                                                    .researches
-                                                    .isEmpty
-                                            ? 1
-                                            : homeController.researches.length,
+                                                    homeController.error !=
+                                                        null ||
+                                                    homeController
+                                                        .researches.isEmpty
+                                                ? 1
+                                                : homeController
+                                                    .researches.length,
                                       ),
                                     ),
                             ],
@@ -407,9 +426,6 @@ class _HomePageState extends State<HomePage> {
   }
 }
 
-// O restante do código (_SliverHeaderDelegate, _SideSheetMenu)
-// permanece exatamente o mesmo.
-
 class _SliverHeaderDelegate extends SliverPersistentHeaderDelegate {
   final Widget child;
   final double height;
@@ -418,10 +434,7 @@ class _SliverHeaderDelegate extends SliverPersistentHeaderDelegate {
 
   @override
   Widget build(
-    BuildContext context,
-    double shrinkOffset,
-    bool overlapsContent,
-  ) {
+      BuildContext context, double shrinkOffset, bool overlapsContent) {
     final backgroundColor = overlapsContent
         ? AppColors.gray.withAlpha((0.3 * 255).toInt())
         : Colors.transparent;
@@ -458,6 +471,7 @@ class _SideSheetMenu extends StatelessWidget {
     final width = MediaQuery.of(context).size.width * 0.8;
     final screenWidth = MediaQuery.of(context).size.width;
     final isDesktop = screenWidth > 600;
+
     return Align(
       alignment: Alignment.centerLeft,
       child: Container(

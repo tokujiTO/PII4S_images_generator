@@ -6,28 +6,37 @@ class FirstPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    // Captura o tamanho da tela
+    final size = MediaQuery.of(context).size;
+    // Define se é Web (telas maiores que 800px)
+    final isWeb = size.width > 800;
+
+    // Define largura e altura baseado na plataforma
+    double buttonWidth = isWeb ? 700 : size.width * 0.8;
+    double buttonHeight = isWeb ? 55 : size.height * 0.062;
+
     return Scaffold(
       body: Container(
         decoration: BoxDecoration(
           gradient: LinearGradient(
             colors: [
-              AppColors.white,    
-              AppColors.white,    
-              AppColors.background 
+              AppColors.white,
+              AppColors.white,
+              AppColors.background
             ],
             begin: Alignment.topCenter,
             end: Alignment.bottomCenter,
-            stops: [
+            stops: const [
               0.0,
-              0.1, 
-              0.4, 
+              0.1,
+              0.4,
             ],
+          ),
         ),
-      ),
         child: SafeArea(
           child: Padding(
             padding: EdgeInsets.symmetric(
-              vertical: MediaQuery.of(context).size.height * 0.1,
+              vertical: size.height * 0.1,
             ),
             child: Center(
               child: Column(
@@ -42,11 +51,13 @@ class FirstPage extends StatelessWidget {
                     ),
                   ),
                   const SizedBox(height: 100),
+                  
+                  // Botão Entrar
                   Hero(
                     tag: 'signinBtn',
                     child: SizedBox(
-                      width: MediaQuery.of(context).size.width * 0.8,
-                      height: MediaQuery.of(context).size.height * 0.062,
+                      width: buttonWidth,   // Variável dinâmica
+                      height: buttonHeight, // Variável dinâmica
                       child: ElevatedButton(
                         style: ButtonStyle(
                           elevation: WidgetStateProperty.all(2),
@@ -76,17 +87,20 @@ class FirstPage extends StatelessWidget {
                       ),
                     ),
                   ),
+                  
                   const SizedBox(height: 30),
                   Text(
                     "Ou",
                     style: TextStyle(fontSize: 18, color: AppColors.white),
                   ),
                   const SizedBox(height: 20),
+
+                  // Botão Cadastrar-se
                   Hero(
                     tag: 'signupBtn',
                     child: SizedBox(
-                      width: MediaQuery.of(context).size.width * 0.8,
-                      height: MediaQuery.of(context).size.height * 0.062,
+                      width: buttonWidth,   // Variável dinâmica
+                      height: buttonHeight, // Variável dinâmica
                       child: ElevatedButton(
                         style: ButtonStyle(
                           elevation: WidgetStateProperty.all(2),

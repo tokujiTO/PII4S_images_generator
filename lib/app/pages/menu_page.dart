@@ -23,7 +23,7 @@ class MenuPage extends StatelessWidget {
             IconButton(
               icon: Icon(
                 Icons.arrow_back_ios,
-                color: Colors.white,
+                color: AppColors.white,
                 size: isDesktop ? 48 : 40,
               ),
               iconSize: isDesktop ? 48 : 40,
@@ -35,13 +35,13 @@ class MenuPage extends StatelessWidget {
             ListTile(
               leading: Icon(
                 Icons.auto_awesome,
-                color: Colors.white,
+                color: AppColors.white,
                 size: isDesktop ? 48 : 40,
               ),
               title: Text(
                 'Gerar nova imagem',
                 style: TextStyle(
-                  color: Colors.white,
+                  color: AppColors.white,
                   fontSize: isDesktop ? 24 : 20,
                 ),
               ),
@@ -53,13 +53,13 @@ class MenuPage extends StatelessWidget {
             ListTile(
               leading: Icon(
                 Icons.article_outlined,
-                color: Colors.white,
+                color: AppColors.white,
                 size: isDesktop ? 48 : 40,
               ),
               title: Text(
                 'Histórico',
                 style: TextStyle(
-                  color: Colors.white,
+                  color: AppColors.white,
                   fontSize: isDesktop ? 24 : 20,
                 ),
               ),
@@ -71,13 +71,13 @@ class MenuPage extends StatelessWidget {
             ListTile(
               leading: Icon(
                 Icons.settings,
-                color: Colors.white,
+                color: AppColors.white,
                 size: isDesktop ? 48 : 40,
               ),
               title: Text(
                 'Configurações',
                 style: TextStyle(
-                  color: Colors.white,
+                  color: AppColors.white,
                   fontSize: isDesktop ? 24 : 20,
                 ),
               ),
@@ -89,13 +89,13 @@ class MenuPage extends StatelessWidget {
             ListTile(
               leading: Icon(
                 Icons.headphones,
-                color: Colors.white,
+                color: AppColors.white,
                 size: isDesktop ? 48 : 40,
               ),
               title: Text(
                 'Entrar em contato',
                 style: TextStyle(
-                  color: Colors.white,
+                  color: AppColors.white,
                   fontSize: isDesktop ? 24 : 20,
                 ),
               ),
@@ -107,13 +107,13 @@ class MenuPage extends StatelessWidget {
             ListTile(
               leading: Icon(
                 Icons.exit_to_app,
-                color: Colors.white,
+                color: AppColors.white,
                 size: isDesktop ? 48 : 40,
               ),
               title: Text(
                 'Sair',
                 style: TextStyle(
-                  color: Colors.white,
+                  color: AppColors.white,
                   fontSize: isDesktop ? 24 : 20,
                 ),
               ),
